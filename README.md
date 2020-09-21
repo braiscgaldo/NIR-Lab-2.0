@@ -4,6 +4,8 @@ Continuación del trabajo fin de grado.
 
 ## Antes de comenzar...
 
+Compilar la versión 1.0 de la aplicación e instalarla con el objetivo de comprobar que todo se encuentra correctamente.
+
 Ajuste de los layouts del sistema para hacer uso de Constraints en lugar de Relative layout con el objetivo de mejorar la visualización y de la aplicación.
 
 ## Objetivos
