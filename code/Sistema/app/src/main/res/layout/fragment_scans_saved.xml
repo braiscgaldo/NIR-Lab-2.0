@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DEEAEE"
+    tools:context=".View.MainActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".View.ScanSavedActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/black">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <ImageButton
+                    android:id="@+id/infoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:backgroundTint="#EE3744"
+                    app:srcCompat="@android:drawable/ic_dialog_info" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/title_scans_saved"
+                    android:textColor="@android:color/white"
+                    android:textSize="24dp" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <TextView
+            android:id="@+id/noScansView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="125dp"
+            android:layout_marginTop="80dp"
+            android:text="@string/no_scans_saved"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="35dp" />
+
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/swipeScanLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="55dp">
+
+
+            <ListView
+                android:id="@+id/scansList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#DEEAEE"
+                android:textSize="16dp" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </RelativeLayout>
+</FrameLayout>

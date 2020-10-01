@@ -1,0 +1,152 @@
+
+{
+	"buildFiles" : [ "/home/brais/TFG/Trabajo/Sistema/app/CMakeLists.txt" ],
+	"cFileExtensions" : [ "c" ],
+	"cleanCommands" : 
+	[
+		"/home/brais/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86 --target clean"
+	],
+	"libraries" : 
+	{
+		"interface-Release-x86" : 
+		{
+			"abi" : "x86",
+			"artifactName" : "interface",
+			"buildCommand" : "/home/brais/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86 --target interface",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dinterface_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/pre-compile/dump_mat.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dinterface_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/dlpspec_calib.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dinterface_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/dlpspec_scan_col.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dinterface_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/dlpspec_scan_had.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dinterface_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/dlpspec_util.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dinterface_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/dlpspec_scan.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dinterface_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/dlpspec_helper.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dinterface_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/tpl.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dinterface_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/interface.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				}
+			],
+			"output" : "/home/brais/TFG/Trabajo/Sistema/app/build/intermediates/cmake/release/obj/x86/libinterface.so",
+			"toolchain" : "15449961171516370549"
+		},
+		"native-lib-Release-x86" : 
+		{
+			"abi" : "x86",
+			"artifactName" : "native-lib",
+			"buildCommand" : "/home/brais/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86 --target native-lib",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dnative_lib_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/pre-compile/dump_mat.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dnative_lib_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/dlpspec_calib.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dnative_lib_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/dlpspec_scan_col.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dnative_lib_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/dlpspec_scan_had.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dnative_lib_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/dlpspec_util.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dnative_lib_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/dlpspec_scan.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dnative_lib_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/dlpspec_helper.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dnative_lib_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/tpl.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android21 --gcc-toolchain=/home/brais/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/ndk-bundle/sysroot -Dnative_lib_EXPORTS  -isystem /home/brais/Android/Sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC      -c ",
+					"src" : "/home/brais/TFG/Trabajo/Sistema/app/src/main/cpp/interface.c",
+					"workingDirectory" : "/home/brais/TFG/Trabajo/Sistema/app/.externalNativeBuild/cmake/release/x86"
+				}
+			],
+			"output" : "/home/brais/TFG/Trabajo/Sistema/app/build/intermediates/cmake/release/obj/x86/libnative-lib.so",
+			"toolchain" : "15449961171516370549"
+		}
+	},
+	"toolchains" : 
+	{
+		"15449961171516370549" : 
+		{
+			"cCompilerExecutable" : "/home/brais/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang",
+			"cppCompilerExecutable" : "/home/brais/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++"
+		}
+	}
+}

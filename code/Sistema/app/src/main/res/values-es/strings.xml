@@ -1,0 +1,110 @@
+<resources>
+    <string name="app_name">NIR Lab</string>
+
+    <!-- Fragments titles -->
+    <string name="title_main">NIRScan Nano</string>
+    <string name="title_spectrophotometer">Spectrometer</string>
+    <string name="title_device_information">Device Information</string>
+    <string name="title_device_status">Device Status</string>
+    <string name="title_problems">Saved Problems</string>
+    <string name="title_scans_saved">Problem</string>
+    <string name="title_see_scan_saved">Escáner</string>
+    <string name="title_scan">Scan View</string>
+    <string name="title_configuration">Configurations</string>
+
+    <!-- Fragments information -->
+    <string name="info_main">El botón de Bluetooth es usado para conectar esta aplicación al espectrofotómetro.\n
+            El botón "Escanear" se usa para ir a la vista de escáner. \nEl botón "Problemas" es usado para acceder a los
+            problemas guardados. \nEl botón "Espectrofotómetro" es usado para mostrar información sobre el dispositivo.</string>
+    <string name="info_spectrophotometer">El botón "Estado del Dispositivo" es usado para mostrar información acerca del estado del
+            dispositivo como la batería, la temperatura o la humedad. \nEl botón "Información del Dispositivo"
+            es usado para mostrar algunas características del dispositivo como el número de serie,
+            el número del modelo o la revisión del hardware. \nEl botón de "Reset" se usa para resetear el dispositivo.
+            \nEstos botones solo pueden ser pulsados si existe una conexión estable.</string>
+    <string name="info_device_information">El texto muestra los datos correspondientes acerca de la
+            información del dispositivo.</string>
+    <string name="info_device_status">The text show the correspondent information about the
+            status of the device.</string>
+    <string name="info_problems">La lista es usada para ver un problema y ver los datos correspondientes acerca de los
+            escáneres guardados.\nEl botón "+" es usado para añadir nuevos problemas con sus etiquetas correspondientes.
+            \nAdemás, pulsando un elemento de la lista durante un tiempo prolongado, un diálogo para borrar el problema
+            aparecerá.</string>
+    <string name="info_scans_saved">La lista es usada para ver un escáner y ver los datos correspondientes acerca de los
+            escáneres guardados.\n
+            \nAdemás, pulsando un elemento de la lista durante un tiempo prolongado, un diálogo para borrar el escáner
+            aparecerá.</string>
+    <string name="info_see_scan_saved">Los tabs son usados para cambiar entre los diferentes gráficos.\n
+            El botón "Predecir" es usado para realizar una predicción acerca de los valores de las gráficas.\n
+            El botón "Editar Escáner" es usado para editar las etiquetas del escáner en pantalla.</string>
+    <string name="info_scan">Los tabs son usados para cambiar entre los diferentes gráficos.\n
+            El botón "Escanear" es usado para realizar un escáner.\nEl botón "Predecir" es
+            usado para realizar predicciones acerca de los valores de las gráficas.\nEl botón "Guardar escáner" button is used
+            to save a problem with the correspondent labels.\nThe "Set Configuration" button
+            is used to select a new configuration.</string>
+    <string name="info_configuration">La lista es usada para seleccionar una nueva configuración. Para ver los datos de configuración
+            correspondientes, debes activar una configuración y un diálogo mostrará los resultados.</string>
+
+    <!-- Buttons name -->
+    <string name="button_main_scan">ESCANEAR</string>
+    <string name="button_main_problems">PROBLEMAS</string>
+    <string name="button_main_spectrophotometer">ESPECTROFOTÓMETRO</string>
+    <string name="button_spectrophotometer_information">INFORMACIÓN DEL DISPOSITIVO</string>
+    <string name="button_spectrophotometer_status">ESTADO DEL DISPOSITIVO</string>
+    <string name="button_spectrophotometer_reset">RESETEAR DISPOSITIVO</string>
+    <string name="button_see_scans_saved_edit">EDITAR ETIQUETAS</string>
+    <string name="button_see_scans_saved_predict">PREDECIR</string>
+    <string name="button_scan_scan">EJECUTAR ESCÁNER</string>
+    <string name="button_scan_predict">PREDECIR</string>
+    <string name="button_scan_save">GUARDAR ESCÁNER</string>
+
+    <!-- Dialogs -->
+    <string name="next">Siguiente</string>
+    <string name="cancel">Cancelar</string>
+    <string name="no">No</string>
+    <string name="yes">Sí</string>
+    <string name="delete">Borrar</string>
+    <string name="add_label">AÑADIR ETIQUETA</string>
+    <string name="problem_name">Nombre del Problema</string>
+    <string name="output">Salida</string>
+    <string name="label_name">Nombre de la Etiqueta</string>
+    <string name="numerical">Numérica</string>
+    <string name="categorical">Categórica</string>
+    <string name="category">Categoría</string>
+
+    <!-- Toasts -->
+    <string name="toast_error_bluetooth_not_supported">El dispositivo no soporta Bluetooth</string>
+    <string name="toast_selected_device">Has seleccionado: </string>
+    <string name="toast_must_be_connected_to_device">Debes estar conectado a un dispositivo</string>
+    <string name="toast_change_orientation">Orientación cambiada</string>
+    <string name="toast_bad_time">Ha tardado demasiado tiempo en responder</string>
+    <string name="toast_download_information">Descargando información del dispositivo</string>
+
+    <!-- Device information -->
+    <string name="manufacture_number">Manufactura</string>
+    <string name="model_number">Número de Modelo</string>
+    <string name="serial_number">Número de Serie</string>
+    <string name="hardware_rev">Revisión Hardware</string>
+    <string name="tiva_firmware_rev">Revisión Tiva Firmware</string>
+    <string name="spectrum_library_rev">Revisión Spectrum Library</string>
+
+    <!-- Device status -->
+    <string name="battery">Batería</string>
+    <string name="temperature">Temperatura</string>
+    <string name="humidity">Humedad</string>
+
+    <!-- Tabs -->
+    <string name="intensity">Intensidad</string>
+    <string name="absorbance">Absorbancia</string>
+    <string name="reflectance">Reflectancia</string>
+
+    <!-- Wildcards -->
+    <string name="data">Data</string>
+    <string name="no_problems_saved">No hay problemas guardados</string>
+    <string name="no_scans_saved">No hay escáneres guardados</string>
+    <string name="choose_device">Escoge dispositivo</string>
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

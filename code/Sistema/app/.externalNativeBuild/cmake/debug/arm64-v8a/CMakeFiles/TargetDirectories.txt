@@ -1,0 +1,4 @@
+/home/brais/NIR-Lab/code/Sistema/app/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/home/brais/NIR-Lab/code/Sistema/app/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/interface.dir
+/home/brais/NIR-Lab/code/Sistema/app/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/edit_cache.dir
+/home/brais/NIR-Lab/code/Sistema/app/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/native-lib.dir

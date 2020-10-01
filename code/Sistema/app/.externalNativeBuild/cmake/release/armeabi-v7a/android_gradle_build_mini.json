@@ -1,0 +1,22 @@
+{
+  "buildFiles": [
+    "/home/brais/NIR-Lab/code/Sistema/app/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/home/brais/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/brais/NIR-Lab/code/Sistema/app/.externalNativeBuild/cmake/release/armeabi-v7a --target clean"
+  ],
+  "libraries": {
+    "native-lib-Release-armeabi-v7a": {
+      "artifactName": "native-lib",
+      "buildCommand": "/home/brais/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/brais/NIR-Lab/code/Sistema/app/.externalNativeBuild/cmake/release/armeabi-v7a --target native-lib",
+      "abi": "armeabi-v7a",
+      "output": "/home/brais/NIR-Lab/code/Sistema/app/build/intermediates/cmake/release/obj/armeabi-v7a/libnative-lib.so"
+    },
+    "interface-Release-armeabi-v7a": {
+      "artifactName": "interface",
+      "buildCommand": "/home/brais/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/brais/NIR-Lab/code/Sistema/app/.externalNativeBuild/cmake/release/armeabi-v7a --target interface",
+      "abi": "armeabi-v7a",
+      "output": "/home/brais/NIR-Lab/code/Sistema/app/build/intermediates/cmake/release/obj/armeabi-v7a/libinterface.so"
+    }
+  }
+}

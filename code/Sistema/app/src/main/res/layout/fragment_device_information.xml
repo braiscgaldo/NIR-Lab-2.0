@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DEEAEE"
+    tools:context=".View.MainActivity">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:context=".View.MainActivity">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/black">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="1">
+
+                    <ImageButton
+                        android:id="@+id/infoButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="0dp"
+                        android:backgroundTint="#EE3744"
+                        app:srcCompat="@android:drawable/ic_dialog_info" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/title_device_information"
+                        android:textColor="@android:color/white"
+                        android:textSize="24dp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+
+            <TextView
+                android:id="@+id/manufactureView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="100dp"
+                android:text="@string/manufacture_number"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="35dp" />
+
+            <TextView
+                android:id="@+id/modelNumberView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="200dp"
+                android:text="@string/model_number"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="135dp" />
+
+            <TextView
+                android:id="@+id/serialNumberView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="300dp"
+                android:text="@string/serial_number"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="235dp" />
+
+            <TextView
+                android:id="@+id/hardwareRevisionView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="400dp"
+                android:text="@string/hardware_rev"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="335dp" />
+
+            <TextView
+                android:id="@+id/tivaFirmwareVersionView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="500dp"
+                android:text="@string/tiva_firmware_rev"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="440dp" />
+
+            <TextView
+                android:id="@+id/spectrumLibraryRevisionView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="600dp"
+                android:text="@string/spectrum_library_rev"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="535dp" />
+
+            <TextView
+                android:id="@+id/manufactureDataView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/manufactureView"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="78dp"
+                android:text="@string/data" />
+
+            <TextView
+                android:id="@+id/modelNumberDataView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/manufactureDataView"
+                android:layout_alignBottom="@+id/modelNumberView"
+                android:text="@string/data" />
+
+            <TextView
+                android:id="@+id/serialNumberDataView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/serialNumberView"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="78dp"
+                android:layout_marginBottom="0dp"
+                android:text="@string/data" />
+
+            <TextView
+                android:id="@+id/hardwareRevisionDataView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/hardwareRevisionView"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="78dp"
+                android:layout_marginBottom="2dp"
+                android:text="@string/data" />
+
+            <TextView
+                android:id="@+id/tivaFirmwaeVersionDataView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/manufactureDataView"
+                android:layout_alignBottom="@+id/tivaFirmwareVersionView"
+                android:text="@string/data" />
+
+            <TextView
+                android:id="@+id/spectrumLibraryRevisionDataView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/manufactureDataView"
+                android:layout_alignBottom="@+id/spectrumLibraryRevisionView"
+                android:text="@string/data" />
+
+            <View
+                android:id="@+id/divider0"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="150dp"
+                android:layout_marginEnd="0dp"
+                android:background="?android:attr/listDivider" />
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="250dp"
+                android:layout_marginEnd="0dp"
+                android:background="?android:attr/listDivider" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="350dp"
+                android:layout_marginEnd="0dp"
+                android:background="?android:attr/listDivider" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="450dp"
+                android:layout_marginEnd="0dp"
+                android:background="?android:attr/listDivider" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="550dp"
+                android:layout_marginEnd="0dp"
+                android:background="?android:attr/listDivider" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+</FrameLayout>

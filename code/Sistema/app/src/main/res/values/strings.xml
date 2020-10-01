@@ -1,0 +1,108 @@
+<resources>
+    <string name="app_name">NIR Lab</string>
+
+    <!-- Fragments titles -->
+    <string name="title_main">NIRScan Nano</string>
+    <string name="title_spectrophotometer">Spectrometer</string>
+    <string name="title_device_information">Device Information</string>
+    <string name="title_device_status">Device Status</string>
+    <string name="title_problems">Saved Problems</string>
+    <string name="title_scans_saved">Problem</string>
+    <string name="title_see_scan_saved">Scan</string>
+    <string name="title_scan">Scan View</string>
+    <string name="title_configuration">Configurations</string>
+
+    <!-- Fragments information -->
+    <string name="info_main">The Bluetooth button is used to connect this application to the spectrometer.\n
+            The "Scan" button is used to go to the scan view. \nThe "Problems" button is used to access to the
+            saved problems. \nThe "Spectrophotometer" button is used to show information about the device.</string>
+    <string name="info_spectrophotometer">The "Device Status" button is used to show information about the status of
+            the device like the battery, the temperature or the humidity. \nThe "Device Information"
+            button is used to show some characteristics about the device like the serial number,
+            the model number or the hardware revision. \nThe "Reset" button is used to reset the
+            device \nThese buttons only can be pressed if a stable connection exists.</string>
+    <string name="info_device_information">The text show the correspondent information about the
+            information of the device.</string>
+    <string name="info_device_status">The text show the correspondent information about the
+            status of the device.</string>
+    <string name="info_problems">The list is used to select a problem and see the correspondent
+            saved scans.\nThe "+" button is used to add a new problem with the correspondent
+            labels.\nFurthemore, by presing an item a long time, a dialog for delete the
+            problem will appear.</string>
+    <string name="info_scans_saved">The list is used to select a scan and see the correspondent
+            data.\nFurthemore, by presing an item a long time, a dialog for delete the
+            scan will appear.</string>
+    <string name="info_see_scan_saved">The tabs are used to change into the different graphs.\n
+            The "Predict" button is used to make a prediction about the graph.\n
+            The "Edit Scan" button is used to edit the labels of the selected scan.</string>
+    <string name="info_scan">The tabs are used to change into the different graphs.\n
+            The "Scan" button is used to perform a scan.\nThe "Predict" button is
+            used to make a prediction about the graph.\nThe \"Save Scan\" button is used
+            to save a problem with the correspondent labels.\nThe "Set Configuration" button
+            is used to select a new configuration.</string>
+    <string name="info_configuration">The list is used to select a new configuration. To see the
+            correspondent configuration data, you must activate the configuration and a
+            dialog will show the results.</string>
+
+    <!-- Buttons name -->
+    <string name="button_main_scan">SCAN</string>
+    <string name="button_main_problems">PROBLEMS</string>
+    <string name="button_main_spectrophotometer">SPECTROPHOTOMETER</string>
+    <string name="button_spectrophotometer_information">DEVICE INFORMATION</string>
+    <string name="button_spectrophotometer_status">DEVICE STATUS</string>
+    <string name="button_spectrophotometer_reset">RESET DEVICE</string>
+    <string name="button_see_scans_saved_edit">EDIT LABELS</string>
+    <string name="button_see_scans_saved_predict">PREDICT</string>
+    <string name="button_scan_scan">PERFORM SCAN</string>
+    <string name="button_scan_predict">PREDICT</string>
+    <string name="button_scan_save">SAVE SCAN</string>
+
+    <!-- Dialogs -->
+    <string name="next">Next</string>
+    <string name="cancel">Cancel</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="delete">Delete</string>
+    <string name="add_label">ADD LABEL</string>
+    <string name="problem_name">Problem Name</string>
+    <string name="output">Output</string>
+    <string name="label_name">Label Name</string>
+    <string name="numerical">Numerical</string>
+    <string name="categorical">Categorical</string>
+    <string name="category">Category</string>
+
+    <!-- Toasts -->
+    <string name="toast_error_bluetooth_not_supported">Your device does not support Bluetooth</string>
+    <string name="toast_selected_device">You selected: </string>
+    <string name="toast_must_be_connected_to_device">You must be connected to a device</string>
+    <string name="toast_change_orientation">Change configuration</string>
+    <string name="toast_bad_time">Bad time</string>
+    <string name="toast_download_information">Downloading device information</string>
+
+    <!-- Device information -->
+    <string name="manufacture_number">Manufacture</string>
+    <string name="model_number">Model Number</string>
+    <string name="serial_number">Serial Number</string>
+    <string name="hardware_rev">Hardware Revision</string>
+    <string name="tiva_firmware_rev">Tiva Firmware Revision</string>
+    <string name="spectrum_library_rev">Spectrum Library Revision</string>
+
+    <!-- Device status -->
+    <string name="battery">Battery</string>
+    <string name="temperature">Temperature</string>
+    <string name="humidity">Humidity</string>
+
+    <!-- Tabs -->
+    <string name="intensity">Intensity</string>
+    <string name="absorbance">Absorbance</string>
+    <string name="reflectance">Reflectance</string>
+
+    <!-- Wildcards -->
+    <string name="data">Data</string>
+    <string name="no_problems_saved">No problems saved</string>
+    <string name="no_scans_saved">No scans saved</string>
+    <string name="choose_device">Choose device</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

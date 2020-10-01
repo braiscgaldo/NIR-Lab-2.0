@@ -1,0 +1,22 @@
+{
+  "buildFiles": [
+    "/home/brais/NIR-Lab/code/Sistema/app/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/home/brais/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/brais/NIR-Lab/code/Sistema/app/.externalNativeBuild/cmake/release/arm64-v8a --target clean"
+  ],
+  "libraries": {
+    "interface-Release-arm64-v8a": {
+      "artifactName": "interface",
+      "buildCommand": "/home/brais/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/brais/NIR-Lab/code/Sistema/app/.externalNativeBuild/cmake/release/arm64-v8a --target interface",
+      "abi": "arm64-v8a",
+      "output": "/home/brais/NIR-Lab/code/Sistema/app/build/intermediates/cmake/release/obj/arm64-v8a/libinterface.so"
+    },
+    "native-lib-Release-arm64-v8a": {
+      "artifactName": "native-lib",
+      "buildCommand": "/home/brais/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/brais/NIR-Lab/code/Sistema/app/.externalNativeBuild/cmake/release/arm64-v8a --target native-lib",
+      "abi": "arm64-v8a",
+      "output": "/home/brais/NIR-Lab/code/Sistema/app/build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so"
+    }
+  }
+}
