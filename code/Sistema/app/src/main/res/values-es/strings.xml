@@ -38,9 +38,9 @@
             El botón "Editar Escáner" es usado para editar las etiquetas del escáner en pantalla.</string>
     <string name="info_scan">Los tabs son usados para cambiar entre los diferentes gráficos.\n
             El botón "Escanear" es usado para realizar un escáner.\nEl botón "Predecir" es
-            usado para realizar predicciones acerca de los valores de las gráficas.\nEl botón "Guardar escáner" button is used
-            to save a problem with the correspondent labels.\nThe "Set Configuration" button
-            is used to select a new configuration.</string>
+            usado para realizar predicciones acerca de los valores de las gráficas.\nEl botón "Guardar escáner" es utilizado para
+            almacenar un problema con las etiquetas correspondientes.\nEl botón de "Establecer configuración"
+            se usa para seleccionar una nueva configuración.</string>
     <string name="info_configuration">La lista es usada para seleccionar una nueva configuración. Para ver los datos de configuración
             correspondientes, debes activar una configuración y un diálogo mostrará los resultados.</string>
 
