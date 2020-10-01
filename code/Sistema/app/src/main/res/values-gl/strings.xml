@@ -3,14 +3,14 @@
 
     <!-- Fragments titles -->
     <string name="title_main">NIRScan Nano</string>
-    <string name="title_spectrophotometer">Spectrometer</string>
-    <string name="title_device_information">Device Information</string>
-    <string name="title_device_status">Device Status</string>
-    <string name="title_problems">Saved Problems</string>
-    <string name="title_scans_saved">Problem</string>
+    <string name="title_spectrophotometer">Espectrofotómetro</string>
+    <string name="title_device_information">Información do dispositivo</string>
+    <string name="title_device_status">Información do estado</string>
+    <string name="title_problems">Problemas Gardados</string>
+    <string name="title_scans_saved">Problema</string>
     <string name="title_see_scan_saved">Escáner</string>
-    <string name="title_scan">Scan View</string>
-    <string name="title_configuration">Configurations</string>
+    <string name="title_scan">Vista de escaner</string>
+    <string name="title_configuration">Configuracións</string>
 
     <!-- Fragments information -->
     <string name="info_main">O botón de Bluetooth utilízase para conectar esta aplicación ó espectrofotómetro.\n
