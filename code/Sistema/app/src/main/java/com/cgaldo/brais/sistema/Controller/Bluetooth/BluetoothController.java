@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.cgaldo.brais.sistema.Controller.ConnectionsController;
 import com.cgaldo.brais.sistema.Controller.Invoker;
+import com.cgaldo.brais.sistema.Controller.USB.USBController;
 import com.cgaldo.brais.sistema.Model.DeviceInformation.DeviceInformationInfo;
 import com.cgaldo.brais.sistema.Model.DeviceInformation.DeviceStatusInfo;
 import com.cgaldo.brais.sistema.Model.Handler;
@@ -83,8 +84,6 @@ public class BluetoothController implements ConnectionsController {
     private ArrayList<String> addressDevices;
     private List<String> btDevices;
     private BluetoothAdapter bluetoothAdapter;
-
-
     private BluetoothDevice bluetoothDevice;
 
     private Boolean connected = false;
@@ -103,7 +102,6 @@ public class BluetoothController implements ConnectionsController {
             .setIncludeTxPowerLevel(false)
             .addServiceUuid(new ParcelUuid(SERVICE_UUID))
             .build();
-
 
     private BluetoothGattServerCallback mGattServerCallback = new BluetoothGattServerCallback() {
         @Override
@@ -585,7 +583,6 @@ public class BluetoothController implements ConnectionsController {
 
     };
 
-
     private AdvertiseCallback mAdvertiseCallback = new AdvertiseCallback() {
         @Override
         public void onStartSuccess(AdvertiseSettings settingsInEffect) {
@@ -740,6 +737,11 @@ public class BluetoothController implements ConnectionsController {
         return this;
     }
 
+    @Override
+    public USBController connectUSB(Context context) {
+        return null;
+    }
+
     private void connectTo(Context context, int which){
         BluetoothController.getInstance().bluetoothDevice = BluetoothController.getInstance().bluetoothAdapter.getRemoteDevice(addressDevices.get(which));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -756,7 +758,6 @@ public class BluetoothController implements ConnectionsController {
         mGatt.discoverServices();
         Log.i("Discover:", "Discovering " + mGatt.getServices().size());
     }
-
 
     private AlertDialog.Builder showDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -797,8 +798,6 @@ public class BluetoothController implements ConnectionsController {
         mGatt.disconnect();
         mGatt.close();
     }
-
-
 
     @Override
     public void sendThresholds(String temperature, String humidity) {

@@ -34,7 +34,8 @@
         <activity android:name=".View.ScanConfigurationActivity" />
         <activity android:name=".View.ProblemsActivity" />
         <activity android:name=".View.ScanSavedActivity" />
-        <activity android:name=".View.SeeScanSavedActivity"></activity>
+        <activity android:name=".View.SeeScanSavedActivity">
+        </activity>
     </application>
 
 </manifest>

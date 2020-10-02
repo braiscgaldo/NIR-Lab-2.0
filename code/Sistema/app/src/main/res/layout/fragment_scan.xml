@@ -7,14 +7,11 @@
     android:background="#DEEAEE"
     tools:context=".View.MainActivity">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -94,10 +91,10 @@
 
             </android.support.design.widget.TabLayout>
 
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/relativeLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="556dp"
                 android:layout_marginTop="100dp"
                 tools:context=".View.MainActivity">
 
@@ -105,43 +102,46 @@
                     android:id="@+id/graphView"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:layout_alignParentStart="true" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/predictButton"
-                    android:layout_width="165dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="35dp"
-                    android:layout_marginTop="300dp"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginBottom="30dp"
+                    android:layout_width="128dp"
+                    android:layout_height="47dp"
+                    android:layout_marginStart="64dp"
+                    android:layout_marginTop="324dp"
                     android:background="#5C5E76"
                     android:text="@string/button_scan_predict"
-                    android:textColor="#EE3744" />
+                    android:textColor="#EE3744"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/startScanButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="35dp"
-                    android:layout_marginTop="400dp"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginBottom="30dp"
+                    android:layout_width="259dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="88dp"
+                    android:layout_marginTop="424dp"
                     android:background="#5C5E76"
                     android:text="@string/button_scan_scan"
-                    android:textColor="#EE3744" />
+                    android:textColor="#EE3744"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/saveScanButton"
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/startScanButton"
-                    android:layout_alignBottom="@+id/predictButton"
+                    android:layout_width="128dp"
+                    android:layout_height="47dp"
+                    android:layout_marginStart="240dp"
+                    android:layout_marginTop="324dp"
                     android:background="#5C5E76"
                     android:text="@string/button_scan_save"
-                    android:textColor="#EE3744" />
+                    android:textColor="#EE3744"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </RelativeLayout>
+            </android.support.constraint.ConstraintLayout>
         </android.support.design.widget.CoordinatorLayout>
     </ScrollView>
 

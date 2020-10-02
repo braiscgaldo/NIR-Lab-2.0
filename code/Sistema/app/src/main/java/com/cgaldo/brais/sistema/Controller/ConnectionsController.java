@@ -3,11 +3,14 @@ package com.cgaldo.brais.sistema.Controller;
 import android.content.Context;
 
 import com.cgaldo.brais.sistema.Controller.Bluetooth.BluetoothController;
+import com.cgaldo.brais.sistema.Controller.USB.USBController;
 import com.cgaldo.brais.sistema.Model.Handler;
 
 public interface ConnectionsController {
 
     BluetoothController connect(Context context);
+
+    USBController connectUSB(Context context);
 
     void unRegister(Context context);
 
