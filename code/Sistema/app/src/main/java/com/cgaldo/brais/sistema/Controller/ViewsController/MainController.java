@@ -3,6 +3,9 @@ package com.cgaldo.brais.sistema.Controller.ViewsController;
 
 import android.os.Environment;
 
+import com.cgaldo.brais.sistema.Controller.Bluetooth.BluetoothController;
+import com.cgaldo.brais.sistema.Controller.ConnectionsController;
+import com.cgaldo.brais.sistema.Controller.USB.USBController;
 import com.cgaldo.brais.sistema.Model.InformationFragment.MainViewInformation;
 import com.cgaldo.brais.sistema.Model.StaticData.Storage;
 
@@ -88,6 +91,14 @@ public class MainController implements MainControllerInterface {
         }
 
         return false;
+    }
+
+    @Override
+    public ConnectionsController manageControllers(boolean isUsbConnected){
+        if (isUsbConnected){
+            return USBController.getInstance();
+        }
+        return BluetoothController.getInstance();
     }
 
 }

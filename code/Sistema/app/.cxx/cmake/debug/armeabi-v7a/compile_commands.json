@@ -1,0 +1,109 @@
+[
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dinterface_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/interface.dir/src/main/cpp/pre-compile/dump_mat.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/pre-compile/dump_mat.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/pre-compile/dump_mat.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dinterface_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/interface.dir/src/main/cpp/dlpspec_calib.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_calib.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_calib.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dinterface_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/interface.dir/src/main/cpp/dlpspec_scan_col.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_scan_col.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_scan_col.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dinterface_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/interface.dir/src/main/cpp/dlpspec_scan_had.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_scan_had.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_scan_had.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dinterface_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/interface.dir/src/main/cpp/dlpspec_util.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_util.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_util.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dinterface_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/interface.dir/src/main/cpp/dlpspec_scan.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_scan.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_scan.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dinterface_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/interface.dir/src/main/cpp/dlpspec_helper.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_helper.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_helper.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dinterface_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/interface.dir/src/main/cpp/tpl.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/tpl.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/tpl.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dinterface_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/interface.dir/src/main/cpp/interface.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/interface.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/interface.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dnative_lib_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/native-lib.dir/src/main/cpp/pre-compile/dump_mat.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/pre-compile/dump_mat.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/pre-compile/dump_mat.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dnative_lib_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/native-lib.dir/src/main/cpp/dlpspec_calib.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_calib.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_calib.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dnative_lib_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/native-lib.dir/src/main/cpp/dlpspec_scan_col.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_scan_col.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_scan_col.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dnative_lib_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/native-lib.dir/src/main/cpp/dlpspec_scan_had.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_scan_had.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_scan_had.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dnative_lib_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/native-lib.dir/src/main/cpp/dlpspec_util.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_util.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_util.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dnative_lib_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/native-lib.dir/src/main/cpp/dlpspec_scan.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_scan.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_scan.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dnative_lib_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/native-lib.dir/src/main/cpp/dlpspec_helper.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_helper.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/dlpspec_helper.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dnative_lib_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/native-lib.dir/src/main/cpp/tpl.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/tpl.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/tpl.c"
+},
+
+{
+  "directory": "/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --gcc-toolchain=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/brais/Android/Sdk/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dnative_lib_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/native-lib.dir/src/main/cpp/interface.c.o   -c /home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/interface.c",
+  "file": "/home/brais/NIR-Lab/code/Sistema/app/src/main/cpp/interface.c"
+}
+]

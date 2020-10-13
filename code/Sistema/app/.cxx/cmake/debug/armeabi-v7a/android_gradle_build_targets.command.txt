@@ -1,0 +1,8 @@
+Executable : /home/brais/Android/Sdk/cmake/3.10.2.4988404/bin/ninja
+arguments : 
+-C
+/home/brais/NIR-Lab/code/Sistema/app/.cxx/cmake/debug/armeabi-v7a
+interface
+native-lib
+jvmArgs : 
+

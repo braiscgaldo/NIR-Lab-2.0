@@ -1,0 +1,21 @@
+# ninja log v5
+1	53	1602233412	CMakeFiles/interface.dir/src/main/cpp/dlpspec_util.c.o	c1a74b7f951bf3c1
+0	62	1602233412	CMakeFiles/interface.dir/src/main/cpp/dlpspec_scan_col.c.o	42ce73bc566636cb
+11	81	1602233412	CMakeFiles/native-lib.dir/src/main/cpp/dlpspec_util.c.o	ae1cc0a48db74792
+9	89	1602233412	CMakeFiles/native-lib.dir/src/main/cpp/pre-compile/dump_mat.c.o	22402f2e37a7d8cf
+11	93	1602233412	CMakeFiles/native-lib.dir/src/main/cpp/dlpspec_scan_col.c.o	ebe23e1ac7b926fc
+0	93	1602233412	CMakeFiles/interface.dir/src/main/cpp/pre-compile/dump_mat.c.o	dad0961bc2a77433
+4	93	1602233412	CMakeFiles/interface.dir/src/main/cpp/interface.c.o	da694fe441b1b18f
+0	121	1602233412	CMakeFiles/interface.dir/src/main/cpp/dlpspec_calib.c.o	cb4e5c72cf276b96
+2	128	1602233412	CMakeFiles/interface.dir/src/main/cpp/dlpspec_scan.c.o	c02632eb89ca41e9
+3	144	1602233412	CMakeFiles/interface.dir/src/main/cpp/dlpspec_helper.c.o	f4294ba4f18dc3a0
+10	146	1602233412	CMakeFiles/native-lib.dir/src/main/cpp/dlpspec_calib.c.o	d74567bc121d5c13
+89	162	1602233412	CMakeFiles/native-lib.dir/src/main/cpp/interface.c.o	31d1627372acb6bd
+53	195	1602233412	CMakeFiles/native-lib.dir/src/main/cpp/dlpspec_scan.c.o	ef972b1d5d8dc0ee
+62	224	1602233412	CMakeFiles/native-lib.dir/src/main/cpp/dlpspec_helper.c.o	5d03439d7ded2067
+1	273	1602233412	CMakeFiles/interface.dir/src/main/cpp/dlpspec_scan_had.c.o	cec2288f58b9ce77
+11	276	1602233412	CMakeFiles/native-lib.dir/src/main/cpp/dlpspec_scan_had.c.o	3cf95840e5af274b
+3	288	1602233412	CMakeFiles/interface.dir/src/main/cpp/tpl.c.o	5d3c5a01f631b5a0
+288	307	1602233412	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libinterface.so	de58548116e20438
+81	334	1602233412	CMakeFiles/native-lib.dir/src/main/cpp/tpl.c.o	6087ec0dccf9043d
+334	351	1602233412	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	1d92cbf8b010729d

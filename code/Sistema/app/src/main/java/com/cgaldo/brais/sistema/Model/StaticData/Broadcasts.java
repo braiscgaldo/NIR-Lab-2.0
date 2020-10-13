@@ -11,6 +11,7 @@ public class Broadcasts {
     public static String FINISH_ACTIVATE_CONFIGURATION;
     public static String FINISH_EDIT_SCAN;
     public static String ERROR_COMM;
+    public static String USB_STATE_CHANGE;
 
 
     static {
@@ -23,5 +24,6 @@ public class Broadcasts {
         FINISH_ACTIVATE_CONFIGURATION = "finishedActivateConfiguration";
         FINISH_EDIT_SCAN = "finishedEditScan";
         ERROR_COMM = "errorCommunications";
+        USB_STATE_CHANGE = "usbStateChanged";
     }
 }

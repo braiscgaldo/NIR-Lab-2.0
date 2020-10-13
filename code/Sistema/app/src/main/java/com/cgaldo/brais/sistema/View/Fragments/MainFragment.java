@@ -1,14 +1,21 @@
 package com.cgaldo.brais.sistema.View.Fragments;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.hardware.usb.UsbAccessory;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Parcelable;
 import android.os.SystemClock;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -37,6 +44,8 @@ import com.cgaldo.brais.sistema.View.Fragments.Scan.ScanFragment;
 import com.cgaldo.brais.sistema.View.Fragments.Spectrophotometer.SpectrometerFragment;
 import com.cgaldo.brais.sistema.View.MainActivity;
 
+import java.util.HashMap;
+
 /*
     MainFragment of the application
  */
@@ -46,6 +55,8 @@ public class MainFragment extends Fragment implements FragmentTemplate {
     int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 2; // uses to permissions
     int MY_PERMISSIONS_READ_EXTERNAL_STORAGE = 3;
     int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 4;
+    public static final String ACTION_USB_DEVICE_ATTACHED = "com.example.ACTION_USB_DEVICE_ATTACHED";
+    private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
 
 
     //Controller
@@ -63,9 +74,11 @@ public class MainFragment extends Fragment implements FragmentTemplate {
 
     //Bluetooth
     private static ConnectionsController connectionsController;
+    private UsbManager usbManager;
 
     //Broadcast
     private BroadcastReceiver broadcastReceiver;
+    private BroadcastReceiver usbBroadcast;
 
     // View
     private View rootView;
@@ -115,13 +128,13 @@ public class MainFragment extends Fragment implements FragmentTemplate {
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 MY_PERMISSIONS_READ_EXTERNAL_STORAGE);
 
-
         if (!controllerInterface.prepareApplicationStorage()){
             Toast.makeText(getContext(), "Cannot create directories", Toast.LENGTH_LONG);
             Log.i("errorDir", "cannot create directories");
         }
 
         // Broadcast
+        //usbConnection();
         broadcast();
 
         return rootView;
@@ -302,6 +315,7 @@ public class MainFragment extends Fragment implements FragmentTemplate {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB_MR1)
     private void broadcast(){
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -322,6 +336,57 @@ public class MainFragment extends Fragment implements FragmentTemplate {
         intentFilter = new IntentFilter(Broadcasts.ERROR_COMM);
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, intentFilter);
 
+        usbBroadcast = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.i("USB", intent.getAction());
+                String usbStateChangeAction = "android.hardware.usb.action.USB_STATE";
+                if (intent.getAction().equalsIgnoreCase(usbStateChangeAction)) {
+                    if (intent.getExtras().getBoolean("connected")) {
+                        Log.i("USB", "usb connected");
+                        controllerInterface.manageControllers(true);
+                    } else {
+                        controllerInterface.manageControllers(false);
+                        Log.i("USB", "usb disconnected");
+                    }
+                }
+            }
+        };
+
+        PendingIntent mPermissionIntent = PendingIntent.getBroadcast(getContext(), 0, new Intent(ACTION_USB_PERMISSION), 0);
+        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(this.usbBroadcast, filter);
+        this.usbManager = (UsbManager) getActivity().getSystemService(Context.USB_SERVICE);
+        HashMap<String, UsbDevice> deviceList = this.usbManager.getDeviceList();
+        Log.i("USB", deviceList.toString());
+        UsbDevice device = deviceList.get("deviceName");
+        //this.usbManager.requestPermission(device, mPermissionIntent);
+
+
+    }
+
+    private void usbConnection(){
+        Intent intent = getActivity().getIntent();
+        if (intent != null){
+            Parcelable usbDevice = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+
+            // Create a new intent and put the usb device in as an extra
+            Intent broadcastIntent = new Intent(ACTION_USB_DEVICE_ATTACHED);
+            broadcastIntent.putExtra(UsbManager.EXTRA_DEVICE, usbDevice);
+
+            // Broadcast this event so we can receive it
+            LocalBroadcastManager.getInstance(getContext()).sendBroadcast(broadcastIntent);
+            Log.i("USB", broadcastIntent.toString());
+
+            this.usbManager = (UsbManager) this.getActivity().getSystemService(Context.USB_SERVICE);
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+            LocalBroadcastManager.getInstance(getContext()).registerReceiver(usbBroadcast, intentFilter);
+            intentFilter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+            Log.i("USB", UsbManager.ACTION_USB_DEVICE_ATTACHED);
+            intentFilter = new IntentFilter();
+            LocalBroadcastManager.getInstance(getContext()).registerReceiver(usbBroadcast, intentFilter);
+        }
     }
 
     @Override
