@@ -738,7 +738,7 @@ public class BluetoothController implements ConnectionsController {
     }
 
     @Override
-    public USBController connectUSB(Context context) {
+    public USBController connectUSB(Activity activity) {
         return null;
     }
 

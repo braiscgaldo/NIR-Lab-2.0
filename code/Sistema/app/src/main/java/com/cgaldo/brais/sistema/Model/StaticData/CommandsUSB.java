@@ -3,6 +3,7 @@ package com.cgaldo.brais.sistema.Model.StaticData;
 public class CommandsUSB {
 
     // Group bytes
+    public static final String SPECTROMETER_NAME_DIRECTION;
 
 
     // Information
@@ -15,6 +16,8 @@ public class CommandsUSB {
 
 
     static {
+        SPECTROMETER_NAME_DIRECTION = "/dev/bus/usb/001/003";
+
         // Information
         READ_MODEL_NUMBER = new byte[]{0x3C};
         READ_SERIAL_NUMBER = new byte[]{0x33};

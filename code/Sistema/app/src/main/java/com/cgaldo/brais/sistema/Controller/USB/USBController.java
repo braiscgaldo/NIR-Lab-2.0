@@ -1,13 +1,17 @@
 package com.cgaldo.brais.sistema.Controller.USB;
 
+import android.app.Activity;
 import android.content.Context;
+import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
+import android.os.Build;
 import android.util.Log;
 
 import com.cgaldo.brais.sistema.Controller.Bluetooth.BluetoothController;
 import com.cgaldo.brais.sistema.Controller.ConnectionsController;
 import com.cgaldo.brais.sistema.Controller.Invoker;
 import com.cgaldo.brais.sistema.Model.Handler;
+import com.cgaldo.brais.sistema.Model.StaticData.CommandsUSB;
 
 public class USBController implements ConnectionsController {
 
@@ -33,15 +37,21 @@ public class USBController implements ConnectionsController {
             ResetDeviceUSBCommand.getInstance(), ActivateConfigurationDeviceUSBCommand.getInstance());
     private byte[] configurationToActive;
 
+    private UsbDevice spectrophotometer;
+
     @Override
     public BluetoothController connect(Context context) {
         return null;
     }
 
     @Override
-    public USBController connectUSB(Context context) {
-        this.usbManager = (UsbManager) context.getSystemService(Context.USB_SERVICE);
+    public USBController connectUSB(Activity activity) {
+        this.usbManager = (UsbManager) activity.getSystemService(Context.USB_SERVICE);
         Log.i("USB", this.usbManager.getDeviceList().toString());
+        this.spectrophotometer = this.usbManager.getDeviceList().get(CommandsUSB.SPECTROMETER_NAME_DIRECTION);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Log.i("USB", "information\n manufacture name: " + this.spectrophotometer.getManufacturerName() + "\n product name: " + this.spectrophotometer.getProductName() + "\n serial number: " + this.spectrophotometer.getSerialNumber() + "\n version: " + this.spectrophotometer.getVersion());
+        }
         return this.usbController;
     }
 
@@ -52,7 +62,7 @@ public class USBController implements ConnectionsController {
 
     @Override
     public Boolean getConnected() {
-        return null;
+        return true;
     }
 
     @Override

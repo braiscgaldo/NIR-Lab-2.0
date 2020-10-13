@@ -1,5 +1,6 @@
 package com.cgaldo.brais.sistema.Controller;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.cgaldo.brais.sistema.Controller.Bluetooth.BluetoothController;
@@ -10,7 +11,7 @@ public interface ConnectionsController {
 
     BluetoothController connect(Context context);
 
-    USBController connectUSB(Context context);
+    USBController connectUSB(Activity activity);
 
     void unRegister(Context context);
 

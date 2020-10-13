@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.cgaldo.brais.sistema.Controller.Bluetooth.BluetoothController;
 import com.cgaldo.brais.sistema.Controller.ConnectionsController;
+import com.cgaldo.brais.sistema.Controller.USB.USBController;
 import com.cgaldo.brais.sistema.Controller.ViewsController.SpectrometerController;
 import com.cgaldo.brais.sistema.Controller.ViewsController.SpectrometerControllerInterface;
 import com.cgaldo.brais.sistema.Model.InformationFragment.SpectrometerViewInformation;
@@ -94,7 +95,8 @@ public class SpectrometerFragment extends Fragment implements FragmentTemplate {
 
     private void getObjects(){
         //Obtain bluetooth connection
-        connectionsController = BluetoothController.getInstance();
+        //connectionsController = BluetoothController.getInstance();
+        connectionsController = USBController.getInstance();
 
         //Controller
         controller = SpectrometerController.getInstance();

@@ -31,11 +31,13 @@ import android.widget.Toast;
 
 import com.cgaldo.brais.sistema.Controller.Bluetooth.BluetoothController;
 import com.cgaldo.brais.sistema.Controller.ConnectionsController;
+import com.cgaldo.brais.sistema.Controller.USB.USBController;
 import com.cgaldo.brais.sistema.Controller.ViewsController.MainController;
 import com.cgaldo.brais.sistema.Controller.ViewsController.MainControllerInterface;
 import com.cgaldo.brais.sistema.Model.InformationFragment.MainViewInformation;
 import com.cgaldo.brais.sistema.Model.InformationFragment.ViewInformationInterface;
 import com.cgaldo.brais.sistema.Model.StaticData.Broadcasts;
+import com.cgaldo.brais.sistema.Model.StaticData.CommandsUSB;
 import com.cgaldo.brais.sistema.R;
 import com.cgaldo.brais.sistema.View.FragmentTemplate;
 import com.cgaldo.brais.sistema.View.Dialogs.Dialogs;
@@ -161,7 +163,10 @@ public class MainFragment extends Fragment implements FragmentTemplate {
     private void getObjects(){
         //Controller
         controllerInterface = MainController.getInstance();
-        connectionsController = BluetoothController.getInstance();
+        //connectionsController = BluetoothController.getInstance();
+        connectionsController = USBController.getInstance();
+        connectionsController.connectUSB(getActivity());
+
 
         //Buttons
         infoButton = rootView.findViewById(R.id.infoButton);
@@ -315,7 +320,7 @@ public class MainFragment extends Fragment implements FragmentTemplate {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB_MR1)
+    //@RequiresApi(api = Build.VERSION_CODES.HONEYCOMB_MR1)
     private void broadcast(){
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -356,37 +361,13 @@ public class MainFragment extends Fragment implements FragmentTemplate {
         PendingIntent mPermissionIntent = PendingIntent.getBroadcast(getContext(), 0, new Intent(ACTION_USB_PERMISSION), 0);
         IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(this.usbBroadcast, filter);
-        this.usbManager = (UsbManager) getActivity().getSystemService(Context.USB_SERVICE);
-        HashMap<String, UsbDevice> deviceList = this.usbManager.getDeviceList();
-        Log.i("USB", deviceList.toString());
-        UsbDevice device = deviceList.get("deviceName");
+
         //this.usbManager.requestPermission(device, mPermissionIntent);
 
 
     }
 
-    private void usbConnection(){
-        Intent intent = getActivity().getIntent();
-        if (intent != null){
-            Parcelable usbDevice = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-
-            // Create a new intent and put the usb device in as an extra
-            Intent broadcastIntent = new Intent(ACTION_USB_DEVICE_ATTACHED);
-            broadcastIntent.putExtra(UsbManager.EXTRA_DEVICE, usbDevice);
-
-            // Broadcast this event so we can receive it
-            LocalBroadcastManager.getInstance(getContext()).sendBroadcast(broadcastIntent);
-            Log.i("USB", broadcastIntent.toString());
-
-            this.usbManager = (UsbManager) this.getActivity().getSystemService(Context.USB_SERVICE);
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
-            LocalBroadcastManager.getInstance(getContext()).registerReceiver(usbBroadcast, intentFilter);
-            intentFilter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
-            Log.i("USB", UsbManager.ACTION_USB_DEVICE_ATTACHED);
-            intentFilter = new IntentFilter();
-            LocalBroadcastManager.getInstance(getContext()).registerReceiver(usbBroadcast, intentFilter);
-        }
+    private void getInfo(){
     }
 
     @Override
