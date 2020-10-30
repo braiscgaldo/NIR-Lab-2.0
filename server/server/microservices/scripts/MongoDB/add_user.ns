@@ -1,0 +1,9 @@
+use brais_data_meditions
+db.createUser( { user: "brais",
+                 pwd: "password1",  // Or  passwordPrompt()
+                 roles: ["readWrite"] })
+
+db.auth( {
+   user: "brais",
+   pwd: "password1"  // Or "<cleartext password>"
+} )
