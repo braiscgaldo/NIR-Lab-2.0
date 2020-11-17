@@ -16,7 +16,7 @@ Estos dispositivos han ido evolucionando en precisión, complejidad y tamaño, l
 
 A lo largo del desarrollo del Trabajo Fin de Grado [4] se ha desarrollado una aplicación capaz de conectarse con uno de estos dispositivos para tomar mediciones a pie de campo haciendo uso de la *tecnología BLE*. También se ha llevado a cabo la implementación de una forma de almacenar las muestras en formato JSON y se han implementado funcionalidades de predicción de características basadas en *TensorFlow Lite*. Esta última funcionalidad se ha complementado con una tarea de investigación para comprobar el correcto funcionamiento de la característica.
 
-Los principales objetivos de esta continuación sería la implementación de la comunicación haciendo uso de la **tecnología USB** así como el desarrollo de un **servidor web** en el que almacenar mediciones así como modelos de aprendizaje máquina [5] que podrán ser descargados en el teléfono con el objetivo de comprobar su funcionamiento. Además, en este servidor se permitirá entrenar los diferentes modelos haciendo uso de las bases de datos correspondientes. A mayores, también se realizará una nueva **aplicación práctica** en el que se realizará una toma de mediciones acerca de un tema para tratar de inferir alguna característica sobre los datos recogidos.
+El principal  objetivo de este proyecto es el desarrollo de un **servidor web** en el que almacenar mediciones así como modelos de aprendizaje máquina [5] que podrán ser descargados en el teléfono con el objetivo de comprobar su funcionamiento. Además, en este servidor se permitirá entrenar los diferentes modelos haciendo uso de las bases de datos correspondientes. Es de importancia destacar la capacidad de esetablecer una interfaz adecuada para cada tipo de dispositivo. De este modo, se permitirá una visión adecuada a la hora de descargar y generar modelos desde cualquier parte haciendo uso tanto de ordenadores, como tablets y como móviles. A mayores, también se realizará una nueva **aplicación práctica** en el que se realizará una toma de mediciones acerca de un tema para tratar de inferir alguna característica sobre los datos recogidos.
 
 Bibliografía:
 
@@ -38,29 +38,25 @@ Por último, gracias al desarrollo del servidor de almacenamiento de mediciones 
 
 A modo general, los objetivos principales del proyecto serán:
 
-* Implementación de la comunicación teléfono móvil – dispositivo mediante el protocolo USB.
 * Implementación de un servidor web que permita tanto el almacenamiento como la descarga de mediciones y modelos de aprendizaje máquina así como el entrenamiento de estos últimos.
+* Posibilidad de hacer uso del sistema desde cualquier parte y desde cualquier dispositivo.
 * Realización de una aplicación práctica. Se desarrollará una base de datos que se usará para entrenar un modelo y realizar las predicciones correspondientes.
 
 En cuanto a los objetivos secundarios se puede considerar:
 
 * Mejora de usabilidad en la interfaz de la aplicación.
-* Gestión de protocolos USB – BLE.
-* Interfaz adaptable a cada dispositivo en el portal web del servidor.
 * Capacidad de ajustar la entrada de los datos en el modelo predictivo.
 
 ## Fases principales
 
 A grandes rasgos existe la tentativa de realizar las siguientes fases en el proyecto:
 
-1. Desarrollo de la comunicación haciendo uso de la tecnología USB:
-    1. Obtención de la información del espectrofotómetro.
-    2. Realización de mediciones.
-2. Desarrollo del servidor web.
+1. Desarrollo del servidor web.
     1. Gestión de usuarios. Autenticación mediante nombre de usuario – contraseña.
     2. Almacenamiento de mediciones y modelos TFLite.
     3. Descarga de mediciones y modelos TFLite.
     4. Entrenamiento de modelos desde el servidor.
+2. Ajuste de la aplicación móvil para adaptarse al fichero de configuración de tratamiento de datos para dar, de este modo, la entrada que espera el modelo en cuestión.
 3. Aplicación práctica.
 4. Preparación para despliegue.
 
