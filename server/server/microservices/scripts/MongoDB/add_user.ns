@@ -1,4 +1,4 @@
-use brais_data_meditions
+use brais_data_measures
 db.createUser( { user: "brais",
                  pwd: "password1",  // Or  passwordPrompt()
                  roles: ["readWrite"] })

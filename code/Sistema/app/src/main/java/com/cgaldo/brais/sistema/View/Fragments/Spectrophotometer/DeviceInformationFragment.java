@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.cgaldo.brais.sistema.Controller.Bluetooth.BluetoothController;
 import com.cgaldo.brais.sistema.Controller.ConnectionsController;
+import com.cgaldo.brais.sistema.Controller.USB.USBController;
 import com.cgaldo.brais.sistema.Model.InformationFragment.DeviceInformationViewInformation;
 import com.cgaldo.brais.sistema.Model.InformationFragment.ViewInformationInterface;
 import com.cgaldo.brais.sistema.Model.StaticData.Actions;
@@ -75,8 +76,8 @@ public class DeviceInformationFragment extends Fragment implements FragmentTempl
         rootView = inflater.inflate(R.layout.fragment_device_information, container, false);
 
         //Bluetooth
-        connectionsController = BluetoothController.getInstance();
-
+        //connectionsController = BluetoothController.getInstance();
+        connectionsController = USBController.getInstance();
         //TextViews
         getViews();
 
