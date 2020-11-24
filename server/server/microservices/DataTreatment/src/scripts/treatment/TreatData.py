@@ -6,6 +6,8 @@ import numpy as np
 INTENSITY_KEY = 'Intensity'
 ABSORBANCE_KEY = 'Absorbance'
 REFLECTANCE_KEY = 'Reflectance'
+NAME_KEY = 'name'
+NOT_DATA_KEYS = ["Wavelength", "Hour", "Labels"]
 
 
 class TreatData:
@@ -14,7 +16,8 @@ class TreatData:
         self._connections = connections
         self._config_filename = config_file_name
         self._operations = Operate(Operations())
-        self._measures_data = None
+        self._measures_names = []
+        self._measures_data = {}
         self._config_file = None
         self._data_treated = {}
 
@@ -47,11 +50,16 @@ class TreatData:
             * None
         """
         measures = self._connections.obtain_measures()
-        measures_keys = [key for key, i in zip(measures.keys(), range(len(measures.keys()))) if i > 2]
-        intensity = [measures[key][INTENSITY_KEY] for key in measures_keys]
-        absorbance = [measures[key][ABSORBANCE_KEY] for key in measures_keys]
-        reflectance = [measures[key][REFLECTANCE_KEY] for key in measures_keys]
-        self._measures_data = {"intensity": intensity, "absorbance": absorbance, 'reflectance': reflectance}
+        self._measures_names = [key for key, i in zip(measures.keys(), range(len(measures.keys()))) if i > 2]
+        for measure in measures[self._measures_names[0]].keys():
+            if measure not in NOT_DATA_KEYS:
+                self._measures_data[measure.lower()] = []
+
+        for key in self._measures_names:
+            for measure in measures[key].keys():
+                if measure not in NOT_DATA_KEYS:
+                    self._measures_data[measure.lower()].append(measures[key][measure])
+        
         self._config_file = self._connections.obtain_config_file()
 
     def operate(self):
@@ -84,7 +92,14 @@ class TreatData:
         for key in self._measures_data.keys():
             if key in self._config_file['output_chars']:
                 data[key] = self._measures_data[key]
-        return data
+
+        data_from_sample, data_from_name = {}, {}
+        for name_idx in range(len(self._measures_names)):
+            for measure_key in data:
+                data_from_name[measure_key] = self._measures_data[measure_key][name_idx]
+            data_from_sample[self._measures_names[name_idx]] = data_from_name
+            data_from_name = {}
+        return data_from_sample
 
     def generate_database(self, config_filename, data):
         """

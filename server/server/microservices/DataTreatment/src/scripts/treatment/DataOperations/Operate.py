@@ -20,7 +20,6 @@ class Operate:
         result = 0
         try:
             result = self._functions.operate(data)
-            #result = getattr(self._functions, data[0])(data[1:])
             if type(result) == np.ndarray:
                 result = result.tolist()
         except Exception as e:
