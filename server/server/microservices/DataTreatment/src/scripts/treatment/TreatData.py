@@ -50,7 +50,7 @@ class TreatData:
             * None
         """
         measures = self._connections.obtain_measures()
-        self._measures_names = [key for key, i in zip(measures.keys(), range(len(measures.keys()))) if i > 2]
+        self._measures_names = [key for key, i in zip(measures.keys(), range(len(measures.keys()))) if i > 1]
         for measure in measures[self._measures_names[0]].keys():
             if measure not in NOT_DATA_KEYS:
                 self._measures_data[measure.lower()] = []
@@ -59,7 +59,7 @@ class TreatData:
             for measure in measures[key].keys():
                 if measure not in NOT_DATA_KEYS:
                     self._measures_data[measure.lower()].append(measures[key][measure])
-        
+
         self._config_file = self._connections.obtain_config_file()
 
     def operate(self):

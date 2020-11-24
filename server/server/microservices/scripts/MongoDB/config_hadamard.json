@@ -23,5 +23,5 @@
     "u": ["sum", 0, 15.5],
     "v": ["value_at", "intensity", 7]
   },
-  "output_chars": ["c", "r", "u", "s", "v"]
+  "output_chars": ["c", "r"]
 }
