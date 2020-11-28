@@ -20,6 +20,7 @@ class TreatData:
         self._measures_data = {}
         self._config_file = None
         self._data_treated = {}
+        self.__labels = []
 
     def establish_connections(self):
         """
@@ -50,6 +51,7 @@ class TreatData:
             * None
         """
         measures = self._connections.obtain_measures()
+        self._measures_data['Labels'] = measures['Labels']
         self._measures_names = [key for key, i in zip(measures.keys(), range(len(measures.keys()))) if i > 1]
         for measure in measures[self._measures_names[0]].keys():
             if measure not in NOT_DATA_KEYS:
@@ -90,15 +92,28 @@ class TreatData:
         """
         data = {}
         for key in self._measures_data.keys():
-            if key in self._config_file['output_chars']:
+            if key in self._config_file['output_chars']:  # output chars
                 data[key] = self._measures_data[key]
 
+        measures = self._connections.obtain_measures()  # obtain labels and output
+        lab, out = measures.pop('Labels'), measures.pop('Output')
+        data['Labels'] = []
+        for measure in measures:  # generate labels list
+            data['Labels'].append(measures[measure]['Labels'])
+
         data_from_sample, data_from_name = {}, {}
+        data_from_sample["Output"] = out
+        data_from_sample["Labels"] = lab  # establish headers of json
         for name_idx in range(len(self._measures_names)):
-            for measure_key in data:
-                data_from_name[measure_key] = self._measures_data[measure_key][name_idx]
+            for measure_key in data:  # convert the list of lists into its correspondent sample
+                if measure_key != 'Labels':  # labels have a special treatment
+                    data_from_name[measure_key] = self._measures_data[measure_key][name_idx]
+            data_from_name['Labels'] = {}
+            for label in data['Labels'][name_idx].keys():  # add a label dictionary for each sample
+                data_from_name['Labels'][label] = data['Labels'][name_idx][label]
             data_from_sample[self._measures_names[name_idx]] = data_from_name
             data_from_name = {}
+
         return data_from_sample
 
     def generate_database(self, config_filename, data):

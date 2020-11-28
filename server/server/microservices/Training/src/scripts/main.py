@@ -11,8 +11,6 @@ def parse_args():
                                                        ' the data required')
     configparser.add_argument('-pp', '--path_preprocessed_database', type=str, required=True, 
                               help='Path to preprocessed database')
-    configparser.add_argument('-pd', '--path_original_database', type=str, required=True,
-                              help='Path to original database')
     configparser.add_argument('-pm', '--path_configuration_model', type=str, required=True,
                               help='Path to configuration model file')
     configparser.add_argument('-tl', '--target_label', type=str, required=True, help='Target label to infer')
@@ -21,8 +19,7 @@ def parse_args():
 
 
 def main(args):
-    od = ObtainedData(args.path_preprocessed_database, args.path_original_database, args.path_configuration_model,
-                      args.target_label)
+    od = ObtainedData(args.path_preprocessed_database, args.path_configuration_model, args.target_label)
     od.load_all_data()
     dm = DevelopModel(od)
     dm.run()

@@ -125,7 +125,7 @@ class StandardDeviation(metaclass=Function):
 
     @staticmethod
     def execute(data):
-        return [np.std(measure) for measure in data[0]]
+        return [[np.std(measure)] for measure in data[0]]
 
 
 class Variance(metaclass=Function):
@@ -135,7 +135,7 @@ class Variance(metaclass=Function):
 
     @staticmethod
     def execute(data):
-        return [np.var(measure) for measure in data[0]]
+        return [[np.var(measure)] for measure in data[0]]
 
 
 class Mean(metaclass=Function):
@@ -145,7 +145,7 @@ class Mean(metaclass=Function):
 
     @staticmethod
     def execute(data):
-        return [np.mean(measure) for measure in data[0]]
+        return [[np.mean(measure)] for measure in data[0]]
 
 
 class Median(metaclass=Function):
@@ -155,7 +155,7 @@ class Median(metaclass=Function):
 
     @staticmethod
     def execute(data):
-        return [np.median(measure) for measure in data[0]]
+        return [[np.median(measure)] for measure in data[0]]
 
 
 class Mode(metaclass=Function):
@@ -165,7 +165,7 @@ class Mode(metaclass=Function):
 
     @staticmethod
     def execute(data):
-        return [stats.mode(measure) for measure in data[0]]
+        return [[stats.mode(measure)] for measure in data[0]]
 
 
 class SumAll(metaclass=Function):
@@ -175,7 +175,7 @@ class SumAll(metaclass=Function):
 
     @staticmethod
     def execute(data):
-        return [sum(measure) for measure in data[0]]
+        return [[sum(measure)] for measure in data[0]]
 
 
 class Minimum(metaclass=Function):
@@ -185,7 +185,7 @@ class Minimum(metaclass=Function):
 
     @staticmethod
     def execute(data):
-        return [np.min(measure) for measure in data[0]]
+        return [[np.min(measure)] for measure in data[0]]
 
 
 class Maximum(metaclass=Function):
@@ -195,7 +195,7 @@ class Maximum(metaclass=Function):
 
     @staticmethod
     def execute(data):
-        return [np.max(measure) for measure in data[0]]
+        return [[np.max(measure)] for measure in data[0]]
 
 
 class MinMaxNormalization(metaclass=Function):
@@ -237,7 +237,7 @@ class ValueAt(metaclass=Function):
 
     @staticmethod
     def execute(data):
-        return [float(measure[int(data[1])]) for measure in data[0]]
+        return [[float(measure[int(data[1])])] for measure in data[0]]
 
 
 class Operations:

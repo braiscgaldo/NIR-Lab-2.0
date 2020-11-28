@@ -12,6 +12,7 @@ class DevelopModel:
 
     def __init__(self, information):
         self.__information = information
+        # must divide information into labels and data
         self.__model = None
         self.__data_train = self.__labels_train = None
         self.__data_test = self.__labels_test = None
