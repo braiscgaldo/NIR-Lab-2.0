@@ -48,13 +48,6 @@ class ObtainDataFromDB:
         @output:
             * data - configuration file required
         """
-        '''
-        data = self._connection_nosql.obtain_configuration().find_one()
-        if data['name'] == config_filename:
-            return data
-
-        print('no data')
-        '''
         data = self._connection_files.obtain_configuration()
         return data
 

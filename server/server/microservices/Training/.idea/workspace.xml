@@ -20,13 +20,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fca4b4aa-0037-4544-89a9-340a3117a16c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../scripts/MongoDB/model_1.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataTreatment/src/scripts/treatment/DataOperations/Functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DataTreatment/src/scripts/treatment/DataOperations/Functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataTreatment/src/scripts/treatment/TreatData.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DataTreatment/src/scripts/treatment/TreatData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/docker-compose" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataTreatment/src/scripts/database/ObtainDataFromDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DataTreatment/src/scripts/database/ObtainDataFromDB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scripts/database/ObtainedData.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/database/ObtainedData.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scripts/train/DevelopModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/train/DevelopModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../scripts/MongoDB/HadaBeer_config_hadamard.json" beforeDir="false" afterPath="$PROJECT_DIR$/../scripts/MongoDB/HadaBeer_config_hadamard.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/MariaDB/insert_data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../scripts/MariaDB/insert_data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/MongoDB/HadaBeer.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/MongoDB/HadaBeer_config_hadamard.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/MongoDB/config_hadamard.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/MongoDB/model.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/MongoDB/model_1.h5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/MongoDB/model_1.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/MongoDB/model_test.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/MongoDB/test.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +57,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DataTreatment" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -176,9 +182,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="269" y="288" width="1084" height="812" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606578440014">
+    <state x="269" y="268" width="1084" height="812" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606756204148">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="269" y="268" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1606756204148" />
     <state x="2189" y="268" width="1084" height="812" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606237682629" />
     <state x="269" y="288" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1606578440014" />
     <state x="2688" y="259" width="374" height="569" key="#com.intellij.ide.util.MemberChooser" timestamp="1605803660370">
@@ -189,9 +196,10 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1918" height="480" key="DebuggerActiveHint/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606232789681" />
-    <state x="738" y="320" width="424" height="491" key="FileChooserDialogImpl" timestamp="1606576508204">
+    <state x="738" y="320" width="424" height="491" key="FileChooserDialogImpl" timestamp="1606758926809">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="738" y="320" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1606758926809" />
     <state x="2658" y="301" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606237492164" />
     <state x="738" y="320" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1606576508204" />
     <state width="1897" height="265" key="GridCell.Tab.0.bottom" timestamp="1606578422472">
@@ -251,11 +259,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/scripts/train/DevelopModel.py</url>
-          <line>132</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/scripts/train/DevelopModel.py</url>
           <line>117</line>

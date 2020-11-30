@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+    data_treatment:
+        image: data_treatment:v1
+        networks:
+            - nir_net
+        tty: true
+        links:
+            - database
+            - filesystem
+        volumes:
+            - /home/brais/NIR-Lab/server/server/microservices/scripts/MongoDB/:/home/brais
+
+    training:
+        image: training:v1
+        networks:
+            - nir_net
+        tty: true
+        links:
+            - database
+            - filesystem
+        volumes:
+            - /home/brais/NIR-Lab/server/server/microservices/scripts/MongoDB/:/home/brais
+
+    database:
+        image: mariadb:10.5.8
+        networks:
+            - nir_net
+        tty: true
+        ports:
+            - "3336:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=password
+
+    filesystem:
+        image: ubuntu:20.10
+        networks:
+            - nir_net
+        tty: true
+        volumes:
+            - /home/brais/NIR-Lab/server/server/microservices/scripts/MongoDB/:/home/brais
+
+networks:
+    nir_net:
+        driver: bridge
+

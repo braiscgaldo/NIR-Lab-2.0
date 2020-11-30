@@ -11,9 +11,9 @@ class ObtainedData:
     """
 
     def __init__(self, preprocessed_db_name, model_parameters_name, target_label):
-        self.__preprocessed_db_name = preprocessed_db_name
-        self.__model_parameters_name = model_parameters_name
-        self.__target_label = target_label
+        self.preprocessed_db_name = preprocessed_db_name
+        self.model_parameters_name = model_parameters_name
+        self.target_label = target_label
         self.preprocessed_db = self.labels_db = self.model_parameters = None
 
     def load_all_data(self):
@@ -24,12 +24,12 @@ class ObtainedData:
         :return:
             * None - information is loaded into the object
         """
-        self.preprocessed_db = Information(self.__preprocessed_db_name).get_data()
+        self.preprocessed_db = Information(self.preprocessed_db_name).get_data()
         self.preprocessed_db.pop('Output')
-        self.labels_db = [self.preprocessed_db[info]['Labels'][self.__target_label] for info in self.preprocessed_db if info != 'Labels']
+        self.labels_db = [self.preprocessed_db[info]['Labels'][self.target_label] for info in self.preprocessed_db if info != 'Labels']
         self.preprocessed_db.pop('Labels')
         [self.preprocessed_db[element].pop('Labels') for element in self.preprocessed_db.keys()]
-        self.model_parameters = Information(self.__model_parameters_name).get_data()
+        self.model_parameters = Information(self.model_parameters_name).get_data()
 
 
 if __name__ == '__main__':

@@ -10,13 +10,13 @@ RUN apt install python3-pip -y
 
 
 # copy files
-COPY Training.tar.gz /home
+COPY Training.tar.gz /opt
 
 # extracting files and removing files
-RUN cd /home && tar -xf Training.tar.gz && rm Training.tar.gz
+RUN cd /opt && tar -xf Training.tar.gz && rm Training.tar.gz
 
 # installing python dependencies
-RUN cd /home/ && pip3 install -r requirements.txt
+RUN cd /opt/ && pip3 install -r requirements.txt
 
 # running docker
 CMD [ "/bin/bash" ]

@@ -141,9 +141,14 @@ class DevelopModel:
         Method to save the model in JSON format
         :return: a file with the correspondents weights
         """
-        self.__model.get_model().save('/home/brais/NIR-Lab/server/server/microservices/scripts/MongoDB/' + self.__information.model_parameters['name'] + '.h5')
-        with open('/home/brais/NIR-Lab/server/server/microservices/scripts/MongoDB/' + self.__information.model_parameters['name'] + '.json', "w") as json_model:
+        self.__model.get_model().save(
+            self.__information.preprocessed_db_name[:self.__information.preprocessed_db_name.index('/', 6)] +
+            '/models/' + self.__information.model_parameters['name'] + '.h5')
+        '''
+        with open(self.__information.preprocessed_db_name[:self.__information.preprocessed_db_name.rindex('/')] +
+                  '/models/' + self.__information.model_parameters['name'] + '.json', 'w') as json_model:
             json_model.write(self.__model.get_model().to_json())
+        '''
 
     def run(self):
         """
