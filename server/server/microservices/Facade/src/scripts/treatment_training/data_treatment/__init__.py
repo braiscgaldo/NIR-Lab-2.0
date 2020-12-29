@@ -1,0 +1,1 @@
+from src.scripts.treatment_training.data_treatment.data_treatment import DataTreatment
