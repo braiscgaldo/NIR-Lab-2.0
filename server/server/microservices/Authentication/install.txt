@@ -1,0 +1,3 @@
+export GG_GIT="/home/brais/.ssh/ggtech"
+DOCKER_BUILDKIT=1 docker build --ssh default=$GG_GIT -t git.ggtech.global:5050/ggtech/esports-cms/auth-ms .
+yarn docker:run
