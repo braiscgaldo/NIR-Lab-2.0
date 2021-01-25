@@ -30,6 +30,7 @@
 </template>
 
 <script>
+  import { colorAccent3 } from '/src/globalStyle.js'
   export default {
     data() {
       return {
@@ -60,7 +61,7 @@
             url: 'https://www.fic.udc.es/'
           }
         ],
-        text: 'El servidor que ha sido desarrollado en el laboratorio RNASA-IMEDIR proporciona formas de realizar un tratamiento exhaustivo de los datos además de un desarrollo sencillo y visual de diferentes modelos capaces de estimar resultados acerca de los datos.',
+        text: 'El servidor que ha sido desarrollado en el laboratorio RNASA-IMEDIR proporciona formas de realizar un tratamiento exhaustivo de los datos además de un desarrollo sencillo y visual de diferentes modelos capaces de estimar resultados acerca de los datos recogidos por la aplicación NIR-Lab disponible para su descarga en GitHub.',
         position: 'fixed',
         color: 'color'
     
@@ -68,7 +69,6 @@
   },
   methods: {
     getImgUrl(imgSrc) {
-      console.log(imgSrc);
       return require('/src/assets/common/footer/' + imgSrc);
     }
   },
@@ -80,7 +80,7 @@
       },
       colored () {
         const attrs = {}
-        attrs[this.color] = '#5C5E46'   
+        attrs[this.color] = colorAccent3  
         return attrs
       },
     },
@@ -94,7 +94,5 @@
   width: 3vw;
   margin: 1vw;
 }
-
-
 
 </style>
