@@ -1,6 +1,6 @@
 <template>
 
-<div v-bind="colored">
+<div>
 
   <b-navbar toggleable="lg" type="dark" variant="info">
     <b-navbar-brand href="#">NIR-LAB</b-navbar-brand>
@@ -56,14 +56,13 @@ export default {
                   link: '#',
                   activated: false
                 }
-                ],
-                color: 'color'
+                ]
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
 .bg-info {
     background-color: #EE3744 !important;
 }

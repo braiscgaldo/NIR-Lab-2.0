@@ -1,18 +1,19 @@
 <template>
 
-<div v-bind="colored">
+<div>
 
-  <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="#">NIR-LAB</b-navbar-brand>
+  <b-navbar toggleable="lg" type="dark" variant="info" class="menu">
+    <b-navbar-brand href="/">NIR-LAB</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav v-for="(nav_item, idx) in nav_items" :key="idx">
-        <b-nav-item :href="nav_item.url">{{  nav_item.name  }}</b-nav-item>
+        <router-link :to="{path:nav_item.router}" :style="{color:nav_item.color}">{{  nav_item.name  }}</router-link>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
+  <router-view/>
 </div>
 </template>
 
@@ -23,48 +24,51 @@ export default {
             nav_items: [
                 {
                   name: 'Log In',
-                  link: '#',
-                  activated: false
+                  router: '/login',
+                  color: this.page == '/login' ? '#FFF' : '#DDD'
                 }, 
                 {
                   name: 'Create Account',
-                  link: '#',
-                  activated: false
+                  router: '/create_account',
+                  color: this.page == '/create_account' ? '#FFF' : '#DDD'
                 },
                 {
                   name: 'Git Hub',
-                  link: '#',
-                  activated: false  
+                  router: '/gitgub',
+                  color: this.page == '/gitgub' ? '#FFF' : '#DDD'  
                 }, 
                 {
                   name: 'Mobile App',
-                  link: '#',
-                  activated: false
+                  router: '/mobile_app',
+                  color: this.page == '/mobile_app' ? '#FFF' : '#DDD'
                 }, 
                 {
                   name: 'Information',
-                  link: '#',
-                  activated: false
+                  router: '/information',
+                  color: this.page == '/information' ? '#FFF' : '#DDD'
                 },
                 {
                   name: 'Contributers',
-                  link: '#',
-                  activated: false
+                  router: '/contributers',
+                  color: this.page == '/contributers' ? '#FFF' : '#DDD'
                 },
                 {
-                  name: 'Agreements',
-                  link: '#',
-                  activated: false
+                  name: 'Acknowledgements',
+                  router: '/acknowledgements',
+                  color: this.page == '/acknowledgements' ? '#FFF' : '#DDD'
                 }
                 ],
-                color: 'color'
         }
+    },
+    props: {
+      page: String
     }
 }
 </script>
 
-<style>
+<style scoped>
 .bg-info {
     background-color: #EE3744 !important;
 }
+
 </style>

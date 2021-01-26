@@ -16,9 +16,9 @@
         </a>
       </v-avatar>
 
-      <v-card-text class="accent2 white--text pt-0">
+      <p class="footer_text white--text pt-0">
         {{  text  }}
-      </v-card-text>
+      </p>
 
       <v-divider></v-divider>
 
@@ -90,9 +90,13 @@
 
 <style>
 .images_logo {
-  height: 3vw;
-  width: 3vw;
+  height: 2vw;
+  width: 2vw;
   margin: 1vw;
+}
+
+.footer_text {
+  font-size: 0.75vw;
 }
 
 </style>

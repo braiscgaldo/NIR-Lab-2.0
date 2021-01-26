@@ -38,5 +38,9 @@ export default {
   text-align: center;
 }
 
+v-application a {
+  color: #FFF
+}
+
 
 </style>

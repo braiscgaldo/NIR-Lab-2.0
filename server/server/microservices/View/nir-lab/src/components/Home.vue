@@ -1,36 +1,29 @@
 <template>
-  <div class="hello">
+  <div class="front-page">
     <div>
-      <Menu/>
+      <Menu page='/'/>
     </div>
-    <h1></h1>
+    <h1>NIR LAB</h1>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
+      A server for analyze samples of NIRScan Nano EVM.
     </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
 
+    <div id='front_image'>
+      <b-img :src="require('/src/assets/front_page.png')" alt="NIR Lab Spectrophotometer"></b-img>
+    </div>
+    
+    <p>
+      Follow us in our social networks!!
+    </p>
+
+    <div id="images">
+      <v-avatar rounded size="128" v-for="(image, idx) in images" :key="idx">
+        <a class="images_logo" :href="image.url">
+          <b-img :src="getImgUrl(image.src)" :alt="image.name"/>
+        </a>
+      </v-avatar>
+    </div>
+    
     <div>
       <Footer/>
     </div>
@@ -40,9 +33,44 @@
 <script>
 import Menu from "./common/header/public/menu.vue"
 import Footer from "./common/footer/footer.vue";
+
 export default {
-  
-  
+  data() {
+    return {
+        images: [
+          {
+            src: 'rnasa_imedir.png',
+            name: 'RNASA-IMEDIR',
+            url: 'http://rnasa-imedir.udc.es'
+          },
+          {
+            src: 'github.png',
+            name: 'GitHub',
+            url: 'https://github.com/braiscgaldo/NIR-Lab-2.0'
+          },
+          {
+            src: 'twitter.png',
+            name: 'Twitter',
+            url: 'https://twitter.com/rnasa_imedir'
+          },
+          {
+            src: 'udc.png',
+            name: 'UDC',
+            url: 'https://www.udc.es/es/'
+          },
+          {
+            src: 'fic.png',
+            name: 'FIC',
+            url: 'https://www.fic.udc.es/'
+          }
+        ],    
+    }
+  },
+  methods: {
+    getImgUrl(imgSrc) {
+      return require('/src/assets/common/footer/' + imgSrc);
+    }
+  },
   components: {
     Menu, 
     Footer
@@ -52,6 +80,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.front-page{
+  background-color: #DEEAEE;
+  height: 100%;
+}
+
+h1 {
+  margin-top: 4vw;
+  text-align: center;
+}
+
 h3 {
   margin: 40px 0 0;
 }
@@ -64,7 +102,30 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: #FFF;
+}
+
+p {
+  text-align: center;
+}
+
+.v-avatar{
+  align-items: center;
+  margin-right: 5vw;
+  margin-left: 5vw;
+}
+
+.images_logo {
+  height: 7vw;
+  width: 7vw;
+}
+
+#images{
+  text-align: center;
+}
+
+#front_image {
+  text-align: center;
 }
 
 </style>
