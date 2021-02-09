@@ -11,6 +11,7 @@ import Acknowledgements from './components/public/acknowledgements/acknowledgeme
 import DataTreatment from './components/private/data_treatment/data_treatment.vue'
 import Training from './components/private/training/training.vue'
 import ModelLogs from './components/private/model_logs/model_logs.vue'
+import EditProfile from './components/private/edit_profile/edit_profile.vue'
 
 Vue.use(Router)
 
@@ -59,17 +60,34 @@ export default new Router({
         {
             path: '/data_treatment', //name to wrap the value
             name: 'data_treatment',
-            component: DataTreatment
+            component: DataTreatment,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/training', //name to wrap the value
             name: 'training',
-            component: Training
+            component: Training,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/model_logs', //name to wrap the value
             name: 'model_logs',
-            component: ModelLogs
+            component: ModelLogs,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/edit_profile', //name to wrap the value
+            name: 'edit_profile',
+            component: EditProfile,
+            meta: {
+                requiresAuth: true
+            }
         }
     ]
 })

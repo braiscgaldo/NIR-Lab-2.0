@@ -1,9 +1,31 @@
 <template>
-  <div class="front-page">
+  <div class="login-page">
     <div>
       <Menu page='/login'/>
     </div>
-    <h1>LOGIN PAGE</h1>
+    <div>
+      <form class="vue-form" @submit.prevent="login">
+
+
+    <fieldset>
+      <legend>Login into system!!</legend>
+      <div>
+        <label class="label" for="email">Email</label>
+        <input type="text" name="email" id="email" required v-model="email">
+      </div>
+      <div>
+        <label class="label" for="password">Password</label>
+        <input type="password" name="password" id="password" required v-model="password">
+      </div>
+      <p class="little">If you don't have an account you can create one <router-link to="/create_account">clicking here</router-link></p>
+      <div>
+        <input type="submit" value="Login">
+      </div>
+    </fieldset>
+  </form>
+
+
+  </div>
  
     <div>
       <Footer/>
@@ -16,54 +38,35 @@ import Menu from "../../common/header/public/menu.vue"
 import Footer from "../../common/footer/footer.vue";
 
 export default {
-  data() {
-    return {
-        images: [
-          {
-            src: 'rnasa_imedir.png',
-            name: 'RNASA-IMEDIR',
-            url: 'http://rnasa-imedir.udc.es'
-          },
-          {
-            src: 'github.png',
-            name: 'GitHub',
-            url: 'https://github.com/braiscgaldo/NIR-Lab-2.0'
-          },
-          {
-            src: 'twitter.png',
-            name: 'Twitter',
-            url: 'https://twitter.com/rnasa_imedir'
-          },
-          {
-            src: 'udc.png',
-            name: 'UDC',
-            url: 'https://www.udc.es/es/'
-          },
-          {
-            src: 'fic.png',
-            name: 'FIC',
-            url: 'https://www.fic.udc.es/'
-          }
-        ],    
-    }
-  },
-  methods: {
-    getImgUrl(imgSrc) {
-      return require('/src/assets/common/footer/' + imgSrc);
-    }
-  },
+  data: () => ({
+    email: "",
+    password: ""
+  }),
   components: {
     Menu, 
     Footer
+  },
+  methods: {
+    login() {
+      console.log(this.email);
+      console.log(this.password);
+      // route to data treatment
+      this.$router.push({name: 'data_treatment',  query: { redirect: '/data_treatment' } });
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.front-page{
+.login-page{
   background-color: #DEEAEE;
   height: 100%;
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 10vw; /* height of your footer */
 }
 
 h1 {
@@ -71,41 +74,8 @@ h1 {
   text-align: center;
 }
 
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-
-p {
-  text-align: center;
-}
-
-.v-avatar{
-  align-items: center;
-  margin-right: 5vw;
-  margin-left: 5vw;
-}
-
-.images_logo {
-  height: 7vw;
-  width: 7vw;
-}
-
-#images{
-  text-align: center;
-}
-
-#front_image {
+.little{
+  font-size: 0.9vw;
   text-align: center;
 }
 

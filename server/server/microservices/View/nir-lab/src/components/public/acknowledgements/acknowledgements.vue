@@ -1,9 +1,15 @@
 <template>
-  <div class="front-page">
+  <div class="acknowledgements-page">
     <div>
       <Menu page='/acknowledgements'/>
     </div>
     <h1>Acknowledgements</h1>
+
+    <div class="images_div">
+        <a v-for="(image, idx) in images" :key="idx"  :href="image.url">
+          <b-img class="images_ack" :src="getImgUrl(image.src)" :alt="image.name"/>
+        </a>
+    </div>
  
     <div>
       <Footer/>
@@ -23,16 +29,6 @@ export default {
             src: 'rnasa_imedir.png',
             name: 'RNASA-IMEDIR',
             url: 'http://rnasa-imedir.udc.es'
-          },
-          {
-            src: 'github.png',
-            name: 'GitHub',
-            url: 'https://github.com/braiscgaldo/NIR-Lab-2.0'
-          },
-          {
-            src: 'twitter.png',
-            name: 'Twitter',
-            url: 'https://twitter.com/rnasa_imedir'
           },
           {
             src: 'udc.png',
@@ -61,52 +57,34 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.front-page{
+.acknowledgements-page {
   background-color: #DEEAEE;
   height: 100%;
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 10vw; /* height of your footer */
 }
 
 h1 {
-  margin-top: 4vw;
+  margin-top: 3vw;
+  margin-bottom: 3vw;
   text-align: center;
 }
 
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-
-p {
+.images_div {
   text-align: center;
 }
 
-.v-avatar{
-  align-items: center;
-  margin-right: 5vw;
-  margin-left: 5vw;
-}
-
-.images_logo {
-  height: 7vw;
-  width: 7vw;
-}
-
-#images{
+.images_ack {
+  height: 15vw;
+  width: 15vw;
+  padding: 3vw;
+  position: relative;
+  border-radius: 0.15em;
   text-align: center;
 }
 
-#front_image {
-  text-align: center;
-}
 
 </style>

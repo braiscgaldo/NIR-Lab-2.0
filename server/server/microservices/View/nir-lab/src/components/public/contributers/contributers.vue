@@ -1,9 +1,22 @@
 <template>
-  <div class="front-page">
+  <div class="contributers-page">
     <div>
       <Menu page='/contributers'/>
     </div>
     <h1>Contributers</h1>
+
+    <div class="border_rect">
+      <p>
+        The main contributors to this project have been:
+        <ul>
+          <li>
+            <strong>RNASA-IMEDIR research group</strong>: this is the research group in which the development 
+            of this project has been carried out.
+          </li>
+        </ul>
+      </p>
+    </div>
+    
  
     <div>
       <Footer/>
@@ -61,52 +74,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.front-page{
+.contributers-page {
   background-color: #DEEAEE;
   height: 100%;
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 10vw; /* height of your footer */
 }
 
 h1 {
-  margin-top: 4vw;
+  margin-top: 3vw;
+  margin-bottom: 3vw;
   text-align: center;
 }
 
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 
-p {
-  text-align: center;
-}
-
-.v-avatar{
-  align-items: center;
-  margin-right: 5vw;
-  margin-left: 5vw;
-}
-
-.images_logo {
-  height: 7vw;
-  width: 7vw;
-}
-
-#images{
-  text-align: center;
-}
-
-#front_image {
-  text-align: center;
-}
 
 </style>

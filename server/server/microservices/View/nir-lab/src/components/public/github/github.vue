@@ -1,9 +1,25 @@
 <template>
-  <div class="front-page">
+  <div class="github-page">
     <div>
       <Menu page='/github'/>
     </div>
     <h1>Github</h1>
+
+    <div class="border_rect">
+      <p>
+        This project has a repository on GitHub where the code of this system and 
+        the implemented application for the smartphone with Android operating system are stored. All the 
+        modules required for its installation and use are included, both for the mobile application and 
+        for the training server.<br><br>
+
+        The mobile application was implemented in Java using Android Studio. The server backend was 
+        implemented in Python whereas the front-end was implemented in Vue JS using JS, HTML5 and CSS 
+        functionalities.
+      </p>
+      <a :href="image.url">
+          <b-img class="images_github" :src="getImgUrl(image.src)" :alt="image.name"/>
+      </a>
+    </div>
  
     <div>
       <Footer/>
@@ -18,33 +34,12 @@ import Footer from "../../common/footer/footer.vue";
 export default {
   data() {
     return {
-        images: [
-          {
-            src: 'rnasa_imedir.png',
-            name: 'RNASA-IMEDIR',
-            url: 'http://rnasa-imedir.udc.es'
-          },
+        image: 
           {
             src: 'github.png',
             name: 'GitHub',
             url: 'https://github.com/braiscgaldo/NIR-Lab-2.0'
-          },
-          {
-            src: 'twitter.png',
-            name: 'Twitter',
-            url: 'https://twitter.com/rnasa_imedir'
-          },
-          {
-            src: 'udc.png',
-            name: 'UDC',
-            url: 'https://www.udc.es/es/'
-          },
-          {
-            src: 'fic.png',
-            name: 'FIC',
-            url: 'https://www.fic.udc.es/'
-          }
-        ],    
+          },    
     }
   },
   methods: {
@@ -61,52 +56,27 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.front-page{
+.github-page{
   background-color: #DEEAEE;
   height: 100%;
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 10vw; /* height of your footer */
 }
 
 h1 {
   margin-top: 4vw;
+  margin-bottom: 3vw;
   text-align: center;
 }
 
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 
-p {
-  text-align: center;
-}
-
-.v-avatar{
-  align-items: center;
-  margin-right: 5vw;
-  margin-left: 5vw;
-}
-
-.images_logo {
-  height: 7vw;
-  width: 7vw;
-}
-
-#images{
-  text-align: center;
-}
-
-#front_image {
-  text-align: center;
+.images_github {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 </style>

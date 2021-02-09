@@ -1,7 +1,5 @@
 <template>
-
 <div>
-
   <b-navbar toggleable="lg" type="dark" variant="info" class="menu">
     <b-navbar-brand href="/">NIR-LAB</b-navbar-brand>
 

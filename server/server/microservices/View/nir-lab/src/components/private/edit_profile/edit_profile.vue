@@ -1,14 +1,13 @@
 <template>
-  <div class="createAcc-page">
+  <div class="editAcc-page">
     <div>
-      <Menu page='/create_account'/>
+      <Menu page='/edit_account' name="brais"/>
     </div>
     <div>
-      <form class="vue-form" @submit.prevent="login">
-
+      <form class="vue-form" @submit.prevent="edit">
 
     <fieldset>
-      <legend>Create your account!!</legend>
+      <legend>Edit your account!!</legend>
       <div>
         <label class="label" for="email">Email</label>
         <input type="text" name="email" id="email" required v-model="email">
@@ -28,10 +27,7 @@
       <div>
         <label class="label" for="surname">Surname</label>
         <input type="text" name="surname" id="surname" required v-model="surname">
-      </div>
-      <p class="little">If you already have an account you can login <router-link to="/login">clicking here</router-link></p>
-      <div>
-        <input type="submit" value="Create Account">
+        <input class="sb" type="submit" value="Edit Account">
       </div>
     </fieldset>
   </form>
@@ -46,7 +42,7 @@
 </template>
 
 <script>
-import Menu from "../../common/header/public/menu.vue"
+import Menu from "../../common/header/private/menu.vue"
 import Footer from "../../common/footer/footer.vue";
 
 export default {
@@ -63,7 +59,7 @@ export default {
     Footer
   },
   methods: {
-    login() {
+    edit() {
       console.log(this.username);
       console.log(this.password);
       console.log(this.repeated_password);
@@ -77,7 +73,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.createAcc-page{
+.editAcc-page{
   background-color: #DEEAEE;
   height: 100%;
   min-height: 100vh; /* will cover the 100% of viewport */
@@ -95,6 +91,10 @@ h1 {
 .little{
   font-size: 0.9vw;
   text-align: center;
+}
+
+.sb {
+  margin-top: 2vw;
 }
 
 </style>

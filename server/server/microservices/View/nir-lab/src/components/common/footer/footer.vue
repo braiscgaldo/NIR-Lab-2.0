@@ -2,7 +2,6 @@
   <v-footer
     dark
     padless
-    v-bind="positioning"
   >
     <v-card
       flat
@@ -61,7 +60,7 @@
             url: 'https://www.fic.udc.es/'
           }
         ],
-        text: 'El servidor que ha sido desarrollado en el laboratorio RNASA-IMEDIR proporciona formas de realizar un tratamiento exhaustivo de los datos además de un desarrollo sencillo y visual de diferentes modelos capaces de estimar resultados acerca de los datos recogidos por la aplicación NIR-Lab disponible para su descarga en GitHub.',
+        text: 'The server that has been developed at the RNASA-IMEDIR laboratory provides ways to perform an exhaustive treatment of the data as well as a simple and visual development of different models capable of estimating results about the data collected by the NIR-Lab application available for download on GitHub.',
         position: 'fixed',
         color: 'color'
     
@@ -85,7 +84,7 @@
       },
     },
 }
-  
+  // v-bind="positioning"
 </script>
 
 <style>
@@ -95,8 +94,16 @@
   margin: 1vw;
 }
 
+.theme--dark.v-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
 .footer_text {
   font-size: 0.75vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 
 </style>

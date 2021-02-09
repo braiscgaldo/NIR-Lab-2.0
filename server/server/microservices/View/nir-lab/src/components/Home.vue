@@ -83,6 +83,11 @@ export default {
 .front-page{
   background-color: #DEEAEE;
   height: 100%;
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 10vw; /* height of your footer */
 }
 
 h1 {
