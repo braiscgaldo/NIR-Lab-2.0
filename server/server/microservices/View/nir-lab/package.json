@@ -14,16 +14,20 @@
     "vee-validate": "^3.4.5",
     "vue": "^2.6.12",
     "vue-router": "^3.4.9",
-    "vuetify": "^2.2.11"
+    "vue-table-dynamic": "^0.4.4",
+    "vuetify": "^2.4.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
+    "deepmerge": "^4.2.2",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "fibers": "^5.0.0",
     "node-sass": "^5.0.0",
+    "sass": "^1.32.6",
     "sass-loader": "^10.1.1",
     "vue-cli-plugin-vuetify": "~2.0.9",
     "vue-template-compiler": "^2.6.11",
