@@ -6,10 +6,12 @@
     <h1>Model Logs</h1>
 
     <div id="select_model">
-      <div class="border_rect">
-        <p>
-          <br /><br>
-        </p>
+      <div id="models_area" class="border_rect">
+        <div class="container" v-for="(model, idx) in models" :key="idx">
+          <div :id="model.name" class="model" v-on:click="clickedModel($event)">
+            {{  model.name  }}          
+          </div>
+        </div>
       </div>
     </div>
 
@@ -56,7 +58,8 @@ export default {
         train_size: 54,
         train_acc: "75%",
         test_size: 13,
-        test_acc: 84
+        test_acc: 84,
+        selected: true
       }, 
       {
         name: "model_2",
@@ -66,7 +69,8 @@ export default {
         train_size: 57,
         train_acc: "75%",
         test_size: 16,
-        test_acc: 88
+        test_acc: 88,
+        selected: true
       }, 
       {
         name: "model_3",
@@ -76,7 +80,8 @@ export default {
         train_size: 54,
         train_acc: "75%",
         test_size: 13,
-        test_acc: 84
+        test_acc: 84,
+        selected: true
       }],
     results: [
       {
@@ -95,16 +100,13 @@ export default {
     table_model: {
       data: [
         ['Model name', 'Problem', 'Target', 'Train size', 'Train acc', 'Test size', 'Test acc'],
-        ['model_1', 'HadaBeer', 'Graduation', '57', '80', '20', '75'],
-        ['model_2', 'HadaBeer', 'Graduation', '52', '85', '20', '79'],
-        ['model_3', 'HadaBeer', 'Graduation', '53', '84', '20', '75'],
       ],
         header: 'row',
         border: true,
         stripe: true,
         showCheck: true,
         sort: [0, 1, 2, 3, 4, 5, 6],
-        columnWidth: [{column: 0, width: '10%'}]
+        columnWidth: [{column: 3, width: '13%'}, {column: 4, width: '13%'}, {column: 5, width: '13%'}, {column: 6, width: '13%'}]
       
     },
     table_results: {
@@ -125,7 +127,39 @@ export default {
   methods: {
     getImgData() {
       return require("/src/assets/private/model_logs/data.png");
+    },
+    loadModels(){
+      // load models
+    },
+    filterTable(row, modelId){
+      //Filter the table
+      return row[0] != modelId;
+    },
+    clickedModel(event){
+      var modelId = event.currentTarget.id;
+      var model;
+
+      // Test if data is in to delete it
+      var length = this.table_model.data.length; 
+      this.table_model.data = this.table_model.data.filter(row => this.filterTable(row, modelId));
+      if (length > this.table_model.data.length){
+        return;
+      }
+
+      // Obtain the correspondent model
+      for (var idx = 0; idx < this.models.length; idx++){
+        if (this.models[idx].name === modelId){
+          model = this.models[idx];
+          break;
+        }
+      }
+      var data = [model.name, model.problem, model.target, model.train_size, model.train_acc, model.test_size, model.test_acc];
+      this.table_model.data.push(data)
+      
     }
+  },
+  mounted(){
+    this.loadModels()
   },
   components: {
     Menu,
@@ -135,7 +169,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
 .model_logs-page {
   background-color: #deeaee;
   height: 100%;
@@ -146,10 +180,20 @@ export default {
   padding-bottom: 10vw; /* height of your footer */
 }
 
-h1, h2 {
+h1, h2, h3 {
   margin-top: 4vw;
   margin-bottom: 3vw;
   text-align: center;
+}
+
+h3 {
+  width: 100%;
+  padding-left: 7vw;
+  padding-top: 0vw;
+}
+
+label {
+  width: 100% !important;
 }
 
 #select_model {
@@ -158,7 +202,8 @@ h1, h2 {
 }
 
 .border_rect {
-  width: 95%;
+  width: 99%;
+  overflow-x: auto;
 }
 
 #info_samples {
@@ -203,6 +248,28 @@ h1, h2 {
   margin: 2vw;
 }
 
+.container {
+  max-width: fit-content;
+  margin: 1%;
+  float: left;
+  position: relative;
+  height: auto;
+  display: block;
+}
 
+.model {
+  padding:5px;
+  margin:5px;
+  margin-left: 0%;
+  margin-right: 0%;
+  background-color: #EE3744;
+  border: solid 1px #EE3744;
+  color: #deeaee;
+  border-radius: 0.75em;
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 1.5vw;
+  width: fit-content;
+}
 
 </style>

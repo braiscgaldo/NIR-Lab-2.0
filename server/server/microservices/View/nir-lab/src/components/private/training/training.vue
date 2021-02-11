@@ -203,7 +203,7 @@
       <h2>Design Palette</h2>
         <form
           class="vue-form palette_form"
-          @submit.prevent="generateNewConfigFile"
+          @submit.prevent="generateNewConfigFile()"
         >
           <fieldset>
             <input
@@ -295,7 +295,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
 .training-page {
   background-color: #deeaee;
   height: 100%;
