@@ -9,6 +9,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import vuetify from './plugins/vuetify';
 import VueTableDynamic from 'vue-table-dynamic';
+import ToggleButton from 'vue-js-toggle-button';
+ 
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
@@ -17,6 +19,9 @@ Vue.use(IconsPlugin)
 
 // For use table
 Vue.use(VueTableDynamic)
+
+// For use ToggleButtons
+Vue.use(ToggleButton)
 
 Vue.use(VeeValidate)
 Vue.config.productionTip = false

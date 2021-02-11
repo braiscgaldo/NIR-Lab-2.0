@@ -103,10 +103,18 @@
         <div class="border_rect" id="var_names">
           <div
             class="container container_var"
+            id="var_container"
             v-for="(variable, idx) in variables"
             :key="idx"
           >
-            <div :id="variable.name" class="operation">
+          <toggle-button :value="variable.is_output"
+               color="#82C7EB"
+               :sync="true"
+               :labels="{checked: 'Out', unchecked: 'None'}"
+               :id="variable.name_tb"
+               class="toggle_button"
+               v-model="variable.is_output"/>
+            <div :id="variable.name" class="variable">
               {{ variable.abreviation }}
             </div>
           </div>
@@ -150,16 +158,19 @@ export default {
     variables: [
       {
         name: "intensity",
+        name_tb: "intensity_tb",
         abreviation: "intens",
         is_output: false,
       },
       {
         name: "absorbance",
+        name_tb: "absorbance_tb",
         abreviation: "absorb",
-        is_output: false,
+        is_output: true,
       },
       {
         name: "reflectance",
+        name_tb: "reflectance_tb",
         abreviation: "reflec",
         is_output: false,
       },
@@ -277,6 +288,10 @@ export default {
     deleteDB() {
       return null;
     },
+    clickedOut(event){
+      var variableId = event.currentTarget.id;
+      console.log(variableId)
+    }
   },
   components: {
     Menu,
@@ -385,15 +400,15 @@ h2 {
 h3 {
   padding-top: 5vw;
   float: right;
-  margin-right: 3vw;
+  margin-right: 3.5vw;
 }
 
 #var_title {
-  margin-right: 7.5vw;
+  margin-right: 13.4vw;
 }
 
 #output_title {
-  margin-right: 12vw;
+  margin-right: 6.6vw;
 }
 
 #variables {
@@ -431,22 +446,38 @@ h3 {
 /*********************** Variables **********************************/
 
 .container_var {
-  width: 75% !important;
-  float:right;
+  align-items: baseline;
+  display: inline-flex;
+  float: right;
+  margin-left: 50%;
+}
+
+#var_container {
+  padding: 0;
+  padding-left: 2vw;
+  padding-right: -20vw;
 }
 
 
 .variable {
   padding: 5px;
+  margin: 5px;
   margin-left: 0%;
   margin-right: 0%;
   background-color: #ee3744;
   border: solid 1px #ee3744;
   color: #deeaee;
   border-radius: 0.75em;
-  text-align: justify;
-  text-justify: inter-word;
   font-size: 1.5vw;
+  text-align: center;
+  width: 73%;
+  float: right;
+}
+
+.toggle_button {
+  margin: 5px;
+  margin-right: 5%;
+  float: left;
   width: fit-content;
 }
 
