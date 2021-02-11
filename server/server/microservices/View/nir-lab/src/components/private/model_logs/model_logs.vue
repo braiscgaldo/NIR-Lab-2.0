@@ -250,7 +250,7 @@ label {
 
 .container {
   max-width: fit-content;
-  margin: 1%;
+  margin: inherit;
   float: left;
   position: relative;
   height: auto;

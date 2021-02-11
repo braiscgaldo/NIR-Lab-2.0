@@ -92,9 +92,7 @@
           </fieldset>
         </form>
         <div class="border_rect">
-          <p>
-            <br /><br>
-          </p>
+          <p><br /><br /></p>
         </div>
       </div>
       <div id="variables">
@@ -103,15 +101,27 @@
         <h3 id="output_title">Output</h3>
 
         <div class="border_rect" id="var_names">
-          <p>
-            <br /><br>
-          </p>
+          <div
+            class="container container_var"
+            v-for="(variable, idx) in variables"
+            :key="idx"
+          >
+            <div :id="variable.name" class="operation">
+              {{ variable.abreviation }}
+            </div>
+          </div>
         </div>
 
         <div class="border_rect" id="operation_names">
-          <p>
-            <br /><br>
-          </p>
+          <div
+            class="container"
+            v-for="(operation, idx) in operations"
+            :key="idx"
+          >
+            <div :id="operation.name" class="operation">
+              {{ operation.abreviation }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -140,96 +150,119 @@ export default {
     variables: [
       {
         name: "intensity",
+        abreviation: "intens",
         is_output: false,
       },
       {
         name: "absorbance",
+        abreviation: "absorb",
         is_output: false,
       },
       {
         name: "reflectance",
+        abreviation: "reflec",
         is_output: false,
       },
     ],
     operations: [
       {
         name: "sum",
+        abreviation: "sum",
         num_parameters: 2,
       },
       {
         name: "subtract",
+        abreviation: "subtract",
         num_parameters: 2,
       },
       {
         name: "multiply",
+        abreviation: "multiply",
         num_parameters: 2,
       },
       {
         name: "divide",
+        abreviation: "divide",
         num_parameters: 2,
       },
       {
         name: "module",
+        abreviation: "module",
         num_parameters: 2,
       },
       {
         name: "whole_divide",
+        abreviation: "whole_div",
         num_parameters: 2,
       },
       {
         name: "square_root",
+        abreviation: "sqrt",
         num_parameters: 1,
       },
       {
         name: "raise_x",
+        abreviation: "raise_x",
         num_parameters: 2,
       },
       {
         name: "standard_deviation",
+        abreviation: "std",
         num_parameters: 1,
       },
       {
         name: "mean",
+        abreviation: "mean",
         num_parameters: 1,
       },
       {
         name: "median",
+        abreviation: "median",
         num_parameters: 1,
       },
       {
         name: "mode",
+        abreviation: "mode",
         num_parameters: 1,
       },
       {
         name: "sum_all",
+        abreviation: "sum_all",
         num_parameters: 1,
       },
       {
         name: "minimum",
+        abreviation: "min",
         num_parameters: 1,
       },
       {
         name: "maximum",
+        abreviation: "max",
         num_parameters: 1,
       },
       {
         name: "min_max_normalization",
+        abreviation: "min_max_n",
         num_parameters: 1,
       },
       {
         name: "normalize",
+        abreviation: "normalize",
         num_parameters: 1,
       },
       {
         name: "variance",
+        abreviation: "variance",
         num_parameters: 1,
       },
       {
         name: "max_abs_normalization",
+        abreviation: "max_abs_n",
         num_parameters: 1,
       },
       {
         name: "value_at",
+        abreviation: "value_at",
         num_parameters: 2,
       },
     ],
@@ -310,6 +343,7 @@ h2 {
 
 #design_palete {
   margin-top: auto !important;
+  max-height: fit-content;
 }
 
 .drop-zone {
@@ -329,6 +363,7 @@ h2 {
   float: left;
   margin: 0 2vw;
   width: 50%;
+  max-height: fit-content;
 }
 
 .palette_form {
@@ -358,26 +393,75 @@ h3 {
 }
 
 #output_title {
-  margin-right: 7.5vw;
+  margin-right: 12vw;
 }
 
 #variables {
   float: right;
+  width: 45%;
   padding: 0%;
+  max-width: fit-content;
 }
 
 #var_names {
   float: left;
   width: 66%;
-  margin-left: -2vw;
   margin-top: 4vw;
 }
 
 #operation_names {
   float: right;
   width: 34%;
-  margin-left: -2vw;
   margin-right: 1.5vw;
   margin-top: 4vw;
+  max-width: fit-content;
+}
+
+/*******************  Records ****************************/
+
+.container {
+  max-width: fit-content;
+  padding: 0%;
+  position: relative;
+  height: auto;
+  display: block;
+  width: 100% !important;
+}
+
+/*********************** Variables **********************************/
+
+.container_var {
+  width: 75% !important;
+  float:right;
+}
+
+
+.variable {
+  padding: 5px;
+  margin-left: 0%;
+  margin-right: 0%;
+  background-color: #ee3744;
+  border: solid 1px #ee3744;
+  color: #deeaee;
+  border-radius: 0.75em;
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 1.5vw;
+  width: fit-content;
+}
+
+
+/******************** Operations *******************************/
+
+.operation {
+  padding: 5px;
+  margin: 5px;
+  margin-right: 0%;
+  background-color: #ee3744;
+  border: solid 1px #ee3744;
+  color: #deeaee;
+  border-radius: 0.75em;
+  font-size: 1.5vw;
+  text-align: center;
 }
 </style>

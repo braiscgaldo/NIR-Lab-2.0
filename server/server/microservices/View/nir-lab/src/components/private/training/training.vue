@@ -186,10 +186,12 @@
         <div id="layers">
           <label><h3>Layers</h3></label>
 
-          <div class="border_rect" id="layers_name">
-            <p>
-              <br /><br>
-            </p>
+          <div class="border_rect" id="layers_names">
+            <div class="container" v-for="(layer, idx) in layers" :key="idx">
+              <div :id="layer.name" class="layer">
+                {{  layer.name  }}          
+              </div>
+            </div>
           </div>
 
         </div>
@@ -397,6 +399,7 @@ label {
 #layers_names {
   float: right;
   padding: 0%;
+  max-height: fit-content;
 }
 
 .border_rect {
@@ -413,6 +416,32 @@ label {
   width: 100%;
   margin: 0;
   float: left;
+}
+
+/*******************  Layers image ****************************/
+
+.container {
+  max-width: fit-content;
+  margin: inherit;
+  float: left;
+  position: relative;
+  height: auto;
+  display: block;
+}
+
+.layer {
+  padding:5px;
+  margin:5px;
+  margin-left: 0%;
+  margin-right: 0%;
+  background-color: #EE3744;
+  border: solid 1px #EE3744;
+  color: #deeaee;
+  border-radius: 0.75em;
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 1.5vw;
+  width: fit-content;
 }
 
 </style>
