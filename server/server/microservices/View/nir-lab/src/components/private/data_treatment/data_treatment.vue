@@ -92,7 +92,108 @@
           </fieldset>
         </form>
         <div class="border_rect">
-          <p><br /><br /></p>
+          <div id="var_id">
+            <draggable
+              :list="configuration_file_var_id"
+              class="list-group"
+              ghost-class="ghost"
+              :move="none"
+              :group="{ name: 'variables', pull: 'clone'}"
+              @change="adminImagesDropArea"
+            >
+              <div
+                id="var_container"
+                v-for="(variable, idx) in configuration_file_var_id"
+                :key="idx"
+              >
+                <div :id="variable.name + '$' + variable.id" class="variable_drop" @dblclick="deleteDiv">
+                  {{ variable.name }}
+                </div>
+              </div>
+            </draggable>
+            <div class="images_drop">
+              <div v-for="index in configuration_file_rows" :key="index">
+                <b-img
+                  class="arrow_img"
+                  :src="getImgArrow()"
+                  alt="Arrow image"
+                ></b-img>
+              </div>
+            </div>
+            <draggable
+              :list="configuration_file_opper_apply"
+              class="list-group"
+              ghost-class="ghost"
+              :move="none"
+              :group="{ name: 'operations', pull: 'clone'}"
+              @change="adminImagesDropArea"
+            >
+              <div
+                id="opper_apply"
+                v-for="(operation, idx) in configuration_file_opper_apply"
+                :key="idx"
+              >
+                <div :id="operation.name + '$' + operation.id" class="operation_drop" @dblclick="deleteDiv">
+                  {{ operation.name }}
+                </div>
+              </div>
+            </draggable>
+            <div class="images_drop">
+              <div v-for="index in configuration_file_rows" :key="index">
+                <b-img
+                  class="key_left_img"
+                  :src="getImgKey()"
+                  alt="Key Left image"
+                ></b-img>
+             </div>
+            </div>
+            <draggable
+              :list="configuration_file_var_1"
+              class="list-group"
+              ghost-class="ghost"
+              :move="none"
+              :group="{ name: 'variables', pull: 'clone'}"
+              @change="adminImagesDropArea"
+            >
+              <div
+                id="var_1"
+                v-for="(variable, idx) in configuration_file_var_1"
+                :key="idx"
+              >
+                <div :id="variable.name + '$' + variable.id" class="variable_drop" @dblclick="deleteDiv">
+                  {{ variable.name }}
+                </div>
+              </div>
+            </draggable>
+            <draggable
+              :list="configuration_file_var_2"
+              class="list-group"
+              ghost-class="ghost"
+              :move="none"
+              :group="{ name: 'variables', pull: 'clone'}"
+              @change="adminImagesDropArea"
+            >
+              <div
+                id="var_2"
+                v-for="(variable, idx) in configuration_file_var_2"
+                :key="idx"
+              >
+                <div :id="variable.name + '$' + variable.id" class="variable_drop" @dblclick="deleteDiv">
+                  {{ variable.name }}
+                </div>
+              </div>
+            </draggable>
+            <div class="images_drop">
+              <div v-for="index in configuration_file_rows" :key="index">
+                <b-img
+                  class="key_img"
+                  :src="getImgKey()"
+                  alt="Key image"
+                  rotation="90"
+                ></b-img>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div id="variables">
@@ -101,35 +202,54 @@
         <h3 id="output_title">Output</h3>
 
         <div class="border_rect" id="var_names">
-          <div
-            class="container container_var"
-            id="var_container"
-            v-for="(variable, idx) in variables"
-            :key="idx"
-          >
-          <toggle-button :value="variable.is_output"
-               color="#82C7EB"
-               :sync="true"
-               :labels="{checked: 'Out', unchecked: 'None'}"
-               :id="variable.name_tb"
-               class="toggle_button"
-               v-model="variable.is_output"/>
-            <div :id="variable.name" class="variable">
-              {{ variable.abreviation }}
+          <draggable
+              :list="variables"
+              ghost-class="ghost"
+              :move="none"
+              :group="{ name: 'variables', pull: 'clone', put: false }"
+            >
+            <div
+              class="container container_var"
+              id="var_container"
+              v-for="(variable, idx) in variables"
+              :key="idx"
+            >
+             <!-- otro color cuando sea output -->
+            <toggle-button :value="variable.is_output"
+                color="#82C7EB"
+                :sync="true"
+                :labels="{checked: 'Out', unchecked: 'None'}"
+                :id="variable.name_tb"
+                class="toggle_button"
+                v-model="variable.is_output"/>
+              
+                <div :id="variable.name" class="variable variable-inside">
+                  {{ variable.name }}
+                </div>
             </div>
-          </div>
+          </draggable>
+          <button class="add_variable_button" v-on:click="addNewVariable">+</button>
+
         </div>
 
         <div class="border_rect" id="operation_names">
-          <div
-            class="container"
-            v-for="(operation, idx) in operations"
-            :key="idx"
+          <draggable
+            :list="operations"
+            class="list-group"
+            ghost-class="ghost"
+            :move="none"
+            :group="{ name: 'operations', pull: 'clone', put: false }"
           >
-            <div :id="operation.name" class="operation">
-              {{ operation.abreviation }}
+            <div
+              class="container"
+              v-for="(operation, idx) in operations"
+              :key="idx"
+            >
+              <div :id="operation.name" class="operation">
+                {{ operation.abreviation }}
+              </div>
             </div>
-          </div>
+          </draggable>
         </div>
       </div>
     </div>
@@ -143,6 +263,8 @@
 <script>
 import Menu from "../../common/header/private/menu.vue";
 import Footer from "../../common/footer/footer.vue";
+import draggable from "vuedraggable";
+
 
 export default {
   data: () => ({
@@ -159,19 +281,16 @@ export default {
       {
         name: "intensity",
         name_tb: "intensity_tb",
-        abreviation: "intens",
         is_output: false,
       },
       {
         name: "absorbance",
         name_tb: "absorbance_tb",
-        abreviation: "absorb",
         is_output: true,
       },
       {
         name: "reflectance",
         name_tb: "reflectance_tb",
-        abreviation: "reflec",
         is_output: false,
       },
     ],
@@ -277,10 +396,43 @@ export default {
         num_parameters: 2,
       },
     ],
+    display: "Clone",
+    dragging: true,
+    configuration_file_var_id: [
+      {
+        name: "intensity",
+        id: 0
+      }
+    ],
+    configuration_file_opper_apply: [
+      {
+        name: "sum_all",
+        id: 0
+      }
+    ],
+    configuration_file_var_1: [
+      {
+        name: "reflectance",
+        id: 0
+      }
+    ],
+    configuration_file_var_2: [
+      {
+        name: "absorbance",
+        id: 0
+      }
+    ],
+    configuration_file_rows: 1
   }),
   methods: {
     getImgDb() {
       return require("/src/assets/private/data_treatment/data_base.png");
+    },
+    getImgArrow() {
+      return require("/src/assets/private/data_treatment/arrow_right.png");
+    },
+    getImgKey() {
+      return require("/src/assets/private/data_treatment/key_right.png");
     },
     generateNewDB() {
       return null;
@@ -291,11 +443,54 @@ export default {
     clickedOut(event){
       var variableId = event.currentTarget.id;
       console.log(variableId)
+    },
+    none(event){
+      console.log(event);
+      this.adminImagesDropArea();
+      return null;
+    },
+    adminImagesDropArea() {
+      this.configuration_file_rows = Math.max(this.configuration_file_var_id.length, this.configuration_file_opper_apply.length,
+                                               this.configuration_file_var_1.length, this.configuration_file_var_2.length);
+      for (var i = 0; i < this.configuration_file_var_id.length; i++){
+        this.configuration_file_var_id[i].id = i
+      }
+      for (i = this.configuration_file_var_id.length; i < this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i++){
+        this.configuration_file_opper_apply[i - this.configuration_file_var_id.length].id = i
+      }
+      for (i = this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i < this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i++){
+        this.configuration_file_var_1[i - (this.configuration_file_opper_apply.length + this.configuration_file_var_id.length)].id = i
+      }
+      for (i = this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i < this.configuration_file_var_2.length + this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i++){
+        this.configuration_file_var_2[i - (this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length)].id = i
+      }
+    },
+    addNewVariable() {
+      this.variables.push({name: 'fake', name_tb: 'fake_tb', is_output: false});
+    },
+    deleteDiv(event){
+      var id = event.target.id.substring(event.target.id.indexOf('$') + 1);
+      console.log('deleting' + id)
+      if (id < this.configuration_file_var_id.length){
+        this.configuration_file_var_id.splice(id, 1);
+        console.log('deleting' + id)
+      }else if (id < this.configuration_file_opper_apply.length + this.configuration_file_var_id.length){
+        this.configuration_file_opper_apply.splice(id - this.configuration_file_var_id.length, 1);
+        console.log('deleting' + id - this.configuration_file_var_id.length)
+      }else if (id < this.configuration_file_var_1.length + this.configuration_file_var_id.length + this.configuration_file_opper_apply.length){
+        this.configuration_file_var_1.splice(id - (this.configuration_file_var_id.length + this.configuration_file_opper_apply.length), 1);
+        console.log('deleting' + id - (this.configuration_file_var_id.length + this.configuration_file_opper_apply.length))
+      }else if (id < this.configuration_file_var_2.length + this.configuration_file_var_id.length + this.configuration_file_opper_apply.length + this.configuration_file_var_1.length){
+        this.configuration_file_var_2.splice(id - (this.configuration_file_var_id.length + this.configuration_file_opper_apply.length + this.configuration_file_var_1.length), 1);
+        console.log('deleting' + id - (this.configuration_file_var_id.length + this.configuration_file_opper_apply.length + this.configuration_file_var_1.length))
+      }
+      this.adminImagesDropArea();
     }
   },
   components: {
     Menu,
     Footer,
+    draggable
   },
 };
 </script>
@@ -422,6 +617,7 @@ h3 {
   float: left;
   width: 66%;
   margin-top: 4vw;
+  text-align: center;
 }
 
 #operation_names {
@@ -454,10 +650,8 @@ h3 {
 
 #var_container {
   padding: 0;
-  padding-left: 2vw;
-  padding-right: -20vw;
+  vertical-align: middle;
 }
-
 
 .variable {
   padding: 5px;
@@ -474,11 +668,36 @@ h3 {
   float: right;
 }
 
+.variable-inside {
+  margin-left: 0%;
+  margin-right: 0%;
+  background-color: #ee3744;
+  border: solid 1px #ee3744;
+  color: #deeaee;
+  border-radius: 0.75em;
+  font-size: 1.5vw;
+  text-align: center;
+  width: 100%;
+  float: right;
+}
+
 .toggle_button {
   margin: 5px;
   margin-right: 5%;
   float: left;
   width: fit-content;
+  align-self: center;
+}
+
+.add_variable_button {
+  background-color: #ee3744;
+  border: solid 1px #ee3744;
+  color: #deeaee;
+  border-radius: 1em;
+  font-size: 1.5vw;
+  text-align: center;
+  width: 2.5vw;
+
 }
 
 
@@ -488,6 +707,19 @@ h3 {
   padding: 5px;
   margin: 5px;
   margin-right: 0%;
+  background-color: #2fa2a2;
+  border: solid 1px #2fa2a2;
+  color: #deeaee;
+  border-radius: 0.75em;
+  font-size: 1.5vw;
+  text-align: center;
+}
+
+
+/************** Drop Zone ******************/
+.variable_drop {
+  padding: 5px;
+  margin: 5px;
   background-color: #ee3744;
   border: solid 1px #ee3744;
   color: #deeaee;
@@ -495,4 +727,50 @@ h3 {
   font-size: 1.5vw;
   text-align: center;
 }
+
+.operation_drop {
+  padding: 5px;
+  margin: 5px;
+  background-color: #2fa2a2;
+  border: solid 1px #2fa2a2;
+  color: #deeaee;
+  border-radius: 0.75em;
+  font-size: 1.5vw;
+  text-align: center;
+}
+
+#var_id, #oper_apply, #var_1, #var_2 {
+  width: 33%;
+  display: inline-flex;
+}
+
+#var_1 {
+  margin-right: 3vw;
+}
+
+.arrow_img {
+  width: 4.5vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  transform: rotate(180deg);
+}
+
+.key_img {
+  width: 4vw;
+  margin-right: 1vw;
+  margin-top: -0.75vw;
+}
+
+.key_left_img {
+  width: 4vw;
+  transform: rotate(180deg);
+  margin-top: -0.25vw;
+  margin-left: 1vw;
+  margin-bottom: -0.75vw;
+}
+
+.images_drop {
+  position: relative;
+}
+
 </style>
