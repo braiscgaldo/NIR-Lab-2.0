@@ -221,15 +221,34 @@
                 :labels="{checked: 'Out', unchecked: 'None'}"
                 :id="variable.name_tb"
                 class="toggle_button"
-                v-model="variable.is_output"/>
+                v-model="variable.is_output"
+                />
+                
               
                 <div :id="variable.name" class="variable variable-inside">
                   {{ variable.name }}
                 </div>
             </div>
           </draggable>
-          <button class="add_variable_button" v-on:click="addNewVariable">+</button>
 
+          <button class="add_variable_button"  @click="showModalAddVar=true">+</button>
+          <VueModal v-model="showModalAddVar" title="Add a name to the variable!">
+            <div>
+              <input class="add_variable_input" type="text" name="variable" id="new_var" required v-model="new_var" placeholder="Variable name">
+            </div>
+            <div>
+              <button class="add_variable_dialog_button" @click="addNewVariable">Add New Variable</button>
+            </div>
+          </VueModal>
+          <VueModal v-model="showModalErrorAddVar" title="Error adding variable">
+            <p>
+              The variable must not be empty or must not contain any symbol except characters or numbers.
+              <br><br>
+              It also must not must be declared in other variables.
+              <br><br>
+              Its length must not raise 20 characters.
+            </p>
+          </VueModal>
         </div>
 
         <div class="border_rect" id="operation_names">
@@ -264,6 +283,8 @@
 import Menu from "../../common/header/private/menu.vue";
 import Footer from "../../common/footer/footer.vue";
 import draggable from "vuedraggable";
+// dialogs
+import VueModal from '@kouts/vue-modal';
 
 
 export default {
@@ -277,6 +298,9 @@ export default {
     databases_names: ["HadaBeer", "Chocolate", "Tejidos"],
     // for generate config -- DESINGN PALETTE
     configuration_file_to_generate_name: "",
+    showModalAddVar: false,
+    showModalErrorAddVar: false,
+    new_var: '',
     variables: [
       {
         name: "intensity",
@@ -465,8 +489,19 @@ export default {
         this.configuration_file_var_2[i - (this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length)].id = i
       }
     },
+    containedInVariables(){
+      for(var i=0; i<this.variables.length; i++){
+        if(this.variables[i].name == this.new_var) return true;
+      }
+      return false;
+    },
     addNewVariable() {
-      this.variables.push({name: 'fake', name_tb: 'fake_tb', is_output: false});
+      if (this.new_var == '' || !this.new_var.match("^[A-Za-z0-9]+$") || this.new_var.length > 20 || this.containedInVariables()) {
+        this.showModalErrorAddVar = true;
+      }else {
+        this.variables.push({name: this.new_var, name_tb: this.new_var + '_tb', is_output: false});
+        this.showModal = false;
+      }
     },
     deleteDiv(event){
       var id = event.target.id.substring(event.target.id.indexOf('$') + 1);
@@ -490,7 +525,8 @@ export default {
   components: {
     Menu,
     Footer,
-    draggable
+    draggable,
+    VueModal
   },
 };
 </script>
@@ -549,6 +585,10 @@ h2 {
 .delete_button {
   background-color: red !important;
   margin-top: -1.5vw;
+}
+
+.border_rect {
+  width: fit-content;
 }
 
 #design_palete {
@@ -757,7 +797,7 @@ h3 {
 
 .key_img {
   width: 4vw;
-  margin-right: 1vw;
+  margin-right: -1vw;
   margin-top: -0.75vw;
 }
 
@@ -771,6 +811,42 @@ h3 {
 
 .images_drop {
   position: relative;
+}
+
+.add_variable_input {
+  width: 100%;
+  border: 1px solid #ee3744;
+  border-radius: 0.75em;
+}
+
+.vm-title {
+  padding-top: 2vw;
+  font-size: 1.85vw;
+}
+
+.vm-titlebar {
+  display: inline-block;
+  align-items: start;
+}
+
+.vm-content {
+  text-align: center;
+  contain: layout;
+}
+
+.add_variable_dialog_button{
+  margin-top: 1vw;
+  border: none;
+  background: #33262D;
+  border-radius: 0.25em;
+  padding: 12px 20px;
+  color: #DEEAEE;
+  font-weight: bold;
+  float: right;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  appearance: none;
 }
 
 </style>

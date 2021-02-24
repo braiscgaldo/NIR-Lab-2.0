@@ -11,6 +11,9 @@ import vuetify from './plugins/vuetify';
 import VueTableDynamic from 'vue-table-dynamic';
 import ToggleButton from 'vue-js-toggle-button';
 import draggable from 'vuedraggable';
+// dialogs
+import VueModal from '@kouts/vue-modal';
+import '@kouts/vue-modal/dist/vue-modal.css';
  
 
 // Make BootstrapVue available throughout your project
@@ -28,6 +31,10 @@ Vue.use(ToggleButton)
 Vue.use(draggable)
 
 Vue.use(VeeValidate)
+
+// For dialogs
+Vue.use(VueModal)
+
 Vue.config.productionTip = false
 
 new Vue({
