@@ -6,7 +6,7 @@
     <h1>Logs</h1>
 
     <div id="select_database">
-      <h2>Database Logs</h2>
+      <h2>Databases</h2>
       <div id="database_area" class="border_rect">
         <div class="container" v-for="(db, idx) in databases" :key="idx">
           <div :id="db.name" class="database">
@@ -17,7 +17,7 @@
     </div>
 
     <div id="select_model">
-      <h2>Model Logs</h2>
+      <h2>Models</h2>
       <div id="models_area" class="border_rect">
         <div class="container" v-for="(model, idx) in models" :key="idx">
           <div :id="model.name" class="model" v-on:click="clickedModel($event)">
