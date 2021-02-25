@@ -247,13 +247,15 @@
               <button class="add_variable_dialog_button" @click="addNewVariable">Add New Variable</button>
             </div>
           </VueModal>
-          <VueModal v-model="showModalErrorAddVar" title="Error adding variable">
+          <VueModal v-model="showModalErrorAddVar" title="Error treating variable">
             <p>
               The variable must not be empty or must not contain any symbol except characters or numbers.
               <br><br>
               It also must not must be declared in other variables.
               <br><br>
               Its length must not raise 20 characters.
+              <br><br>
+              The variable called 'none' cannot be edit.
             </p>
           </VueModal>
         </div>
@@ -311,6 +313,11 @@ export default {
     new_var: '',
     edit_var: '',
     variables: [
+      {
+        name: "none",
+        name_tb: "none_tb",
+        is_output: false,
+      },
       {
         name: "intensity",
         name_tb: "intensity_tb",
@@ -492,34 +499,30 @@ export default {
         console.log(this.configuration_file_var_id[0], i, this.configuration_file_var_id.length);
         this.configuration_file_var_id[i].id = i;
         id = 'var_id$' + this.configuration_file_var_id[i].name + '$' + this.configuration_file_var_id[i].id;
-        console.log(id, i)
         document.getElementById(id).id = 'var_id$' + this.configuration_file_var_id[i].name + '$' + i 
         this.configuration_file_var_id[i].id = i;
       }
       for (i = 0; i < this.configuration_file_opper_apply.length; i++){
         this.configuration_file_opper_apply[i].id = i;
         id = 'opper_apply$' + this.configuration_file_opper_apply[i].name + '$' + this.configuration_file_opper_apply[i].id;
-        console.log(id, i)
         document.getElementById(id).id = 'opper_apply$' + this.configuration_file_opper_apply[i].name + '$' + i 
         this.configuration_file_opper_apply[i].id = i;
       }
       for (i = 0; i < this.configuration_file_var_1.length; i++){
         this.configuration_file_var_1[i].id = i
         id = 'var_1$' + this.configuration_file_var_1[i].name + '$' + this.configuration_file_var_1[i].id;
-        console.log(id, i);
         document.getElementById(id).id = 'var_1$' + this.configuration_file_var_1[i].name + '$' + i 
         this.configuration_file_var_1[i].id = i;
       }
       for (i = 0; i < this.configuration_file_var_2.length; i++){
         this.configuration_file_var_2[i].id = i
         id = 'var_2$' + this.configuration_file_var_2[i].name + '$' + this.configuration_file_var_2[i].id;
-        console.log(id, i);
         document.getElementById(id).id = 'var_2$' + this.configuration_file_var_2[i].name + '$' + i 
         this.configuration_file_var_2[i].id = i;
       }
     },
     validText(){
-      if (this.new_var == '' || !this.new_var.match("^[A-Za-z0-9]+$") || this.new_var.length > 20) return false 
+      if (this.new_var == '' || !this.new_var.match("^[A-Za-z0-9]+$") || this.new_var.length > 20 || this.edit_var == 'none') return false 
       for(var i=0; i<this.variables.length; i++){
         if(this.variables[i].name == this.new_var) return false;
       }
@@ -527,7 +530,7 @@ export default {
     },
     addNewVariable() {
       if (!this.validText()) {
-        this.showModalAddVar = true;
+        this.showModalErrorAddVar = true;
       }else {
         this.variables.push({name: this.new_var, name_tb: this.new_var + '_tb', is_output: false});
         this.showModalAddVar = false;
@@ -556,7 +559,7 @@ export default {
     },
     editVariable() {
       if (!this.validText()) {
-        this.showModalEditVar = true;
+        this.showModalErrorAddVar = true;
       }else {
         for (var i=0; i < this.variables.length; i++){
           if (this.variables[i].name == this.edit_var) this.changeNamesInEdition(i);

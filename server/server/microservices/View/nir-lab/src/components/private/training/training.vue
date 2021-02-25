@@ -251,17 +251,33 @@
               <div
                 :id="layer.name + '$' + idx + '$activation'"
                 class="parameter_drop"
+                @dblclick="showModalEditActivation=true; id_layer=layer.id"
               >
-                {{ Object.keys(layer)[2] + ":" + " " }}
-                {{ layer.activation }}
+                {{ 'activation: ' + layer.activation }}
               </div>
+              <VueModal v-model="showModalEditActivation" title="Introduce the correspondant number!">
+                <div>
+                  <v-combobox
+                    :id="layer.name + '$' + layer.id + '$activation$Dialog'"
+                    class="combo_models"
+                    required
+                    v-model="new_activation"
+                    :items="activations"
+                    placeholder="Select an activation"
+                  >
+                  </v-combobox>
+                </div>
+                <div>
+                  <button class="edit_activation_dialog_button" @click="editActivation">Edit activation</button>
+                </div>
+              </VueModal>
 
               <div
                 :id="layer.name + '$' + idx + '$'"
                 class="parameter_drop"
                 @dblclick="showModalEditValue=true; id_layer=layer.id"
               >
-                {{ Object.keys(layer)[3] + ":" + " " }}
+                {{ Object.keys(layer)[3] + ": " }}
                 {{ layer[Object.keys(layer)[3]] }}
               </div>
               <VueModal v-model="showModalEditValue" title="Introduce the correspondant number!">
@@ -332,6 +348,7 @@ export default {
       train_size: "Train size",
       validation_size: "Validation size",
     },
+    activations: ['relu', 'sigmoid', 'softmax', 'softplus', 'softsign', 'tanh', 'selu', 'elu', 'exponential'],
     model_names: ["model_1", "model_2"],
     layers: [
       {
@@ -363,13 +380,15 @@ export default {
     configuration_file_rows: 0,
     showModalEditValue: false,
     showModalErrorEditValue: false,
-    new_value: '',
+    showModalEditActivation: false,
+    new_value: '32',
     id_layer: '',
+    new_activation: 'relu',
     configuration_file_layers_id: [
       {
         name: "Dense",
         id: 0,
-        activation: "ReLu",
+        activation: "relu",
         units: "35"
       },
     ],
@@ -385,11 +404,12 @@ export default {
       var id, idparam, idact = null;
       for (var i = 0; i < this.configuration_file_layers_id.length; i++) {
         id = this.configuration_file_layers_id[i].name + '$' + i;
+        console.log('ident', id)
         this.configuration_file_layers_id[i].id = i;
-        idparam = id + '$' + Object.keys(this.configuration_file_layers_id[i])[3];
+        idparam = id + '$';
         idact = id + '$activation';
         document.getElementById(id).id = this.configuration_file_layers_id[i].name + '$' + i;
-        document.getElementById(idact).innerHTML = 'activation' + this.configuration_file_layers_id[i].activation;
+        document.getElementById(idact).innerHTML = 'activation: ' + this.configuration_file_layers_id[i].activation;
         if (document.getElementById(id + '$') != null) document.getElementById(id + '$').id = idparam;
         document.getElementById(idparam).innerHTML = Object.keys(this.configuration_file_layers_id[i])[3] + ':' +  this.configuration_file_layers_id[i][Object.keys(this.configuration_file_layers_id[i])[3]];
        }
@@ -398,7 +418,6 @@ export default {
     deleteLayer(event){
       var id = event.target.id.substring(event.target.id.indexOf('$') + 1);
       if (this.configuration_file_layers_id.length == 1 ) return null;   
-      console.log('deleting' + id)
       this.configuration_file_layers_id.splice(id, 1);
       this.adminImagesDropArea()
     },
@@ -420,9 +439,8 @@ export default {
       var nameLayer = null;
       for(var i=0; i < this.configuration_file_layers_id.length; i++){
         nameLayer = this.configuration_file_layers_id[i].name;
-        console.log('keys',Object.keys(this.configuration_file_layers_id[i]), '  p:', this.layers[this.matchLayer(nameLayer)].parameters[0]);
         if (Object.keys(this.configuration_file_layers_id[i]).includes('parameters')){
-          this.configuration_file_layers_id[i] = { name: nameLayer, id: i, activation: 'ReLu' };
+          this.configuration_file_layers_id[i] = { name: nameLayer, id: i, activation: 'relu' };
           this.configuration_file_layers_id[i][this.layers[this.matchLayer(nameLayer)].parameters[0]] = this.new_value;
         }
       }
@@ -431,12 +449,11 @@ export default {
     changeValuesInEdition(index){
       console.log(index, index, Object.keys(this.configuration_file_layers_id[index])[3] + ':'+ this.new_value)
 
-      var id = this.configuration_file_layers_id[index].name + '$' + index + '$' + [Object.keys(this.configuration_file_layers_id[index])[3]];
+      var id = this.configuration_file_layers_id[index].name + '$' + index + '$';
       // change values in script
       this.configuration_file_layers_id[index][Object.keys(this.configuration_file_layers_id[index])[3]] = this.new_value;
       // change values in html
-      console.log(id, Object.keys(this.configuration_file_layers_id[index])[3] + ':', this.new_value, document.getElementById(id))
-      document.getElementById(id).innerHTML = Object.keys(this.configuration_file_layers_id[index])[3] + ':' + this.new_value;
+      document.getElementById(id).innerHTML = Object.keys(this.configuration_file_layers_id[index])[3] + ': ' + this.new_value;
     },
     editValue(){
       if (this.new_value == '' || !this.new_value.match("^[0-9]+$")) {
@@ -447,6 +464,23 @@ export default {
         }
         this.showModalEditValue = false;
       }
+    },
+    changeActivationInEdition(index){
+      console.log(index, index, Object.keys(this.configuration_file_layers_id[index])[3] + ':'+ this.new_value)
+
+      var id = this.configuration_file_layers_id[index].name + '$' + index + '$activation';
+      // change values in script
+      this.configuration_file_layers_id[index].activation = this.new_activation;
+      // change values in html
+      console.log(id, 'activation:', this.new_activation, document.getElementById(id))
+      document.getElementById(id).innerHTML = 'activation: ' + this.new_activation;
+    },
+    editActivation(){
+      for (var i=0; i < this.configuration_file_layers_id.length; i++){
+        if (this.configuration_file_layers_id[i].id == this.id_layer) this.changeActivationInEdition(i);
+      }
+      this.showModalEditActivation = false;
+      
     }
   },
   components: {
@@ -715,7 +749,7 @@ label {
   contain: layout;
 }
 
-.add_param_dialog_button{
+.edit_activation_dialog_button, .add_param_dialog_button{
   margin-top: 1vw;
   border: none;
   background: #33262D;

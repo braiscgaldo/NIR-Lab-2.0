@@ -1,11 +1,23 @@
 <template>
-  <div class="model_logs-page">
+  <div class="logs-page">
     <div>
-      <Menu page="/model_logs" name="brais"/>
+      <Menu page="/logs" name="brais"/>
     </div>
-    <h1>Model Logs</h1>
+    <h1>Logs</h1>
+
+    <div id="select_database">
+      <h2>Database Logs</h2>
+      <div id="database_area" class="border_rect">
+        <div class="container" v-for="(db, idx) in databases" :key="idx">
+          <div :id="db.name" class="database">
+            {{  db.name  }}          
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div id="select_model">
+      <h2>Model Logs</h2>
       <div id="models_area" class="border_rect">
         <div class="container" v-for="(model, idx) in models" :key="idx">
           <div :id="model.name" class="model" v-on:click="clickedModel($event)">
@@ -49,6 +61,14 @@ import Footer from "../../common/footer/footer.vue";
 
 export default {
   data: () => ({
+    databases : [
+      {
+        name: 'HadaBeer'
+      },
+      {
+        name: 'Chocolate'
+      }
+    ],
     models: [
       {
         name: "model_1",
@@ -170,7 +190,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.model_logs-page {
+.logs-page {
   background-color: #deeaee;
   height: 100%;
   min-height: 100vh; /* will cover the 100% of viewport */
@@ -196,7 +216,7 @@ label {
   width: 100% !important;
 }
 
-#select_model {
+#select_model, #select_database {
   width: 100%;
   padding: 0vw;
 }
@@ -264,6 +284,21 @@ label {
   margin-right: 0%;
   background-color: #EE3744;
   border: solid 1px #EE3744;
+  color: #deeaee;
+  border-radius: 0.75em;
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 1.5vw;
+  width: fit-content;
+}
+
+.database {
+  padding:5px;
+  margin:5px;
+  margin-left: 0%;
+  margin-right: 0%;
+  background-color: #2fa2a2;
+  border: solid 1px #2fa2a2;
   color: #deeaee;
   border-radius: 0.75em;
   text-align: justify;

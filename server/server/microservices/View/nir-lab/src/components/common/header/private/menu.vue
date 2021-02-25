@@ -33,9 +33,9 @@ export default {
                   color: this.page == '/training' ? '#FFF' : '#DDD'  
                 }, 
                 {
-                  name: 'Model Logs',
-                  router: '/model_logs',
-                  color: this.page == '/model_logs' ? '#FFF' : '#DDD'  
+                  name: 'Logs',
+                  router: '/logs',
+                  color: this.page == '/logs' ? '#FFF' : '#DDD'  
                 },
                 {
                   name: 'Git Hub',

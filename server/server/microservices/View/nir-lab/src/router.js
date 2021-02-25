@@ -10,7 +10,7 @@ import Contributers from './components/public/contributers/contributers.vue'
 import Acknowledgements from './components/public/acknowledgements/acknowledgements.vue'
 import DataTreatment from './components/private/data_treatment/data_treatment.vue'
 import Training from './components/private/training/training.vue'
-import ModelLogs from './components/private/model_logs/model_logs.vue'
+import Logs from './components/private/logs/logs.vue'
 import EditProfile from './components/private/edit_profile/edit_profile.vue'
 
 Vue.use(Router)
@@ -74,9 +74,9 @@ export default new Router({
             }
         },
         {
-            path: '/model_logs', //name to wrap the value
-            name: 'model_logs',
-            component: ModelLogs,
+            path: '/logs', //name to wrap the value
+            name: 'logs',
+            component: Logs,
             meta: {
                 requiresAuth: true
             }
