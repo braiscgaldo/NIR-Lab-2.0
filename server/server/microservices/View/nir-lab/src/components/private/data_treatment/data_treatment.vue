@@ -97,7 +97,7 @@
               :list="configuration_file_var_id"
               class="list-group"
               ghost-class="ghost"
-              :move="none"
+              :move="adminImagesDropArea"
               :group="{ name: 'variables', pull: 'clone'}"
               @change="adminImagesDropArea"
             >
@@ -124,7 +124,7 @@
               :list="configuration_file_opper_apply"
               class="list-group"
               ghost-class="ghost"
-              :move="none"
+              :move="adminImagesDropArea"
               :group="{ name: 'operations', pull: 'clone'}"
               @change="adminImagesDropArea"
             >
@@ -151,7 +151,7 @@
               :list="configuration_file_var_1"
               class="list-group"
               ghost-class="ghost"
-              :move="none"
+              :move="adminImagesDropArea"
               :group="{ name: 'variables', pull: 'clone'}"
               @change="adminImagesDropArea"
             >
@@ -169,7 +169,7 @@
               :list="configuration_file_var_2"
               class="list-group"
               ghost-class="ghost"
-              :move="none"
+              :move="adminImagesDropArea"
               :group="{ name: 'variables', pull: 'clone'}"
               @change="adminImagesDropArea"
             >
@@ -205,7 +205,7 @@
           <draggable
               :list="variables"
               ghost-class="ghost"
-              :move="none"
+              :move="adminImagesDropArea"
               :group="{ name: 'variables', pull: 'clone', put: false }"
             >
             <div
@@ -225,13 +225,21 @@
                 />
                 
               
-                <div :id="variable.name" class="variable variable-inside">
+                <div :id="variable.name" class="variable variable-inside" @dblclick="showModalEditVar=true; new_var=variable.name; edit_var=new_var">
                   {{ variable.name }}
                 </div>
+                <VueModal v-model="showModalEditVar" title="Edit the name of the variable!">
+                <div>
+                  <input class="add_variable_input" type="text" name="variable" id="edit_var" required v-model="new_var" :placeholder="new_var">
+                </div>
+                <div>
+                  <button class="add_variable_dialog_button" @click="editVariable">Edit Variable</button>
+                </div>
+              </VueModal>
             </div>
           </draggable>
 
-          <button class="add_variable_button"  @click="showModalAddVar=true">+</button>
+          <button class="add_variable_button"  @click="showModalAddVar=true; new_var=''">+</button>
           <VueModal v-model="showModalAddVar" title="Add a name to the variable!">
             <div>
               <input class="add_variable_input" type="text" name="variable" id="new_var" required v-model="new_var" placeholder="Variable name">
@@ -256,7 +264,7 @@
             :list="operations"
             class="list-group"
             ghost-class="ghost"
-            :move="none"
+            :move="adminImagesDropArea"
             :group="{ name: 'operations', pull: 'clone', put: false }"
           >
             <div
@@ -300,7 +308,9 @@ export default {
     configuration_file_to_generate_name: "",
     showModalAddVar: false,
     showModalErrorAddVar: false,
+    showModalEditVar: false,
     new_var: '',
+    edit_var: '',
     variables: [
       {
         name: "intensity",
@@ -459,52 +469,89 @@ export default {
       return require("/src/assets/private/data_treatment/key_right.png");
     },
     generateNewDB() {
+      // Call Facade
       return null;
     },
     deleteDB() {
+      // Call Facade
       return null;
     },
     clickedOut(event){
       var variableId = event.currentTarget.id;
       console.log(variableId)
     },
-    none(event){
-      console.log(event);
-      this.adminImagesDropArea();
-      return null;
+    updateIdDropArea(list, i){
+      console.log('update',list, i)
+      var id = list[i].name + '$' + list[i].id;
+      list[i].id = i
+      if (document.getElementById(id) != null) document.getElementById(id).id = list[i].name + '$' + i
+      
     },
     adminImagesDropArea() {
       this.configuration_file_rows = Math.max(this.configuration_file_var_id.length, this.configuration_file_opper_apply.length,
                                                this.configuration_file_var_1.length, this.configuration_file_var_2.length);
       for (var i = 0; i < this.configuration_file_var_id.length; i++){
-        this.configuration_file_var_id[i].id = i
+        this.updateIdDropArea(this.configuration_file_var_id, i)
       }
       for (i = this.configuration_file_var_id.length; i < this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i++){
-        this.configuration_file_opper_apply[i - this.configuration_file_var_id.length].id = i
+        this.updateIdDropArea(this.configuration_file_opper_apply, i - this.configuration_file_var_id.length)
       }
       for (i = this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i < this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i++){
-        this.configuration_file_var_1[i - (this.configuration_file_opper_apply.length + this.configuration_file_var_id.length)].id = i
+        this.updateIdDropArea(this.configuration_file_var_1, i - (this.configuration_file_opper_apply.length + this.configuration_file_var_id.length))
       }
       for (i = this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i < this.configuration_file_var_2.length + this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i++){
-        this.configuration_file_var_2[i - (this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length)].id = i
+        this.updateIdDropArea(this.configuration_file_var_2, i - (this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length))
       }
     },
-    containedInVariables(){
+    validText(){
+      if (this.new_var == '' || !this.new_var.match("^[A-Za-z0-9]+$") || this.new_var.length > 20) return false 
       for(var i=0; i<this.variables.length; i++){
-        if(this.variables[i].name == this.new_var) return true;
+        if(this.variables[i].name == this.new_var) return false;
       }
-      return false;
+      return true;
     },
     addNewVariable() {
-      if (this.new_var == '' || !this.new_var.match("^[A-Za-z0-9]+$") || this.new_var.length > 20 || this.containedInVariables()) {
-        this.showModalErrorAddVar = true;
+      if (!this.validText()) {
+        this.showModalAddVar = true;
       }else {
         this.variables.push({name: this.new_var, name_tb: this.new_var + '_tb', is_output: false});
-        this.showModal = false;
+        this.showModalAddVar = false;
+      }
+    },
+    changeValuesInPalette(list){
+      for(var i=0; i < list.length; i++){
+        if(list[i].name == this.edit_var){
+          document.getElementById(list[i].name + '$' + list[i].id).innerHTML = this.new_var;
+          document.getElementById(list[i].name + '$' + list[i].id).id = this.new_var + '$' + list[i].id;
+          list[i].name = this.new_var;
+        }
+      }
+    },
+    changeNamesInEdition(index){
+      // change values in script
+      this.variables[index].name = this.new_var;
+      this.variables[index].name_tb = this.new_var + '_tb';
+      // change values in html
+      document.getElementById(this.edit_var).innerHTML = this.new_var;
+      document.getElementById(this.edit_var).id = this.new_var;
+      // change values in palette
+      this.changeValuesInPalette(this.configuration_file_var_id);
+      this.changeValuesInPalette(this.configuration_file_var_1);
+      this.changeValuesInPalette(this.configuration_file_var_2);
+    },
+    editVariable() {
+      if (!this.validText()) {
+        this.showModalEditVar = true;
+      }else {
+        for (var i=0; i < this.variables.length; i++){
+          if (this.variables[i].name == this.edit_var) this.changeNamesInEdition(i);
+        }
+        this.showModalEditVar = false;
       }
     },
     deleteDiv(event){
       var id = event.target.id.substring(event.target.id.indexOf('$') + 1);
+      if (this.configuration_file_var_id.length == 1 || this.configuration_file_var_1.length == 1 || this.configuration_file_var_2 == 1) return null;   
       console.log('deleting' + id)
       if (id < this.configuration_file_var_id.length){
         this.configuration_file_var_id.splice(id, 1);

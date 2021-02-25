@@ -9,11 +9,7 @@
     <div id="train_menu">
       <form class="vue-form train_form" @submit.prevent="train">
         <fieldset>
-          <input
-            class="train_button"
-            type="submit"
-            value="Train"
-          />
+          <input class="train_button" type="submit" value="Train" />
           <v-combobox
             class="combo_select_db"
             required
@@ -31,8 +27,7 @@
           >
           </v-combobox>
         </fieldset>
-        </form>
-        
+      </form>
     </div>
 
     <!-- Configuration parameters / Admin models -->
@@ -185,24 +180,29 @@
 
         <div id="layers">
           <label><h3>Layers</h3></label>
-
           <div class="border_rect" id="layers_names">
-            <div class="container" v-for="(layer, idx) in layers" :key="idx">
-              <div :id="layer.name" class="layer">
-                {{  layer.name  }}          
+            <draggable
+              :list="layers"
+              class="list-group layer_group"
+              :move="onDrop"
+              ghost-class="ghost"
+              :group="{ name: 'layers', pull: 'clone', put: false }"
+            >
+              <div class="container" v-for="(layer, idx) in layers" :key="idx">
+                <div :id="layer.name" class="layer">
+                  {{ layer.name }}
+                </div>
               </div>
-            </div>
+            </draggable>
           </div>
-
         </div>
-            
       </div>
     </div>
 
     <!-- Desing Palette -->
     <div id="design_palette">
       <div id="palette">
-      <h2>Design Palette</h2>
+        <h2>Design Palette</h2>
         <form
           class="vue-form palette_form"
           @submit.prevent="generateNewConfigFile()"
@@ -215,10 +215,74 @@
             />
           </fieldset>
         </form>
-        <div class="border_rect">
-          <p>
-            <br /><br>
-          </p>
+        <!--  :move="adminImagesDropArea" -->
+        <div class="border_rect" id="layers_palette">
+          <div id="layers_id">
+
+            <div>
+            <draggable
+              :list="configuration_file_layers_id"
+              class="list-group"
+              ghost-class="ghost"
+              :group="{ name: 'layers', pull: 'clone' }"
+              @change="onDrop"
+            >
+              <div
+                v-for="(layer, idx) in configuration_file_layers_id"
+                :key="idx"
+                class="layer_container"
+              >
+                <div
+                  :id="layer.name + '$' + idx"
+                  class="layer_drop"
+                  @dblclick="deleteLayer"
+                >
+                  {{ layer.name }}
+                </div>
+
+              <div class="images_drop">
+                  <b-img
+                    class="arrow_img"
+                    :src="getImgArrow()"
+                    alt="Arrow image"
+                  ></b-img>
+              </div>
+
+              <div
+                :id="layer.name + '$' + idx + '$activation'"
+                class="parameter_drop"
+              >
+                {{ Object.keys(layer)[2] + ":" + " " }}
+                {{ layer.activation }}
+              </div>
+
+              <div
+                :id="layer.name + '$' + idx + '$'"
+                class="parameter_drop"
+                @dblclick="showModalEditValue=true; id_layer=layer.id"
+              >
+                {{ Object.keys(layer)[3] + ":" + " " }}
+                {{ layer[Object.keys(layer)[3]] }}
+              </div>
+              <VueModal v-model="showModalEditValue" title="Introduce the correspondant number!">
+                <div>
+                  <input class="add_param_input" type="text" name="value" :id="layer.name + '$' + layer.id + '$' + Object.keys(layer)[3] + '$Dialog'" required v-model="new_value" :placeholder="layer[Object.keys(layer)[3]]">
+                </div>
+                <div>
+                  <button class="add_param_dialog_button" @click="editValue">Edit value</button>
+                </div>
+              </VueModal>
+              <VueModal v-model="showModalErrorEditValue" title="Error editting value">
+                <p>
+                  The variable must not be empty and contain a number.
+                </p>
+              </VueModal>
+            </div>
+
+          </draggable>
+
+              </div>
+          </div>
         </div>
       </div>
     </div>
@@ -232,13 +296,16 @@
 <script>
 import Menu from "../../common/header/private/menu.vue";
 import Footer from "../../common/footer/footer.vue";
+import draggable from "vuedraggable";
+// dialogs
+import VueModal from '@kouts/vue-modal';
 
 export default {
   data: () => ({
     database_selected: "",
     database_names: ["HadaBeer", "Chocolate"],
     model_selected: "",
-    config_parameters : {
+    config_parameters: {
       model_name: "",
       learning_rate: "learning_rate",
       target_selected: "",
@@ -246,52 +313,148 @@ export default {
       epsilon: "Epsilon",
       epochs: "Epochs",
       optimizer_selected: "",
-      optimizer: ["Adam", "Adamax", "SGD", "RMSprop", "Adadelta", "Adagrad", "Adamax", "Nadam", "Ftrl"],
+      optimizer: [
+        "Adam",
+        "Adamax",
+        "SGD",
+        "RMSprop",
+        "Adadelta",
+        "Adagrad",
+        "Adamax",
+        "Nadam",
+        "Ftrl",
+      ],
       loss_selected: "",
       loss: ["binary_crossentropy", "sparse_categorical_crossentropy"],
       metrics: ["acc"],
       batch_size: "Batch size",
       decay: "Decay",
       train_size: "Train size",
-      validation_size: "Validation size"
+      validation_size: "Validation size",
     },
     model_names: ["model_1", "model_2"],
     layers: [
       {
         name: "Dense",
-        parameters: ["units"],
-        activation: ""
+        activation: "",
+        parameters: ["units"]
       },
       {
         name: "Dropout",
-        parameters: ["rate"],
-        activation: ""
+        activation: "",
+        parameters: ["rate"] 
       },
       {
         name: "Softmax",
-        parameters: [],
-        activation: ""
+        activation: "",
+        parameters: ["none"]
       },
       {
         name: "MaxPool1D",
-        parameters: ["pool_size"],
-        activation: ""
+        activation: "",
+        parameters: ["pool_size"]
       },
       {
         name: "AveragePool1D",
-        parameters: ["pool_size"],
-        activation: ""
-      }
-    ]
+        activation: "",
+        parameters: ["pool_size"]
+      },
+    ],
+    configuration_file_rows: 0,
+    showModalEditValue: false,
+    showModalErrorEditValue: false,
+    new_value: '',
+    id_layer: '',
+    configuration_file_layers_id: [
+      {
+        name: "Dense",
+        id: 0,
+        activation: "ReLu",
+        units: "35"
+      },
+    ],
   }),
   methods: {
     getImgNN() {
       return require("/src/assets/private/training/neural_net.png");
+    },
+    getImgArrow() {
+      return require("/src/assets/private/training/arrow_right.png");
+    },
+    adminImagesDropArea() {
+      var id, idparam, idact = null;
+      for (var i = 0; i < this.configuration_file_layers_id.length; i++) {
+        id = this.configuration_file_layers_id[i].name + '$' + i;
+        this.configuration_file_layers_id[i].id = i;
+        idparam = id + '$' + Object.keys(this.configuration_file_layers_id[i])[3];
+        idact = id + '$activation';
+        console.log('id', id, this.configuration_file_layers_id[i], document.getElementById(idparam))
+        document.getElementById(id).id = this.configuration_file_layers_id[i].name + '$' + i;
+        document.getElementById(idact).innerHTML = 'activation' + this.configuration_file_layers_id[i].activation;
+        if (document.getElementById(id + '$') != null) document.getElementById(id + '$').id = idparam;
+        document.getElementById(idparam).innerHTML = Object.keys(this.configuration_file_layers_id[i])[3] + ':' +  this.configuration_file_layers_id[i][Object.keys(this.configuration_file_layers_id[i])[3]];
+       }
+       console.log(this.configuration_file_layers_id)
+    },
+    deleteLayer(event){
+      var id = event.target.id.substring(event.target.id.indexOf('$') + 1);
+      if (this.configuration_file_layers_id.length == 1 ) return null;   
+      console.log('deleting' + id)
+      this.configuration_file_layers_id.splice(id, 1);
+      this.adminImagesDropArea()
+    },
+    matchLayer(layer){
+      switch (layer) {
+        case 'Dense':
+          return 0;
+        case 'Dropout':
+          return 1;
+        case 'Softmax':
+          return 2;
+        case 'MaxPool1D':
+          return 3;
+        case 'AveragePool1D':
+          return 4;
+      }
+    },
+    onDrop(){
+      var nameLayer = null;
+      for(var i=0; i < this.configuration_file_layers_id.length; i++){
+        nameLayer = this.configuration_file_layers_id[i].name;
+        console.log('keys',Object.keys(this.configuration_file_layers_id[i]), '  p:', this.layers[this.matchLayer(nameLayer)].parameters[0]);
+        if (Object.keys(this.configuration_file_layers_id[i]).includes('parameters')){
+          this.configuration_file_layers_id[i] = { name: nameLayer, id: i, activation: 'ReLu' };
+          this.configuration_file_layers_id[i][this.layers[this.matchLayer(nameLayer)].parameters[0]] = this.new_value;
+        }
+      }
+      this.adminImagesDropArea();
+    },
+    changeValuesInEdition(index){
+      console.log(index, index, Object.keys(this.configuration_file_layers_id[index])[3] + ':'+ this.new_value)
+
+      var id = this.configuration_file_layers_id[index].name + '$' + index + '$' + [Object.keys(this.configuration_file_layers_id[index])[3]];
+      // change values in script
+      this.configuration_file_layers_id[index][Object.keys(this.configuration_file_layers_id[index])[3]] = this.new_value;
+      // change values in html
+      console.log(id, Object.keys(this.configuration_file_layers_id[index])[3] + ':', this.new_value, document.getElementById(id))
+      document.getElementById(id).innerHTML = Object.keys(this.configuration_file_layers_id[index])[3] + ':' + this.new_value;
+    },
+    editValue(){
+      if (this.new_value == '' || !this.new_value.match("^[0-9]+$")) {
+        this.showModalErrorEditValue = true;
+      }else{
+        for (var i=0; i < this.configuration_file_layers_id.length; i++){
+          if (this.configuration_file_layers_id[i].id == this.id_layer) this.changeValuesInEdition(i);
+        }
+        this.showModalEditValue = false;
+      }
     }
   },
   components: {
     Menu,
     Footer,
+    draggable,
+    VueModal
   },
 };
 </script>
@@ -308,7 +471,9 @@ export default {
   padding-bottom: 10vw; /* height of your footer */
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin-top: 4vw;
   margin-bottom: 3vw;
   text-align: center;
@@ -362,14 +527,25 @@ label {
   float: left;
 }
 
-.combo_parameters_left, #model_name_input, .target_input, #epochs_input, .loss_input, #batch_size_input, #train_size_input {
-  width:48%;
+.combo_parameters_left,
+#model_name_input,
+.target_input,
+#epochs_input,
+.loss_input,
+#batch_size_input,
+#train_size_input {
+  width: 48%;
   float: left;
   margin-right: 1vw;
 }
 
-
-.combo_parameters_right, #learning_rate_input, #epsilon_input, .optimizer_input, .metrics_input, #decay_input, #validation_size_input {
+.combo_parameters_right,
+#learning_rate_input,
+#epsilon_input,
+.optimizer_input,
+.metrics_input,
+#decay_input,
+#validation_size_input {
   width: 48%;
   float: right;
 }
@@ -430,18 +606,129 @@ label {
 }
 
 .layer {
-  padding:5px;
-  margin:5px;
+  padding: 5px;
+  margin: 5px;
   margin-left: 0%;
   margin-right: 0%;
-  background-color: #EE3744;
-  border: solid 1px #EE3744;
+  background-color: #ee3744;
+  border: solid 1px #ee3744;
   color: #deeaee;
   border-radius: 0.75em;
   text-align: justify;
   text-justify: inter-word;
   font-size: 1.5vw;
   width: fit-content;
+}
+
+.layer_group {
+  display: contents;
+}
+
+.layer_container {
+  position: relative;
+  display: flex;
+}
+
+.layer_drop {
+  padding: 5px;
+  margin: 5px;
+  background-color: #ee3744;
+  border: solid 1px #ee3744;
+  color: #deeaee;
+  border-radius: 0.75em;
+  font-size: 1.5vw;
+  text-align: center;
+  width: 40%;
+}
+
+#layers_id {
+  width: 100%;
+}
+
+.arrow_img {
+  transform: rotate(0deg);
+}
+
+.images_drop {
+  position: relative;
+  padding: 0;
+}
+
+#layers_palette {
+  position: relative;
+  display: inline-flex;
+}
+
+.parameter_drop {
+  padding: 5px;
+  margin: 5px;
+  background-color: #2fa2a2;
+  border: solid 1px #2fa2a2;
+  color: #deeaee;
+  border-radius: 0.75em;
+  font-size: 1.5vw;
+  text-align: center;
+  width: 25%;
+}
+
+.activation_id {
+  padding: 5px;
+  margin: 5px;
+  margin-right: 0%;
+  background-color: #2fa2a2;
+  border: solid 1px #2fa2a2;
+  color: #deeaee;
+  border-radius: 0.75em;
+  font-size: 1.5vw;
+  text-align: center;
+}
+
+.parameter_id {
+  padding: 5px;
+  margin: 5px;
+  margin-right: 0%;
+  background-color: #2fa2a2;
+  border: solid 1px #2fa2a2;
+  color: #deeaee;
+  border-radius: 0.75em;
+  font-size: 1.5vw;
+  text-align: center;
+}
+
+.add_param_input {
+  width: 100%;
+  border: 1px solid #ee3744;
+  border-radius: 0.75em;
+}
+
+.vm-title {
+  padding-top: 2vw;
+  font-size: 1.85vw;
+}
+
+.vm-titlebar {
+  display: inline-block;
+  align-items: start;
+}
+
+.vm-content {
+  text-align: center;
+  contain: layout;
+}
+
+.add_param_dialog_button{
+  margin-top: 1vw;
+  border: none;
+  background: #33262D;
+  border-radius: 0.25em;
+  padding: 12px 20px;
+  color: #DEEAEE;
+  font-weight: bold;
+  float: right;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  appearance: none;
 }
 
 </style>
