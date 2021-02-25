@@ -388,7 +388,6 @@ export default {
         this.configuration_file_layers_id[i].id = i;
         idparam = id + '$' + Object.keys(this.configuration_file_layers_id[i])[3];
         idact = id + '$activation';
-        console.log('id', id, this.configuration_file_layers_id[i], document.getElementById(idparam))
         document.getElementById(id).id = this.configuration_file_layers_id[i].name + '$' + i;
         document.getElementById(idact).innerHTML = 'activation' + this.configuration_file_layers_id[i].activation;
         if (document.getElementById(id + '$') != null) document.getElementById(id + '$').id = idparam;

@@ -106,7 +106,7 @@
                 v-for="(variable, idx) in configuration_file_var_id"
                 :key="idx"
               >
-                <div :id="variable.name + '$' + variable.id" class="variable_drop" @dblclick="deleteDiv">
+                <div :id="'var_id$' + variable.name + '$' + idx" class="variable_drop" @dblclick="deleteDiv">
                   {{ variable.name }}
                 </div>
               </div>
@@ -133,8 +133,8 @@
                 v-for="(operation, idx) in configuration_file_opper_apply"
                 :key="idx"
               >
-                <div :id="operation.name + '$' + operation.id" class="operation_drop" @dblclick="deleteDiv">
-                  {{ operation.name }}
+                <div :id="'opper_apply$' + operation.name + '$' + idx" class="operation_drop" @dblclick="deleteDiv">
+                  {{ operation.abreviation }}
                 </div>
               </div>
             </draggable>
@@ -160,7 +160,7 @@
                 v-for="(variable, idx) in configuration_file_var_1"
                 :key="idx"
               >
-                <div :id="variable.name + '$' + variable.id" class="variable_drop" @dblclick="deleteDiv">
+                <div :id="'var_1$' + variable.name + '$' + idx" class="variable_drop" @dblclick="deleteDiv">
                   {{ variable.name }}
                 </div>
               </div>
@@ -178,7 +178,7 @@
                 v-for="(variable, idx) in configuration_file_var_2"
                 :key="idx"
               >
-                <div :id="variable.name + '$' + variable.id" class="variable_drop" @dblclick="deleteDiv">
+                <div :id="'var_2$' + variable.name + '$' + idx" class="variable_drop" @dblclick="deleteDiv">
                   {{ variable.name }}
                 </div>
               </div>
@@ -205,7 +205,6 @@
           <draggable
               :list="variables"
               ghost-class="ghost"
-              :move="adminImagesDropArea"
               :group="{ name: 'variables', pull: 'clone', put: false }"
             >
             <div
@@ -441,6 +440,7 @@ export default {
     configuration_file_opper_apply: [
       {
         name: "sum_all",
+        abreviation: 'sum_a',
         id: 0
       }
     ],
@@ -477,30 +477,45 @@ export default {
       return null;
     },
     clickedOut(event){
-      var variableId = event.currentTarget.id;
-      console.log(variableId)
+      return event;
     },
     updateIdDropArea(list, i){
-      console.log('update',list, i)
       var id = list[i].name + '$' + list[i].id;
       list[i].id = i
-      if (document.getElementById(id) != null) document.getElementById(id).id = list[i].name + '$' + i
-      
+      document.getElementById(id).id = list[i].name + '$' + i  
     },
     adminImagesDropArea() {
+      var id = null;
       this.configuration_file_rows = Math.max(this.configuration_file_var_id.length, this.configuration_file_opper_apply.length,
-                                               this.configuration_file_var_1.length, this.configuration_file_var_2.length);
+                                this.configuration_file_var_1.length, this.configuration_file_var_2.length)
       for (var i = 0; i < this.configuration_file_var_id.length; i++){
-        this.updateIdDropArea(this.configuration_file_var_id, i)
+        console.log(this.configuration_file_var_id[0], i, this.configuration_file_var_id.length);
+        this.configuration_file_var_id[i].id = i;
+        id = 'var_id$' + this.configuration_file_var_id[i].name + '$' + this.configuration_file_var_id[i].id;
+        console.log(id, i)
+        document.getElementById(id).id = 'var_id$' + this.configuration_file_var_id[i].name + '$' + i 
+        this.configuration_file_var_id[i].id = i;
       }
-      for (i = this.configuration_file_var_id.length; i < this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i++){
-        this.updateIdDropArea(this.configuration_file_opper_apply, i - this.configuration_file_var_id.length)
+      for (i = 0; i < this.configuration_file_opper_apply.length; i++){
+        this.configuration_file_opper_apply[i].id = i;
+        id = 'opper_apply$' + this.configuration_file_opper_apply[i].name + '$' + this.configuration_file_opper_apply[i].id;
+        console.log(id, i)
+        document.getElementById(id).id = 'opper_apply$' + this.configuration_file_opper_apply[i].name + '$' + i 
+        this.configuration_file_opper_apply[i].id = i;
       }
-      for (i = this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i < this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i++){
-        this.updateIdDropArea(this.configuration_file_var_1, i - (this.configuration_file_opper_apply.length + this.configuration_file_var_id.length))
+      for (i = 0; i < this.configuration_file_var_1.length; i++){
+        this.configuration_file_var_1[i].id = i
+        id = 'var_1$' + this.configuration_file_var_1[i].name + '$' + this.configuration_file_var_1[i].id;
+        console.log(id, i);
+        document.getElementById(id).id = 'var_1$' + this.configuration_file_var_1[i].name + '$' + i 
+        this.configuration_file_var_1[i].id = i;
       }
-      for (i = this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i < this.configuration_file_var_2.length + this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length; i++){
-        this.updateIdDropArea(this.configuration_file_var_2, i - (this.configuration_file_var_1.length + this.configuration_file_opper_apply.length + this.configuration_file_var_id.length))
+      for (i = 0; i < this.configuration_file_var_2.length; i++){
+        this.configuration_file_var_2[i].id = i
+        id = 'var_2$' + this.configuration_file_var_2[i].name + '$' + this.configuration_file_var_2[i].id;
+        console.log(id, i);
+        document.getElementById(id).id = 'var_2$' + this.configuration_file_var_2[i].name + '$' + i 
+        this.configuration_file_var_2[i].id = i;
       }
     },
     validText(){
@@ -518,11 +533,11 @@ export default {
         this.showModalAddVar = false;
       }
     },
-    changeValuesInPalette(list){
+    changeValuesInPalette(prefix, list){
       for(var i=0; i < list.length; i++){
         if(list[i].name == this.edit_var){
-          document.getElementById(list[i].name + '$' + list[i].id).innerHTML = this.new_var;
-          document.getElementById(list[i].name + '$' + list[i].id).id = this.new_var + '$' + list[i].id;
+          document.getElementById(prefix + list[i].name + '$' + list[i].id).innerHTML = this.new_var;
+          document.getElementById(prefix + list[i].name + '$' + list[i].id).id = prefix + this.new_var + '$' + list[i].id;
           list[i].name = this.new_var;
         }
       }
@@ -535,9 +550,9 @@ export default {
       document.getElementById(this.edit_var).innerHTML = this.new_var;
       document.getElementById(this.edit_var).id = this.new_var;
       // change values in palette
-      this.changeValuesInPalette(this.configuration_file_var_id);
-      this.changeValuesInPalette(this.configuration_file_var_1);
-      this.changeValuesInPalette(this.configuration_file_var_2);
+      this.changeValuesInPalette('var_id$', this.configuration_file_var_id);
+      this.changeValuesInPalette('var_1$', this.configuration_file_var_1);
+      this.changeValuesInPalette('var_2$', this.configuration_file_var_2);
     },
     editVariable() {
       if (!this.validText()) {
@@ -550,23 +565,20 @@ export default {
       }
     },
     deleteDiv(event){
-      var id = event.target.id.substring(event.target.id.indexOf('$') + 1);
       if (this.configuration_file_var_id.length == 1 || this.configuration_file_var_1.length == 1 || this.configuration_file_var_2 == 1) return null;   
-      console.log('deleting' + id)
-      if (id < this.configuration_file_var_id.length){
+      
+      var id = event.target.id.substring(event.target.id.lastIndexOf('$') + 1);
+      var list = event.target.id.substring(0, event.target.id.indexOf('$'));
+      console.log('deleting ' + id, list)
+      if (list == 'var_id'){
         this.configuration_file_var_id.splice(id, 1);
-        console.log('deleting' + id)
-      }else if (id < this.configuration_file_opper_apply.length + this.configuration_file_var_id.length){
-        this.configuration_file_opper_apply.splice(id - this.configuration_file_var_id.length, 1);
-        console.log('deleting' + id - this.configuration_file_var_id.length)
-      }else if (id < this.configuration_file_var_1.length + this.configuration_file_var_id.length + this.configuration_file_opper_apply.length){
-        this.configuration_file_var_1.splice(id - (this.configuration_file_var_id.length + this.configuration_file_opper_apply.length), 1);
-        console.log('deleting' + id - (this.configuration_file_var_id.length + this.configuration_file_opper_apply.length))
-      }else if (id < this.configuration_file_var_2.length + this.configuration_file_var_id.length + this.configuration_file_opper_apply.length + this.configuration_file_var_1.length){
-        this.configuration_file_var_2.splice(id - (this.configuration_file_var_id.length + this.configuration_file_opper_apply.length + this.configuration_file_var_1.length), 1);
-        console.log('deleting' + id - (this.configuration_file_var_id.length + this.configuration_file_opper_apply.length + this.configuration_file_var_1.length))
+      }else if (list == 'opper_apply'){
+        this.configuration_file_opper_apply.splice(id, 1);
+      }else if (list == 'var_1'){
+        this.configuration_file_var_1.splice(id, 1);
+      }else if (list == 'var_2'){
+        this.configuration_file_var_2.splice(id, 1);
       }
-      this.adminImagesDropArea();
     }
   },
   components: {
