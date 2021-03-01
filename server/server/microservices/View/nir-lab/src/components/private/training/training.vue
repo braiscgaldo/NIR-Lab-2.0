@@ -242,9 +242,9 @@
 
               <div class="images_drop">
                   <b-img
-                    class="arrow_img"
-                    :src="getImgArrow()"
-                    alt="Arrow image"
+                    class="key_img key_img_left"
+                    :src="getImgKey()"
+                    alt="Key image"
                   ></b-img>
               </div>
 
@@ -280,6 +280,13 @@
                 {{ Object.keys(layer)[3] + ": " }}
                 {{ layer[Object.keys(layer)[3]] }}
               </div>
+            <div class="images_drop">
+                <b-img
+                  class="key_img"
+                  :src="getImgKey()"
+                  alt="Key image"
+                ></b-img>
+            </div>
               <VueModal v-model="showModalEditValue" title="Introduce the correspondant number!">
                 <div>
                   <input class="add_param_input" type="text" name="value" :id="layer.name + '$' + layer.id + '$' + Object.keys(layer)[3] + '$Dialog'" required v-model="new_value" :placeholder="layer[Object.keys(layer)[3]]">
@@ -396,6 +403,9 @@ export default {
   methods: {
     getImgNN() {
       return require("/src/assets/private/training/neural_net.png");
+    },
+    getImgKey() {
+      return require("/src/assets/private/data_treatment/key_right.png");
     },
     getImgArrow() {
       return require("/src/assets/private/training/arrow_right.png");
@@ -678,8 +688,15 @@ label {
   width: 100%;
 }
 
-.arrow_img {
+.key_img {
   transform: rotate(0deg);
+  margin: 0px;
+  width: 20%;
+}
+
+.key_img_left {
+  transform: rotate(180deg);
+  float: right;
 }
 
 .images_drop {
@@ -701,7 +718,7 @@ label {
   border-radius: 0.75em;
   font-size: 1.5vw;
   text-align: center;
-  width: 25%;
+  width: 20%;
 }
 
 .activation_id {

@@ -98,16 +98,16 @@
               class="list-group"
               ghost-class="ghost"
               :move="adminImagesDropArea"
-              :group="{ name: 'variables', pull: 'clone'}"
+              :group="{ name: 'inputs', pull: 'clone'}"
               @change="adminImagesDropArea"
             >
               <div
                 id="var_container"
-                v-for="(variable, idx) in configuration_file_var_id"
+                v-for="(Input, idx) in configuration_file_var_id"
                 :key="idx"
               >
-                <div :id="'var_id$' + variable.name + '$' + idx" class="variable_drop" @dblclick="deleteDiv">
-                  {{ variable.name }}
+                <div :id="'var_id$' + Input.name + '$' + idx" class="input_drop" @dblclick="deleteDiv">
+                  {{ Input.name }}
                 </div>
               </div>
             </draggable>
@@ -152,17 +152,35 @@
               class="list-group"
               ghost-class="ghost"
               :move="adminImagesDropArea"
-              :group="{ name: 'variables', pull: 'clone'}"
+              :group="{ name: 'inputs', pull: 'clone'}"
               @change="adminImagesDropArea"
             >
               <div
                 id="var_1"
-                v-for="(variable, idx) in configuration_file_var_1"
+                v-for="(Input, idx) in configuration_file_var_1"
                 :key="idx"
               >
-                <div :id="'var_1$' + variable.name + '$' + idx" class="variable_drop" @dblclick="deleteDiv">
-                  {{ variable.name }}
+                <div v-if="isConstant(Input.name) && isOneParamVar1(idx)" :id="'var_1$' + Input.name + '$' + idx" class="constant var_1_one_param" @dblclick="showModalEditConstantVar1 = true; id_click = idx;">
+                  {{ Input.name }}
                 </div>
+                <div v-else-if="isConstant(Input.name)" :id="'var_1$' + Input.name + '$' + idx" class="constant" @dblclick="showModalEditConstantVar1 = true; id_click = idx;">
+                  {{ Input.name }}
+                </div>
+                <div v-else-if="isOneParamVar1(idx)" :id="'var_1$' + Input.name + '$' + idx" class="input_drop var_1_one_param" @dblclick="deleteDiv">
+                  {{ Input.name }}
+                </div>
+                <div v-else :id="'var_1$' + Input.name + '$' + idx" class="input_drop" @dblclick="deleteDiv">
+                  {{ Input.name }}
+                </div>
+
+                <VueModal v-model="showModalEditConstantVar1" title="Introduce the new value to constant!">
+                  <div>
+                    <input class="add_param_input" type="text" name="value" :id="'var_1$' + Input.name + '$' + idx + '$Dialog'" required v-model="new_value" placeholder="Nuevo valor">
+                  </div>
+                  <div>
+                    <button class="add_param_dialog_button" @click="editConstantVar1">Edit constant</button>
+                  </div>
+                </VueModal>
               </div>
             </draggable>
             <draggable
@@ -170,18 +188,37 @@
               class="list-group"
               ghost-class="ghost"
               :move="adminImagesDropArea"
-              :group="{ name: 'variables', pull: 'clone'}"
+              :group="{ name: 'inputs', pull: 'clone'}"
               @change="adminImagesDropArea"
             >
               <div
                 id="var_2"
-                v-for="(variable, idx) in configuration_file_var_2"
+                v-for="(Input, idx) in configuration_file_var_2"
                 :key="idx"
-              >
-                <div :id="'var_2$' + variable.name + '$' + idx" class="variable_drop" @dblclick="deleteDiv">
-                  {{ variable.name }}
+              > 
+                <div v-if="isConstant(Input.name)" :id="'var_2$' + Input.name + '$' + idx" class="constant" @dblclick="showModalEditConstantVar2 = true; id_click = idx;">
+                  {{ Input.name }}
                 </div>
+                <div v-else-if="isHidden(Input.name)" :id="'var_2$' + Input.name + '$' + idx" class="input_drop" style="visibility:hidden" @dblclick="deleteDiv">
+                  {{ Input.name }}
+                </div>
+                <div v-else :id="'var_2$' + Input.name + '$' + idx" class="input_drop" @dblclick="deleteDiv">
+                  {{ Input.name }}
+                </div>
+                <VueModal v-model="showModalEditConstantVar2" title="Introduce the new value to constant!">
+                  <div>
+                    <input class="add_param_input" type="text" name="value" :id="'var_1$' + Input.name + '$' + idx + '$Dialog'" required v-model="new_value" placeholder="Nuevo valor">
+                  </div>
+                  <div>
+                    <button class="add_param_dialog_button" @click="editConstantVar2">Edit constant</button>
+                  </div>
+                </VueModal>
               </div>
+              <VueModal v-model="showModalErrorDrag" title="Error adding variables to palette">
+              <p>
+                Please, fill previous items first.
+              </p>
+            </VueModal>
             </draggable>
             <div class="images_drop">
               <div v-for="index in configuration_file_rows" :key="index">
@@ -196,66 +233,66 @@
           </div>
         </div>
       </div>
-      <div id="variables">
+      <div id="inputs">
         <h3>Operations</h3>
-        <h3 id="var_title">Variables</h3>
+        <h3 id="var_title">inputs</h3>
         <h3 id="output_title">Output</h3>
 
         <div class="border_rect" id="var_names">
           <draggable
-              :list="variables"
+              :list="inputs"
               ghost-class="ghost"
-              :group="{ name: 'variables', pull: 'clone', put: false }"
+              :group="{ name: 'inputs', pull: 'clone', put: false }"
             >
             <div
               class="container container_var"
               id="var_container"
-              v-for="(variable, idx) in variables"
+              v-for="(Input, idx) in inputs"
               :key="idx"
             >
              <!-- otro color cuando sea output -->
-            <toggle-button :value="variable.is_output"
+            <toggle-button :value="Input.is_output"
                 color="#82C7EB"
                 :sync="true"
                 :labels="{checked: 'Out', unchecked: 'None'}"
-                :id="variable.name_tb"
+                :id="Input.name_tb"
                 class="toggle_button"
-                v-model="variable.is_output"
+                v-model="Input.is_output"
                 />
                 
               
-                <div :id="variable.name" class="variable variable-inside" @dblclick="showModalEditVar=true; new_var=variable.name; edit_var=new_var">
-                  {{ variable.name }}
+                <div :id="Input.name" class="Input Input-inside" @dblclick="showModalEditVar=true; new_var=Input.name; edit_var=new_var">
+                  {{ Input.name }}
                 </div>
-                <VueModal v-model="showModalEditVar" title="Edit the name of the variable!">
+                <VueModal v-model="showModalEditVar" title="Edit the name of the Input!">
                 <div>
-                  <input class="add_variable_input" type="text" name="variable" id="edit_var" required v-model="new_var" :placeholder="new_var">
+                  <input class="add_input_input" type="text" name="Input" id="edit_var" required v-model="new_var" :placeholder="new_var">
                 </div>
                 <div>
-                  <button class="add_variable_dialog_button" @click="editVariable">Edit Variable</button>
+                  <button class="add_input_dialog_button" @click="editinput">Edit Input</button>
                 </div>
               </VueModal>
             </div>
           </draggable>
 
-          <button class="add_variable_button"  @click="showModalAddVar=true; new_var=''">+</button>
-          <VueModal v-model="showModalAddVar" title="Add a name to the variable!">
+          <button class="add_input_button"  @click="showModalAddVar=true; new_var=''">+</button>
+          <VueModal v-model="showModalAddVar" title="Add a name to the Input!">
             <div>
-              <input class="add_variable_input" type="text" name="variable" id="new_var" required v-model="new_var" placeholder="Variable name">
+              <input class="add_input_input" type="text" name="Input" id="new_var" required v-model="new_var" placeholder="Input name">
             </div>
             <div>
-              <button class="add_variable_dialog_button" @click="addNewVariable">Add New Variable</button>
+              <button class="add_input_dialog_button" @click="addNewinput">Add New Input</button>
             </div>
           </VueModal>
-          <VueModal v-model="showModalErrorAddVar" title="Error treating variable">
+          <VueModal v-model="showModalErrorAddVar" title="Error treating Input">
             <p>
-              The variable must not be empty or must not contain any symbol except characters or numbers.
+              The Input must not be empty or must not contain any symbol except characters or numbers.
               <br><br>
-              It also must not must be declared in other variables.
+              It also must not must be declared in other inputs.
               <br><br>
               Its length must not raise 20 characters.
               <br><br>
-              The variable called 'none' cannot be edit.
+              The Input called 'none' cannot be edit.
             </p>
           </VueModal>
         </div>
@@ -310,14 +347,14 @@ export default {
     showModalAddVar: false,
     showModalErrorAddVar: false,
     showModalEditVar: false,
+    showModalErrorDrag: false,
+    showModalEditConstantVar1: false,
+    showModalEditConstantVar2: false,
     new_var: '',
+    new_value: '',
+    id_click: '',
     edit_var: '',
-    variables: [
-      {
-        name: "none",
-        name_tb: "none_tb",
-        is_output: false,
-      },
+    inputs: [
       {
         name: "intensity",
         name_tb: "intensity_tb",
@@ -446,8 +483,8 @@ export default {
     ],
     configuration_file_opper_apply: [
       {
-        name: "sum_all",
-        abreviation: 'sum_a',
+        name: "sum",
+        abreviation: 'sum',
         id: 0
       }
     ],
@@ -486,53 +523,111 @@ export default {
     clickedOut(event){
       return event;
     },
+    isConstant(name){
+      return name.startsWith('const:');
+    },
+    isHidden(name){
+      return name == 'empty_';
+    },
+    isOneParamVar1(idx){
+      return this.getOpperItem(this.configuration_file_opper_apply[idx].name).num_parameters == 1
+    },
+    getOpperItem(name){
+      for(var i = 0; i < this.operations.length; i++){
+        if (this.operations[i].name == name) return this.operations[i]
+      }
+    },
     updateIdDropArea(list, i){
       var id = list[i].name + '$' + list[i].id;
       list[i].id = i
       document.getElementById(id).id = list[i].name + '$' + i  
     },
-    adminImagesDropArea() {
-      var id = null;
-      this.configuration_file_rows = Math.max(this.configuration_file_var_id.length, this.configuration_file_opper_apply.length,
-                                this.configuration_file_var_1.length, this.configuration_file_var_2.length)
+    adminImagesVarId(){
       for (var i = 0; i < this.configuration_file_var_id.length; i++){
-        console.log(this.configuration_file_var_id[0], i, this.configuration_file_var_id.length);
         this.configuration_file_var_id[i].id = i;
-        id = 'var_id$' + this.configuration_file_var_id[i].name + '$' + this.configuration_file_var_id[i].id;
+        var id = 'var_id$' + this.configuration_file_var_id[i].name + '$' + this.configuration_file_var_id[i].id;
         document.getElementById(id).id = 'var_id$' + this.configuration_file_var_id[i].name + '$' + i 
         this.configuration_file_var_id[i].id = i;
       }
-      for (i = 0; i < this.configuration_file_opper_apply.length; i++){
-        this.configuration_file_opper_apply[i].id = i;
-        id = 'opper_apply$' + this.configuration_file_opper_apply[i].name + '$' + this.configuration_file_opper_apply[i].id;
-        document.getElementById(id).id = 'opper_apply$' + this.configuration_file_opper_apply[i].name + '$' + i 
-        this.configuration_file_opper_apply[i].id = i;
+    },
+    generateConstantsDivs(name_op){
+      if (this.getOpperItem(name_op).num_parameters == 2){
+        this.configuration_file_var_1.push({name:'const:', id:this.configuration_file_var_1.length});
+        this.configuration_file_var_2.push({name:'const:', id:this.configuration_file_var_2.length});
+      } else {
+        this.configuration_file_var_1.push({name:'const:', id:this.configuration_file_var_1.length});
+        this.configuration_file_var_2.push({name:'empty_', id:this.configuration_file_var_2.length});
       }
-      for (i = 0; i < this.configuration_file_var_1.length; i++){
-        this.configuration_file_var_1[i].id = i
-        id = 'var_1$' + this.configuration_file_var_1[i].name + '$' + this.configuration_file_var_1[i].id;
-        document.getElementById(id).id = 'var_1$' + this.configuration_file_var_1[i].name + '$' + i 
-        this.configuration_file_var_1[i].id = i;
+      console.log(this.configuration_file_var_1)
+    },
+    adminImagesOpperApply(){
+      for (var i = 0; i < this.configuration_file_opper_apply.length; i++){
+        if (this.configuration_file_opper_apply.length > this.configuration_file_var_id.length){
+          this.showModalErrorDrag = true;
+          this.configuration_file_opper_apply.splice(-1,1);
+        }else{
+          this.configuration_file_opper_apply[i].id = i;
+          var id = 'opper_apply$' + this.configuration_file_opper_apply[i].name + '$' + this.configuration_file_opper_apply[i].id;
+          document.getElementById(id).id = 'opper_apply$' + this.configuration_file_opper_apply[i].name + '$' + i 
+          this.configuration_file_opper_apply[i].id = i;
+          if (this.configuration_file_var_1.length < this.configuration_file_opper_apply.length) this.generateConstantsDivs(this.configuration_file_opper_apply[this.configuration_file_opper_apply.length-1].name)
+        }
       }
-      for (i = 0; i < this.configuration_file_var_2.length; i++){
-        this.configuration_file_var_2[i].id = i
-        id = 'var_2$' + this.configuration_file_var_2[i].name + '$' + this.configuration_file_var_2[i].id;
-        document.getElementById(id).id = 'var_2$' + this.configuration_file_var_2[i].name + '$' + i 
-        this.configuration_file_var_2[i].id = i;
+    },
+    adminImagesVar1(){
+      for (var i = 0; i < this.configuration_file_var_1.length; i++){
+        if (this.configuration_file_var_1.length > this.configuration_file_opper_apply.length){
+          this.showModalErrorDrag = true;
+          this.configuration_file_var_1.splice(-1,1);
+        } else {
+          this.configuration_file_var_1[i].id = i
+          var id = 'var_1$' + this.configuration_file_var_1[i].name + '$' + this.configuration_file_var_1[i].id;
+          if (document.getElementById(id) != null) document.getElementById(id).id = 'var_1$' + this.configuration_file_var_1[i].name + '$' + i 
+          this.configuration_file_var_1[i].id = i;
+        }
       }
+    },
+    treatMovements(){
+      for (var i = 0; i < this.configuration_file_opper_apply.length; i++){
+        console.log(this.configuration_file_opper_apply[i])
+        if (this.getOpperItem(this.configuration_file_opper_apply[i].name).num_parameters == 1 && this.configuration_file_var_2[i].name != 'empty_') this.configuration_file_var_2.splice(i, 1, {name:'empty_', id:i});
+        if (this.getOpperItem(this.configuration_file_opper_apply[i].name).num_parameters == 2 && this.configuration_file_var_2[i].name == 'empty_') this.configuration_file_var_2.splice(i, 1, {name:'const:', id:i});
+      }
+    },
+    adminImagesVar2(){
+      for (var i = 0; i < this.configuration_file_var_2.length; i++){
+        if (this.configuration_file_var_2.length > this.configuration_file_var_1.length){
+          this.showModalErrorDrag = true;
+          this.configuration_file_var_2.splice(-1,1);
+        } else {
+          this.configuration_file_var_2[i].id = i
+          var id = 'var_2$' + this.configuration_file_var_2[i].name + '$' + this.configuration_file_var_2[i].id;
+          if (document.getElementById(id) != null) document.getElementById(id).id = 'var_2$' + this.configuration_file_var_2[i].name + '$' + i 
+          this.configuration_file_var_2[i].id = i;
+        }
+        this.treatMovements();
+      }
+    },
+    adminImagesDropArea() {
+      this.configuration_file_rows = Math.max(this.configuration_file_var_id.length, this.configuration_file_opper_apply.length,
+                                this.configuration_file_var_1.length, this.configuration_file_var_2.length)
+      this.adminImagesVarId()
+      this.adminImagesOpperApply();
+      this.adminImagesVar1();
+      this.adminImagesVar2();
     },
     validText(){
       if (this.new_var == '' || !this.new_var.match("^[A-Za-z0-9]+$") || this.new_var.length > 20 || this.edit_var == 'none') return false 
-      for(var i=0; i<this.variables.length; i++){
-        if(this.variables[i].name == this.new_var) return false;
+      for(var i=0; i<this.inputs.length; i++){
+        if(this.inputs[i].name == this.new_var) return false;
       }
       return true;
     },
-    addNewVariable() {
+    addNewinput() {
       if (!this.validText()) {
         this.showModalErrorAddVar = true;
       }else {
-        this.variables.push({name: this.new_var, name_tb: this.new_var + '_tb', is_output: false});
+        this.inputs.push({name: this.new_var, name_tb: this.new_var + '_tb', is_output: false});
         this.showModalAddVar = false;
       }
     },
@@ -547,8 +642,8 @@ export default {
     },
     changeNamesInEdition(index){
       // change values in script
-      this.variables[index].name = this.new_var;
-      this.variables[index].name_tb = this.new_var + '_tb';
+      this.inputs[index].name = this.new_var;
+      this.inputs[index].name_tb = this.new_var + '_tb';
       // change values in html
       document.getElementById(this.edit_var).innerHTML = this.new_var;
       document.getElementById(this.edit_var).id = this.new_var;
@@ -557,12 +652,12 @@ export default {
       this.changeValuesInPalette('var_1$', this.configuration_file_var_1);
       this.changeValuesInPalette('var_2$', this.configuration_file_var_2);
     },
-    editVariable() {
+    editinput() {
       if (!this.validText()) {
         this.showModalErrorAddVar = true;
       }else {
-        for (var i=0; i < this.variables.length; i++){
-          if (this.variables[i].name == this.edit_var) this.changeNamesInEdition(i);
+        for (var i=0; i < this.inputs.length; i++){
+          if (this.inputs[i].name == this.edit_var) this.changeNamesInEdition(i);
         }
         this.showModalEditVar = false;
       }
@@ -573,14 +668,34 @@ export default {
       var id = event.target.id.substring(event.target.id.lastIndexOf('$') + 1);
       var list = event.target.id.substring(0, event.target.id.indexOf('$'));
       console.log('deleting ' + id, list)
-      if (list == 'var_id'){
+      if (list == 'var_id' && this.configuration_file_var_id.length > this.configuration_file_opper_apply.length){
         this.configuration_file_var_id.splice(id, 1);
       }else if (list == 'opper_apply'){
         this.configuration_file_opper_apply.splice(id, 1);
-      }else if (list == 'var_1'){
         this.configuration_file_var_1.splice(id, 1);
-      }else if (list == 'var_2'){
         this.configuration_file_var_2.splice(id, 1);
+      }
+    },
+    editConstantVar1(){
+      if (parseFloat(this.new_value) != null){
+        for (var i = 0; i < this.configuration_file_var_1.length; i++){
+          if (this.configuration_file_var_1[i].id == this.id_click) {
+            this.configuration_file_var_1[i].name = 'const:' + this.new_value;
+            this.showModalEditConstantVar1 = false;
+            break;
+          }
+        }
+      }
+    },
+    editConstantVar2(){
+      if (parseFloat(this.new_value) != null){
+        for (var i = 0; i < this.configuration_file_var_2.length; i++){
+          if (this.configuration_file_var_2[i].id == this.id_click) {
+            this.configuration_file_var_2[i].name = 'const:' + this.new_value;
+            this.showModalEditConstantVar2 = false;
+            break;
+          }
+        }
       }
     }
   },
@@ -708,7 +823,7 @@ h3 {
   margin-right: 6.6vw;
 }
 
-#variables {
+#inputs {
   float: right;
   width: 45%;
   padding: 0%;
@@ -741,7 +856,7 @@ h3 {
   width: 100% !important;
 }
 
-/*********************** Variables **********************************/
+/*********************** inputs **********************************/
 
 .container_var {
   align-items: baseline;
@@ -755,7 +870,7 @@ h3 {
   vertical-align: middle;
 }
 
-.variable {
+.Input {
   padding: 5px;
   margin: 5px;
   margin-left: 0%;
@@ -770,7 +885,7 @@ h3 {
   float: right;
 }
 
-.variable-inside {
+.Input-inside {
   margin-left: 0%;
   margin-right: 0%;
   background-color: #ee3744;
@@ -791,7 +906,7 @@ h3 {
   align-self: center;
 }
 
-.add_variable_button {
+.add_input_button {
   background-color: #ee3744;
   border: solid 1px #ee3744;
   color: #deeaee;
@@ -819,7 +934,7 @@ h3 {
 
 
 /************** Drop Zone ******************/
-.variable_drop {
+.input_drop {
   padding: 5px;
   margin: 5px;
   background-color: #ee3744;
@@ -858,24 +973,23 @@ h3 {
 }
 
 .key_img {
-  width: 4vw;
-  margin-right: -1vw;
-  margin-top: -0.75vw;
+  margin: 0px;
+  width: 1.35vw;
+  margin-bottom: 0.18vw;
 }
 
 .key_left_img {
-  width: 4vw;
+  width: 1.35vw; 
+  margin: 0px;
+  margin-bottom: 0.18vw;
   transform: rotate(180deg);
-  margin-top: -0.25vw;
-  margin-left: 1vw;
-  margin-bottom: -0.75vw;
 }
 
 .images_drop {
   position: relative;
 }
 
-.add_variable_input {
+.add_input_input {
   width: 100%;
   border: 1px solid #ee3744;
   border-radius: 0.75em;
@@ -896,7 +1010,61 @@ h3 {
   contain: layout;
 }
 
-.add_variable_dialog_button{
+.add_input_dialog_button{
+  margin-top: 1vw;
+  border: none;
+  background: #33262D;
+  border-radius: 0.25em;
+  padding: 12px 20px;
+  color: #DEEAEE;
+  font-weight: bold;
+  float: right;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  appearance: none;
+}
+
+/***************** Constants ******************/
+.constant {
+  padding: 5px;
+  margin: 5px;
+  background-color: #31962f;
+  border: solid 1px #31962f;
+  color: #deeaee;
+  border-radius: 0.75em;
+  font-size: 1.5vw;
+  text-align: center;
+}
+
+.var_1_one_param {
+  padding-inline-start: 100%;
+  padding-inline-end: 100%;
+}
+
+
+.add_param_input {
+  width: 100%;
+  border: 1px solid #ee3744;
+  border-radius: 0.75em;
+}
+
+.vm-title {
+  padding-top: 2vw;
+  font-size: 1.85vw;
+}
+
+.vm-titlebar {
+  display: inline-block;
+  align-items: start;
+}
+
+.vm-content {
+  text-align: center;
+  contain: layout;
+}
+
+.edit_activation_dialog_button, .add_param_dialog_button{
   margin-top: 1vw;
   border: none;
   background: #33262D;
@@ -912,3 +1080,4 @@ h3 {
 }
 
 </style>
+
