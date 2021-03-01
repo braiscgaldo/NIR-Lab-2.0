@@ -353,6 +353,7 @@ export default {
     showModalErrorDrag: false,
     showModalEditConstantVar1: false,
     showModalEditConstantVar2: false,
+    showModals: false,
     new_var: '',
     new_value: '',
     id_click: '',
@@ -580,10 +581,12 @@ export default {
       this.substituteConstant(event, 'var_1');
       for (var i = 0; i < this.configuration_file_var_1.length; i++){
         if (this.configuration_file_var_1.length > this.configuration_file_opper_apply.length){
-          this.showModalErrorDrag = true;
           this.configuration_file_var_1.splice(-1,1);
+          if (!this.showModals){
+            this.showModalErrorDrag = true;
+            this.showModals = false;
+          }
         } else {
-          this.configuration_file_var_1[i].id = i
           var id = 'var_1$' + this.configuration_file_var_1[i].name + '$' + this.configuration_file_var_1[i].id;
           if (document.getElementById(id) != null) document.getElementById(id).id = 'var_1$' + this.configuration_file_var_1[i].name + '$' + i 
           this.configuration_file_var_1[i].id = i;
@@ -599,11 +602,13 @@ export default {
     adminImagesVar2(event){
       this.substituteConstant(event, 'var_2');
       for (var i = 0; i < this.configuration_file_var_2.length; i++){
-        if (this.configuration_file_var_2.length > this.configuration_file_var_1.length){
-          this.showModalErrorDrag = true;
-          this.configuration_file_var_2.splice(-1,1);
+        if (this.configuration_file_var_2.length > this.configuration_file_opper_apply.length){
+            this.configuration_file_var_2.splice(-1,1);          
+          if (!this.showModals){
+            this.showModalErrorDrag = true;
+            this.showModals = false;
+          }
         } else {
-          this.configuration_file_var_2[i].id = i
           var id = 'var_2$' + this.configuration_file_var_2[i].name + '$' + this.configuration_file_var_2[i].id;
           if (document.getElementById(id) != null) document.getElementById(id).id = 'var_2$' + this.configuration_file_var_2[i].name + '$' + i 
           this.configuration_file_var_2[i].id = i;
@@ -612,12 +617,12 @@ export default {
       }
     },
     adminImagesDropArea(event) {
-      this.configuration_file_rows = Math.max(this.configuration_file_var_id.length, this.configuration_file_opper_apply.length,
-                                this.configuration_file_var_1.length, this.configuration_file_var_2.length)
       this.adminImagesVarId()
       this.adminImagesOpperApply();
       this.adminImagesVar1(event);
       this.adminImagesVar2(event);
+      this.configuration_file_rows = Math.max(this.configuration_file_var_id.length, this.configuration_file_opper_apply.length,
+                                this.configuration_file_var_1.length, this.configuration_file_var_2.length)
     },
     validText(){
       if (this.new_var == '' || !this.new_var.match("^[A-Za-z0-9]+$") || this.new_var.length > 20 || this.edit_var == 'none') return false 
@@ -681,6 +686,7 @@ export default {
     editConstantVar1(){
       if (this.new_value.match(/^-?[1-9]\d{0,1}(\.[1-9]{1})?$/)){
         for (var i = 0; i < this.configuration_file_var_1.length; i++){
+          console.log(i, this.new_value, this.id_click, this.configuration_file_var_1[i].id)
           if (this.configuration_file_var_1[i].id == this.id_click) {
             this.configuration_file_var_1[i].name = 'const:' + this.new_value;
             this.showModalEditConstantVar1 = false;
@@ -707,8 +713,8 @@ export default {
     },
     substituteConstant(event, list){
       if (event.added != null){
-        if (list == 'var_1' && this.configuration_file_var_1[event.added.newIndex+1] != null && this.configuration_file_var_1[event.added.newIndex+1].name == 'const:') this.configuration_file_var_1.splice(event.added.newIndex+1, 1)
-        if (list == 'var_2' && this.configuration_file_var_2[event.added.newIndex+1] != null && this.configuration_file_var_2[event.added.newIndex+1].name == 'const:') this.configuration_file_var_1.splice(event.added.newIndex+1, 1)
+        if (list == 'var_1' && this.configuration_file_var_1[event.added.newIndex+1] != null && this.configuration_file_var_1[event.added.newIndex+1].name == 'const:') this.showModals = true;
+        if (list == 'var_2' && this.configuration_file_var_2[event.added.newIndex+1] != null && this.configuration_file_var_2[event.added.newIndex+1].name == 'const:') this.showModals = true;
       }
     }
   },
