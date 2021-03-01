@@ -95,9 +95,17 @@
 }
 
 .theme--dark.v-footer {
-  position: absolute;
   bottom: 0;
+  position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.v-sheet.v-card {
+  position: absolute;
+
 }
 
 .footer_text {

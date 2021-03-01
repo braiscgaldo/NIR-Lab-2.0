@@ -1,0 +1,518 @@
+
+.data_treatment-page {
+background-color: #deeaee;
+height: 100%;
+min-height: 100vh; /* will cover the 100% of viewport */
+overflow: hidden;
+display: block;
+position: relative;
+padding-bottom: 10vw; /* height of your footer */
+}
+
+#gen_sel {
+margin-top: 1vw;
+display: flex;
+padding: 0vw;
+}
+
+#gen_new_db {
+float: left;
+width: 50%;
+}
+
+.gen_db_form,
+.sel_db_form {
+margin: 2vw;
+width: 90%;
+border-radius: 0.75vw;
+}
+
+#select_db {
+float: right;
+width: 50%;
+height: 100%;
+}
+
+.vue-form div {
+margin: 2px 0 !important;
+}
+
+h1 {
+margin-top: 4vw;
+margin-bottom: 3vw;
+text-align: center;
+}
+
+h2 {
+margin-top: 5vw;
+text-align: center;
+}
+
+.delete_button {
+background-color: red !important;
+margin-top: -1.5vw;
+}
+
+.border_rect {
+width: fit-content;
+}
+
+#design_palete {
+margin-top: auto !important;
+max-height: fit-content;
+}
+
+.drop-zone {
+border: solid 1px #ee3744;
+padding: 10px;
+border-radius: 0.75vw;
+height: inherit;
+text-align: center;
+}
+
+.db_image {
+width: 10%;
+}
+
+/* Design palette */
+#palette {
+float: left;
+margin: 0 2vw;
+width: 50%;
+max-height: fit-content;
+}
+
+.palette_form {
+width: 100%;
+border-radius: 0.75vw;
+}
+
+.cf_button {
+width: 35%;
+border: 0vw;
+font-size: 10pt;
+}
+
+#configuration_file_to_generate_name {
+width: 60%;
+padding: 0.55vw;
+}
+
+h3 {
+padding-top: 5vw;
+float: right;
+margin-right: 3.5vw;
+}
+
+#var_title {
+margin-right: 13.4vw;
+}
+
+#output_title {
+margin-right: 6.6vw;
+}
+
+#inputs {
+float: right;
+width: 45%;
+padding: 0%;
+max-width: fit-content;
+}
+
+#var_names {
+float: left;
+width: 66%;
+margin-top: 4vw;
+text-align: center;
+}
+
+#operation_names {
+float: right;
+width: 34%;
+margin-right: 1.5vw;
+margin-top: 4vw;
+max-width: fit-content;
+}
+
+
+
+/*******************  Records ****************************/
+
+.container {
+max-width: fit-content;
+padding: 0%;
+position: relative;
+height: auto;
+display: block;
+width: 100% !important;
+}
+
+/*********************** inputs **********************************/
+
+.container_var {
+align-items: baseline;
+display: inline-flex;
+float: right;
+margin-left: 50%;
+}
+
+
+#var_container {
+padding: 0;
+vertical-align: middle;
+}
+
+.Input {
+padding: 5px;
+margin: 5px;
+margin-left: 0%;
+margin-right: 0%;
+background-color: #ee3744;
+border: solid 1px #ee3744;
+color: #deeaee;
+border-radius: 0.75em;
+font-size: 1.5vw;
+text-align: center;
+width: 73%;
+float: right;
+}
+
+.Input-inside {
+margin-left: 0%;
+margin-right: 0%;
+background-color: #ee3744;
+border: solid 1px #ee3744;
+color: #deeaee;
+border-radius: 0.75em;
+font-size: 1.5vw;
+text-align: center;
+width: 100%;
+float: right;
+}
+
+.Input-inside-output {
+margin-left: 0%;
+margin-right: 0%;
+background-color: #ff6a00;
+border: solid 1px #ff6a00;
+color: #deeaee;
+border-radius: 0.75em;
+font-size: 1.5vw;
+text-align: center;
+width: 100%;
+float: right;
+}
+
+.toggle_button {
+margin: 5px;
+margin-right: 5%;
+float: left;
+width: fit-content;
+align-self: center;
+}
+
+.add_input_button {
+background-color: #ee3744;
+border: solid 1px #ee3744;
+color: #deeaee;
+border-radius: 1em;
+font-size: 1.5vw;
+text-align: center;
+width: 2.5vw;
+}
+
+
+/******************** Operations *******************************/
+
+.operation {
+padding: 5px;
+margin: 5px;
+margin-right: 0%;
+background-color: #2fa2a2;
+border: solid 1px #2fa2a2;
+color: #deeaee;
+border-radius: 0.75em;
+font-size: 1.5vw;
+text-align: center;
+}
+
+
+/************** Drop Zone ******************/
+.input_drop {
+padding: 5px;
+margin: 5px;
+background-color: #ee3744;
+border: solid 1px #ee3744;
+color: #deeaee;
+border-radius: 0.75em;
+font-size: 1.5vw;
+text-align: center;
+}
+
+.operation_drop {
+padding: 5px;
+margin: 5px;
+background-color: #2fa2a2;
+border: solid 1px #2fa2a2;
+color: #deeaee;
+border-radius: 0.75em;
+font-size: 1.5vw;
+text-align: center;
+}
+
+#var_id, #oper_apply, #var_1, #var_2 {
+width: 33%;
+display: inline-flex;
+}
+
+#var_1 {
+margin-right: 3vw;
+}
+
+.arrow_img {
+width: 4.5vw;
+margin-left: 1vw;
+margin-right: 1vw;
+transform: rotate(180deg);
+}
+
+.key_img {
+margin: 0px;
+width: 1.35vw;
+margin-bottom: 0.18vw;
+}
+
+.key_left_img {
+width: 1.35vw; 
+margin: 0px;
+margin-bottom: 0.18vw;
+transform: rotate(180deg);
+}
+
+.images_drop {
+position: relative;
+}
+
+.add_input_input {
+width: 100%;
+border: 1px solid #ee3744;
+border-radius: 0.75em;
+}
+
+.vm-title {
+padding-top: 2vw;
+font-size: 1.85vw;
+}
+
+.vm-titlebar {
+display: inline-block;
+align-items: start;
+}
+
+.vm-content {
+text-align: center;
+contain: layout;
+}
+
+.add_input_dialog_button{
+margin-top: 1vw;
+border: none;
+background: #33262D;
+border-radius: 0.25em;
+padding: 12px 20px;
+color: #DEEAEE;
+font-weight: bold;
+float: right;
+cursor: pointer;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+appearance: none;
+}
+
+/***************** Constants ******************/
+.constant {
+padding: 5px;
+margin: 5px;
+background-color: #31962f;
+border: solid 1px #31962f;
+color: #deeaee;
+border-radius: 0.75em;
+font-size: 1.5vw;
+text-align: center;
+}
+
+.var_1_one_param {
+padding-inline-start: 100%;
+padding-inline-end: 100%;
+}
+
+
+.add_param_input {
+width: 100%;
+border: 1px solid #ee3744;
+border-radius: 0.75em;
+}
+
+.vm-title {
+padding-top: 2vw;
+font-size: 1.85vw;
+}
+
+.vm-titlebar {
+display: inline-block;
+align-items: start;
+}
+
+.vm-content {
+text-align: center;
+contain: layout;
+}
+
+.edit_activation_dialog_button, .add_param_dialog_button{
+margin-top: 1vw;
+border: none;
+background: #33262D;
+border-radius: 0.25em;
+padding: 12px 20px;
+color: #DEEAEE;
+font-weight: bold;
+float: right;
+cursor: pointer;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+appearance: none;
+}
+
+@media screen and (max-width: 1408px){
+    #design_palette, #operation_names, #var_names, #palette, #inputs, .Input, #var_id, #oper_apply, #var_1, #var_2, .border_rect {
+        width: 99%;  
+        float: left;   
+    }
+
+    .input_drop, .operation_drop, .Input, .operation, .constant {
+        font-size: 3vw;
+    }
+
+    .key_img, .key_left_img {
+        width: 2.5vw;
+    }
+
+    .arrow_img {
+        width: 9vw;
+    }
+    
+
+    #var_names, #operation_names {
+        width:70%;
+        float: left;
+    }
+
+    h3 {
+        margin: 0 15vw 0 9vw;
+        float: right;
+        display: block;
+    }
+
+    #var_title {
+        margin-right: 23vw;
+    }
+
+    #output_title {
+        float: left;
+        margin-left: 0.5vw;
+    }
+
+}
+
+@media screen and (max-width: 862px){
+    #design_palette, #operation_names, #var_names, #palette, #inputs, .Input, #var_id, #oper_apply, #var_1, #var_2, .border_rect {
+        width: 99%;  
+        float: left;   
+    }
+
+    .input_drop, .operation_drop, .Input, .operation, .constant {
+        font-size: 3vw;
+    }
+
+    .key_img, .key_left_img {
+        width: 2.5vw;
+    }
+
+    .arrow_img {
+        width: 9vw;
+    }
+    
+
+    #var_names, #operation_names {
+        width:70%;
+        float: left;
+    }
+
+    h3 {
+        margin: 0 15vw 0 9vw;
+        float: right;
+        display: none;
+    }
+
+    #var_title {
+        margin-right: 23vw;
+    }
+
+    #output_title {
+        float: left;
+        margin-left: 0.5vw;
+    }
+
+}
+
+@media screen and (max-width: 576px){
+    #design_palette, #operation_names, #var_names, #palette, #inputs, .Input, #var_id, #oper_apply, #var_1, #var_2, .border_rect {
+        width: 99%;  
+        float: left;   
+    }
+
+    .input_drop, .operation_drop, .Input, .operation, .constant {
+        font-size: 3vw;
+    }
+
+    .operation {
+        min-width: 85vw;
+    }
+
+    .key_img, .key_left_img {
+        width: 3.5vw;
+    }
+
+    .arrow_img {
+        width: 11vw;
+    }
+
+    .container_var {
+        float: left;
+    }
+    
+    .Input {
+        min-width: 80vw;
+    }
+
+    #var_names, #operation_names {
+        width:100%;
+        float: left;
+    }
+
+    h3 {
+        margin: 0 15vw 0 9vw;
+        float: right;
+        display: none;
+    }
+
+    #var_title {
+        margin-right: 23vw;
+    }
+
+    #output_title {
+        float: left;
+        margin-left: 0.5vw;
+    }
+
+}

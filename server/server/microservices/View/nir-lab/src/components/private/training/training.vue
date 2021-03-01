@@ -689,14 +689,17 @@ label {
 }
 
 .key_img {
-  transform: rotate(0deg);
-  margin: 0px;
-  width: 20%;
+    margin: 0px;
+    width: 1.35vw;
+    margin-bottom: 0.18vw;
 }
 
 .key_img_left {
-  transform: rotate(180deg);
-  float: right;
+    width: 1.35vw; 
+    margin: 0px;
+    margin-left: 4vw;
+    margin-bottom: 0.18vw;
+    transform: rotate(180deg);
 }
 
 .images_drop {
@@ -779,6 +782,154 @@ label {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   appearance: none;
+}
+
+@media screen and (max-width: 1300px){
+  #config_parameters, #admin_models, #layers_names, #palette {
+    width: 99%;
+  }
+
+  .layer, .layer_drop, .parameter_drop {
+    font-size: 2.5vw;
+  }
+
+  h2 {
+    font-size: 3.5vw;
+  }
+
+  h1 {
+    font-size: 4vw;
+  }
+
+  h3 {
+    font-size: 3vw;
+  }
+
+  .key_img, .key_img_left {
+    width: 2.25vw;
+  }
+
+  .cf_button {
+    width: 40vw;
+    font-size: 2vw;
+  }
+
+  .vue-form input[type="submit"] {
+    float: inherit;
+    width: auto;
+  }
+
+}
+
+@media screen and (max-width: 1018px){
+  #config_parameters, #admin_models, #layers_names, #palette {
+    width: 99%;
+  }
+
+  .layer, .layer_drop, .parameter_drop {
+    font-size: 2vw;
+  }
+
+  h2 {
+    font-size: 3.5vw;
+  }
+
+  h1 {
+    font-size: 4vw;
+  }
+
+  h3 {
+    font-size: 3vw;
+  }
+
+  .key_img, .key_img_left {
+    width: 2vw;
+  }
+
+  .cf_button {
+    width: 40vw;
+    font-size: 2vw;
+  }
+
+  .vue-form input[type="submit"] {
+    float: inherit;
+    width: auto;
+  }
+
+}
+
+@media screen and (max-width: 750px){
+  #config_parameters, #admin_models, #layers_names, #palette {
+    width: 99%;
+  }
+
+  .layer, .layer_drop, .parameter_drop {
+    font-size: 2vw;
+  }
+
+  h2 {
+    font-size: 3.5vw;
+  }
+
+  h1 {
+    font-size: 4vw;
+  }
+
+  h3 {
+    font-size: 3vw;
+  }
+
+  .key_img, .key_img_left {
+    width: 2.25vw;
+  }
+
+  .cf_button {
+    width: 40vw;
+    font-size: 2vw;
+  }
+
+  .vue-form input[type="submit"] {
+    float: inherit;
+    width: auto;
+  }
+
+}
+
+@media screen and (max-width: 500px){
+  #config_parameters, #admin_models, #layers_names, #palette {
+    width: 99%;
+  }
+
+  .layer {
+    font-size: 2.5vw;
+  }
+
+  h2 {
+    font-size: 3.5vw;
+  }
+
+  h1 {
+    font-size: 4vw;
+  }
+
+  h3 {
+    font-size: 3vw;
+  }
+
+  .key_img, .key_img_left {
+    width: 3vw;
+  }
+
+  .cf_button {
+    width: 40vw;
+    font-size: 2vw;
+  }
+
+  .vue-form input[type="submit"] {
+    float: inherit;
+    width: auto;
+  }
+
 }
 
 </style>

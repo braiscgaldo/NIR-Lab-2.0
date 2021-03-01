@@ -166,10 +166,10 @@
                 <div v-else-if="isConstant(Input.name)" :id="'var_1$' + Input.name + '$' + idx" class="constant" @dblclick="showModalEditConstantVar1 = true; id_click = idx;">
                   {{ Input.name }}
                 </div>
-                <div v-else-if="isOneParamVar1(idx)" :id="'var_1$' + Input.name + '$' + idx" class="input_drop var_1_one_param" @dblclick="deleteDiv">
+                <div v-else-if="isOneParamVar1(idx)" :id="'var_1$' + Input.name + '$' + idx" class="input_drop var_1_one_param" @dblclick="deleteVars">
                   {{ Input.name }}
                 </div>
-                <div v-else :id="'var_1$' + Input.name + '$' + idx" class="input_drop" @dblclick="deleteDiv">
+                <div v-else :id="'var_1$' + Input.name + '$' + idx" class="input_drop" @dblclick="deleteVars">
                   {{ Input.name }}
                 </div>
 
@@ -202,7 +202,7 @@
                 <div v-else-if="isHidden(Input.name)" :id="'var_2$' + Input.name + '$' + idx" class="input_drop" style="visibility:hidden" @dblclick="deleteDiv">
                   {{ Input.name }}
                 </div>
-                <div v-else :id="'var_2$' + Input.name + '$' + idx" class="input_drop" @dblclick="deleteDiv">
+                <div v-else :id="'var_2$' + Input.name + '$' + idx" class="input_drop" @dblclick="deleteVars">
                   {{ Input.name }}
                 </div>
                 <VueModal v-model="showModalEditConstantVar2" title="Introduce the new value to constant!">
@@ -226,7 +226,6 @@
                   class="key_img"
                   :src="getImgKey()"
                   alt="Key image"
-                  rotation="90"
                 ></b-img>
               </div>
             </div>
@@ -234,12 +233,13 @@
         </div>
       </div>
       <div id="inputs">
-        <h3>Operations</h3>
-        <h3 id="var_title">inputs</h3>
+        <h3 id="operations_title">Operations</h3>
+        <h3 id="var_title">Inputs</h3>
         <h3 id="output_title">Output</h3>
 
         <div class="border_rect" id="var_names">
           <draggable
+              style="content-visibility: auto;"
               :list="inputs"
               ghost-class="ghost"
               :group="{ name: 'inputs', pull: 'clone', put: false }"
@@ -261,7 +261,10 @@
                 />
                 
               
-                <div :id="Input.name" class="Input Input-inside" @dblclick="showModalEditVar=true; new_var=Input.name; edit_var=new_var">
+                <div v-if="Input.is_output" :id="Input.name" class="Input Input-inside-output" @dblclick="showModalEditVar=true; new_var=Input.name; edit_var=new_var">
+                  {{ Input.name }}
+                </div>
+                <div v-else :id="Input.name" class="Input Input-inside" @dblclick="showModalEditVar=true; new_var=Input.name; edit_var=new_var">
                   {{ Input.name }}
                 </div>
                 <VueModal v-model="showModalEditVar" title="Edit the name of the Input!">
@@ -530,7 +533,7 @@ export default {
       return name == 'empty_';
     },
     isOneParamVar1(idx){
-      return this.getOpperItem(this.configuration_file_opper_apply[idx].name).num_parameters == 1
+      if (this.configuration_file_opper_apply[idx] != null) return this.getOpperItem(this.configuration_file_opper_apply[idx].name).num_parameters == 1
     },
     getOpperItem(name){
       for(var i = 0; i < this.operations.length; i++){
@@ -558,7 +561,6 @@ export default {
         this.configuration_file_var_1.push({name:'const:', id:this.configuration_file_var_1.length});
         this.configuration_file_var_2.push({name:'empty_', id:this.configuration_file_var_2.length});
       }
-      console.log(this.configuration_file_var_1)
     },
     adminImagesOpperApply(){
       for (var i = 0; i < this.configuration_file_opper_apply.length; i++){
@@ -574,7 +576,8 @@ export default {
         }
       }
     },
-    adminImagesVar1(){
+    adminImagesVar1(event){
+      this.substituteConstant(event, 'var_1');
       for (var i = 0; i < this.configuration_file_var_1.length; i++){
         if (this.configuration_file_var_1.length > this.configuration_file_opper_apply.length){
           this.showModalErrorDrag = true;
@@ -589,12 +592,12 @@ export default {
     },
     treatMovements(){
       for (var i = 0; i < this.configuration_file_opper_apply.length; i++){
-        console.log(this.configuration_file_opper_apply[i])
         if (this.getOpperItem(this.configuration_file_opper_apply[i].name).num_parameters == 1 && this.configuration_file_var_2[i].name != 'empty_') this.configuration_file_var_2.splice(i, 1, {name:'empty_', id:i});
         if (this.getOpperItem(this.configuration_file_opper_apply[i].name).num_parameters == 2 && this.configuration_file_var_2[i].name == 'empty_') this.configuration_file_var_2.splice(i, 1, {name:'const:', id:i});
       }
     },
-    adminImagesVar2(){
+    adminImagesVar2(event){
+      this.substituteConstant(event, 'var_2');
       for (var i = 0; i < this.configuration_file_var_2.length; i++){
         if (this.configuration_file_var_2.length > this.configuration_file_var_1.length){
           this.showModalErrorDrag = true;
@@ -608,13 +611,13 @@ export default {
         this.treatMovements();
       }
     },
-    adminImagesDropArea() {
+    adminImagesDropArea(event) {
       this.configuration_file_rows = Math.max(this.configuration_file_var_id.length, this.configuration_file_opper_apply.length,
                                 this.configuration_file_var_1.length, this.configuration_file_var_2.length)
       this.adminImagesVarId()
       this.adminImagesOpperApply();
-      this.adminImagesVar1();
-      this.adminImagesVar2();
+      this.adminImagesVar1(event);
+      this.adminImagesVar2(event);
     },
     validText(){
       if (this.new_var == '' || !this.new_var.match("^[A-Za-z0-9]+$") || this.new_var.length > 20 || this.edit_var == 'none') return false 
@@ -663,11 +666,10 @@ export default {
       }
     },
     deleteDiv(event){
-      if (this.configuration_file_var_id.length == 1 || this.configuration_file_var_1.length == 1 || this.configuration_file_var_2 == 1) return null;   
+      if (this.configuration_file_var_id.length == 1) return null;   
       
       var id = event.target.id.substring(event.target.id.lastIndexOf('$') + 1);
       var list = event.target.id.substring(0, event.target.id.indexOf('$'));
-      console.log('deleting ' + id, list)
       if (list == 'var_id' && this.configuration_file_var_id.length > this.configuration_file_opper_apply.length){
         this.configuration_file_var_id.splice(id, 1);
       }else if (list == 'opper_apply'){
@@ -677,7 +679,7 @@ export default {
       }
     },
     editConstantVar1(){
-      if (parseFloat(this.new_value) != null){
+      if (this.new_value.match(/^-?[1-9]\d{0,1}(\.[1-9]{1})?$/)){
         for (var i = 0; i < this.configuration_file_var_1.length; i++){
           if (this.configuration_file_var_1[i].id == this.id_click) {
             this.configuration_file_var_1[i].name = 'const:' + this.new_value;
@@ -688,7 +690,7 @@ export default {
       }
     },
     editConstantVar2(){
-      if (parseFloat(this.new_value) != null){
+      if (this.new_value.match(/^-?[1-9]\d{0,1}(\.[1-9]{1})?$/)){
         for (var i = 0; i < this.configuration_file_var_2.length; i++){
           if (this.configuration_file_var_2[i].id == this.id_click) {
             this.configuration_file_var_2[i].name = 'const:' + this.new_value;
@@ -696,6 +698,17 @@ export default {
             break;
           }
         }
+      }
+    },
+    deleteVars(event){
+      var id = event.target.id.substring(event.target.id.lastIndexOf('$') + 1);
+      var list = event.target.id.substring(0, event.target.id.indexOf('$'));
+      (list == 'var_1') ? this.configuration_file_var_1.splice(id, 1, {name:'const:', id:id}) : this.configuration_file_var_2.splice(id, 1, {name:'const:', id:id})
+    },
+    substituteConstant(event, list){
+      if (event.added != null){
+        if (list == 'var_1' && this.configuration_file_var_1[event.added.newIndex+1] != null && this.configuration_file_var_1[event.added.newIndex+1].name == 'const:') this.configuration_file_var_1.splice(event.added.newIndex+1, 1)
+        if (list == 'var_2' && this.configuration_file_var_2[event.added.newIndex+1] != null && this.configuration_file_var_2[event.added.newIndex+1].name == 'const:') this.configuration_file_var_1.splice(event.added.newIndex+1, 1)
       }
     }
   },
@@ -710,374 +723,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.data_treatment-page {
-  background-color: #deeaee;
-  height: 100%;
-  min-height: 100vh; /* will cover the 100% of viewport */
-  overflow: hidden;
-  display: block;
-  position: relative;
-  padding-bottom: 10vw; /* height of your footer */
-}
-
-#gen_sel {
-  margin-top: 1vw;
-  display: flex;
-  padding: 0vw;
-}
-
-#gen_new_db {
-  float: left;
-  width: 50%;
-}
-
-.gen_db_form,
-.sel_db_form {
-  margin: 2vw;
-  width: 90%;
-  border-radius: 0.75vw;
-}
-
-#select_db {
-  float: right;
-  width: 50%;
-  height: 100%;
-}
-
-.vue-form div {
-  margin: 2px 0 !important;
-}
-
-h1 {
-  margin-top: 4vw;
-  margin-bottom: 3vw;
-  text-align: center;
-}
-
-h2 {
-  margin-top: 5vw;
-  text-align: center;
-}
-
-.delete_button {
-  background-color: red !important;
-  margin-top: -1.5vw;
-}
-
-.border_rect {
-  width: fit-content;
-}
-
-#design_palete {
-  margin-top: auto !important;
-  max-height: fit-content;
-}
-
-.drop-zone {
-  border: solid 1px #ee3744;
-  padding: 10px;
-  border-radius: 0.75vw;
-  height: inherit;
-  text-align: center;
-}
-
-.db_image {
-  width: 10%;
-}
-
-/* Design palette */
-#palette {
-  float: left;
-  margin: 0 2vw;
-  width: 50%;
-  max-height: fit-content;
-}
-
-.palette_form {
-  width: 100%;
-  border-radius: 0.75vw;
-}
-
-.cf_button {
-  width: 35%;
-  border: 0vw;
-  font-size: 10pt;
-}
-
-#configuration_file_to_generate_name {
-  width: 60%;
-  padding: 0.55vw;
-}
-
-h3 {
-  padding-top: 5vw;
-  float: right;
-  margin-right: 3.5vw;
-}
-
-#var_title {
-  margin-right: 13.4vw;
-}
-
-#output_title {
-  margin-right: 6.6vw;
-}
-
-#inputs {
-  float: right;
-  width: 45%;
-  padding: 0%;
-  max-width: fit-content;
-}
-
-#var_names {
-  float: left;
-  width: 66%;
-  margin-top: 4vw;
-  text-align: center;
-}
-
-#operation_names {
-  float: right;
-  width: 34%;
-  margin-right: 1.5vw;
-  margin-top: 4vw;
-  max-width: fit-content;
-}
-
-/*******************  Records ****************************/
-
-.container {
-  max-width: fit-content;
-  padding: 0%;
-  position: relative;
-  height: auto;
-  display: block;
-  width: 100% !important;
-}
-
-/*********************** inputs **********************************/
-
-.container_var {
-  align-items: baseline;
-  display: inline-flex;
-  float: right;
-  margin-left: 50%;
-}
-
-#var_container {
-  padding: 0;
-  vertical-align: middle;
-}
-
-.Input {
-  padding: 5px;
-  margin: 5px;
-  margin-left: 0%;
-  margin-right: 0%;
-  background-color: #ee3744;
-  border: solid 1px #ee3744;
-  color: #deeaee;
-  border-radius: 0.75em;
-  font-size: 1.5vw;
-  text-align: center;
-  width: 73%;
-  float: right;
-}
-
-.Input-inside {
-  margin-left: 0%;
-  margin-right: 0%;
-  background-color: #ee3744;
-  border: solid 1px #ee3744;
-  color: #deeaee;
-  border-radius: 0.75em;
-  font-size: 1.5vw;
-  text-align: center;
-  width: 100%;
-  float: right;
-}
-
-.toggle_button {
-  margin: 5px;
-  margin-right: 5%;
-  float: left;
-  width: fit-content;
-  align-self: center;
-}
-
-.add_input_button {
-  background-color: #ee3744;
-  border: solid 1px #ee3744;
-  color: #deeaee;
-  border-radius: 1em;
-  font-size: 1.5vw;
-  text-align: center;
-  width: 2.5vw;
-
-}
-
-
-/******************** Operations *******************************/
-
-.operation {
-  padding: 5px;
-  margin: 5px;
-  margin-right: 0%;
-  background-color: #2fa2a2;
-  border: solid 1px #2fa2a2;
-  color: #deeaee;
-  border-radius: 0.75em;
-  font-size: 1.5vw;
-  text-align: center;
-}
-
-
-/************** Drop Zone ******************/
-.input_drop {
-  padding: 5px;
-  margin: 5px;
-  background-color: #ee3744;
-  border: solid 1px #ee3744;
-  color: #deeaee;
-  border-radius: 0.75em;
-  font-size: 1.5vw;
-  text-align: center;
-}
-
-.operation_drop {
-  padding: 5px;
-  margin: 5px;
-  background-color: #2fa2a2;
-  border: solid 1px #2fa2a2;
-  color: #deeaee;
-  border-radius: 0.75em;
-  font-size: 1.5vw;
-  text-align: center;
-}
-
-#var_id, #oper_apply, #var_1, #var_2 {
-  width: 33%;
-  display: inline-flex;
-}
-
-#var_1 {
-  margin-right: 3vw;
-}
-
-.arrow_img {
-  width: 4.5vw;
-  margin-left: 1vw;
-  margin-right: 1vw;
-  transform: rotate(180deg);
-}
-
-.key_img {
-  margin: 0px;
-  width: 1.35vw;
-  margin-bottom: 0.18vw;
-}
-
-.key_left_img {
-  width: 1.35vw; 
-  margin: 0px;
-  margin-bottom: 0.18vw;
-  transform: rotate(180deg);
-}
-
-.images_drop {
-  position: relative;
-}
-
-.add_input_input {
-  width: 100%;
-  border: 1px solid #ee3744;
-  border-radius: 0.75em;
-}
-
-.vm-title {
-  padding-top: 2vw;
-  font-size: 1.85vw;
-}
-
-.vm-titlebar {
-  display: inline-block;
-  align-items: start;
-}
-
-.vm-content {
-  text-align: center;
-  contain: layout;
-}
-
-.add_input_dialog_button{
-  margin-top: 1vw;
-  border: none;
-  background: #33262D;
-  border-radius: 0.25em;
-  padding: 12px 20px;
-  color: #DEEAEE;
-  font-weight: bold;
-  float: right;
-  cursor: pointer;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  appearance: none;
-}
-
-/***************** Constants ******************/
-.constant {
-  padding: 5px;
-  margin: 5px;
-  background-color: #31962f;
-  border: solid 1px #31962f;
-  color: #deeaee;
-  border-radius: 0.75em;
-  font-size: 1.5vw;
-  text-align: center;
-}
-
-.var_1_one_param {
-  padding-inline-start: 100%;
-  padding-inline-end: 100%;
-}
-
-
-.add_param_input {
-  width: 100%;
-  border: 1px solid #ee3744;
-  border-radius: 0.75em;
-}
-
-.vm-title {
-  padding-top: 2vw;
-  font-size: 1.85vw;
-}
-
-.vm-titlebar {
-  display: inline-block;
-  align-items: start;
-}
-
-.vm-content {
-  text-align: center;
-  contain: layout;
-}
-
-.edit_activation_dialog_button, .add_param_dialog_button{
-  margin-top: 1vw;
-  border: none;
-  background: #33262D;
-  border-radius: 0.25em;
-  padding: 12px 20px;
-  color: #DEEAEE;
-  font-weight: bold;
-  float: right;
-  cursor: pointer;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  appearance: none;
-}
-
+@import 'data_treatment.css';
 </style>
 
