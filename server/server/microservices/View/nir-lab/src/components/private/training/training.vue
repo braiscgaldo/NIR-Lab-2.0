@@ -251,7 +251,7 @@
               <div
                 :id="layer.name + '$' + idx + '$activation'"
                 class="parameter_drop"
-                @dblclick="showModalEditActivation=true; id_layer=layer.id"
+                @dblclick="showModalEditActivation=true; id_layer = idx;"
               >
                 {{ 'activation: ' + layer.activation }}
               </div>
@@ -275,7 +275,7 @@
               <div
                 :id="layer.name + '$' + idx + '$'"
                 class="parameter_drop"
-                @dblclick="showModalEditValue=true; id_layer=layer.id"
+                @dblclick="showModalEditValue = true; id_layer = idx;"
               >
                 {{ Object.keys(layer)[3] + ": " }}
                 {{ layer[Object.keys(layer)[3]] }}
@@ -487,6 +487,7 @@ export default {
     },
     editActivation(){
       for (var i=0; i < this.configuration_file_layers_id.length; i++){
+        console.log('layer', this.id_layer, this.configuration_file_layers_id[i])
         if (this.configuration_file_layers_id[i].id == this.id_layer) this.changeActivationInEdition(i);
       }
       this.showModalEditActivation = false;

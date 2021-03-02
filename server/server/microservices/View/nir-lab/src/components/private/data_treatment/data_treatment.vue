@@ -151,7 +151,6 @@
               :list="configuration_file_var_1"
               class="list-group"
               ghost-class="ghost"
-              :move="adminImagesDropArea"
               :group="{ name: 'inputs', pull: 'clone'}"
               @change="adminImagesDropArea"
             >
@@ -187,9 +186,7 @@
               :list="configuration_file_var_2"
               class="list-group"
               ghost-class="ghost"
-              :move="adminImagesDropArea"
               :group="{ name: 'inputs', pull: 'clone'}"
-              @change="adminImagesDropArea"
             >
               <div
                 id="var_2"
@@ -305,7 +302,6 @@
             :list="operations"
             class="list-group"
             ghost-class="ghost"
-            :move="adminImagesDropArea"
             :group="{ name: 'operations', pull: 'clone', put: false }"
           >
             <div
@@ -547,12 +543,7 @@ export default {
       document.getElementById(id).id = list[i].name + '$' + i  
     },
     adminImagesVarId(){
-      for (var i = 0; i < this.configuration_file_var_id.length; i++){
-        this.configuration_file_var_id[i].id = i;
-        var id = 'var_id$' + this.configuration_file_var_id[i].name + '$' + this.configuration_file_var_id[i].id;
-        document.getElementById(id).id = 'var_id$' + this.configuration_file_var_id[i].name + '$' + i 
-        this.configuration_file_var_id[i].id = i;
-      }
+      
     },
     generateConstantsDivs(name_op){
       if (this.getOpperItem(name_op).num_parameters == 2){
@@ -564,34 +555,25 @@ export default {
       }
     },
     adminImagesOpperApply(){
-      for (var i = 0; i < this.configuration_file_opper_apply.length; i++){
-        if (this.configuration_file_opper_apply.length > this.configuration_file_var_id.length){
-          this.showModalErrorDrag = true;
-          this.configuration_file_opper_apply.splice(-1,1);
-        }else{
-          this.configuration_file_opper_apply[i].id = i;
-          var id = 'opper_apply$' + this.configuration_file_opper_apply[i].name + '$' + this.configuration_file_opper_apply[i].id;
-          document.getElementById(id).id = 'opper_apply$' + this.configuration_file_opper_apply[i].name + '$' + i 
-          this.configuration_file_opper_apply[i].id = i;
-          if (this.configuration_file_var_1.length < this.configuration_file_opper_apply.length) this.generateConstantsDivs(this.configuration_file_opper_apply[this.configuration_file_opper_apply.length-1].name)
-        }
+      if (this.configuration_file_opper_apply.length > this.configuration_file_var_id.length){
+        this.showModalErrorDrag = true;
+        this.configuration_file_opper_apply.splice(-1,1);
+         
+      }
+      if (this.configuration_file_var_1.length < this.configuration_file_opper_apply.length) {
+        this.generateConstantsDivs(this.configuration_file_opper_apply[this.configuration_file_opper_apply.length-1].name);
+        return 0;
       }
     },
     adminImagesVar1(event){
       this.substituteConstant(event, 'var_1');
-      for (var i = 0; i < this.configuration_file_var_1.length; i++){
-        if (this.configuration_file_var_1.length > this.configuration_file_opper_apply.length){
+      if (this.configuration_file_var_1.length > this.configuration_file_opper_apply.length){
           this.configuration_file_var_1.splice(-1,1);
           if (!this.showModals){
             this.showModalErrorDrag = true;
             this.showModals = false;
           }
-        } else {
-          var id = 'var_1$' + this.configuration_file_var_1[i].name + '$' + this.configuration_file_var_1[i].id;
-          if (document.getElementById(id) != null) document.getElementById(id).id = 'var_1$' + this.configuration_file_var_1[i].name + '$' + i 
-          this.configuration_file_var_1[i].id = i;
         }
-      }
     },
     treatMovements(){
       for (var i = 0; i < this.configuration_file_opper_apply.length; i++){
@@ -601,26 +583,21 @@ export default {
     },
     adminImagesVar2(event){
       this.substituteConstant(event, 'var_2');
-      for (var i = 0; i < this.configuration_file_var_2.length; i++){
-        if (this.configuration_file_var_2.length > this.configuration_file_opper_apply.length){
+      if (this.configuration_file_var_2.length > this.configuration_file_opper_apply.length){
             this.configuration_file_var_2.splice(-1,1);          
           if (!this.showModals){
             this.showModalErrorDrag = true;
             this.showModals = false;
           }
-        } else {
-          var id = 'var_2$' + this.configuration_file_var_2[i].name + '$' + this.configuration_file_var_2[i].id;
-          if (document.getElementById(id) != null) document.getElementById(id).id = 'var_2$' + this.configuration_file_var_2[i].name + '$' + i 
-          this.configuration_file_var_2[i].id = i;
-        }
-        this.treatMovements();
-      }
+        } 
+      this.treatMovements();
     },
     adminImagesDropArea(event) {
       this.adminImagesVarId()
-      this.adminImagesOpperApply();
-      this.adminImagesVar1(event);
-      this.adminImagesVar2(event);
+      if (this.adminImagesOpperApply() != 0){
+        this.adminImagesVar1(event);
+        this.adminImagesVar2(event);
+      }
       this.configuration_file_rows = Math.max(this.configuration_file_var_id.length, this.configuration_file_opper_apply.length,
                                 this.configuration_file_var_1.length, this.configuration_file_var_2.length)
     },
@@ -639,26 +616,19 @@ export default {
         this.showModalAddVar = false;
       }
     },
-    changeValuesInPalette(prefix, list){
+    changeValuesInPalette(list){
       for(var i=0; i < list.length; i++){
-        if(list[i].name == this.edit_var){
-          document.getElementById(prefix + list[i].name + '$' + list[i].id).innerHTML = this.new_var;
-          document.getElementById(prefix + list[i].name + '$' + list[i].id).id = prefix + this.new_var + '$' + list[i].id;
-          list[i].name = this.new_var;
-        }
+        if(list[i].name == this.edit_var) list[i].name = this.new_var;
       }
     },
     changeNamesInEdition(index){
       // change values in script
       this.inputs[index].name = this.new_var;
       this.inputs[index].name_tb = this.new_var + '_tb';
-      // change values in html
-      document.getElementById(this.edit_var).innerHTML = this.new_var;
-      document.getElementById(this.edit_var).id = this.new_var;
       // change values in palette
-      this.changeValuesInPalette('var_id$', this.configuration_file_var_id);
-      this.changeValuesInPalette('var_1$', this.configuration_file_var_1);
-      this.changeValuesInPalette('var_2$', this.configuration_file_var_2);
+      this.changeValuesInPalette(this.configuration_file_var_id);
+      this.changeValuesInPalette(this.configuration_file_var_1);
+      this.changeValuesInPalette(this.configuration_file_var_2);
     },
     editinput() {
       if (!this.validText()) {
@@ -684,9 +654,10 @@ export default {
       }
     },
     editConstantVar1(){
-      if (this.new_value.match(/^-?[1-9]\d{0,1}(\.[1-9]{1})?$/)){
+      console.log(this.new_value.match(/^-?[0-9](\.{1}[0-9])?$/), this.new_value)
+      if (this.new_value.match(/^-?[1-9]{1,9}(\.[1-9]{1,9})?$/) != null || this.new_value == ''){
+        console.log(this.id_click, this.new_value)
         for (var i = 0; i < this.configuration_file_var_1.length; i++){
-          console.log(i, this.new_value, this.id_click, this.configuration_file_var_1[i].id)
           if (this.configuration_file_var_1[i].id == this.id_click) {
             this.configuration_file_var_1[i].name = 'const:' + this.new_value;
             this.showModalEditConstantVar1 = false;
@@ -696,7 +667,7 @@ export default {
       }
     },
     editConstantVar2(){
-      if (this.new_value.match(/^-?[1-9]\d{0,1}(\.[1-9]{1})?$/)){
+      if (this.new_value.match(/^-?[1-9]{1,9}(\.[1-9]{1,9})?$/) || this.new_value == ''){
         for (var i = 0; i < this.configuration_file_var_2.length; i++){
           if (this.configuration_file_var_2[i].id == this.id_click) {
             this.configuration_file_var_2[i].name = 'const:' + this.new_value;
