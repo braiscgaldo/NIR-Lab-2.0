@@ -180,8 +180,8 @@ float: right;
 .Input-inside {
 margin-left: 0%;
 margin-right: 0%;
-background-color: #ee3744;
-border: solid 1px #ee3744;
+background-color: #ef5959;
+border: solid 1px #ef5959;
 color: #deeaee;
 border-radius: 0.75em;
 font-size: 1.5vw;
@@ -193,8 +193,8 @@ float: right;
 .Input-inside-output {
 margin-left: 0%;
 margin-right: 0%;
-background-color: #ff6a00;
-border: solid 1px #ff6a00;
+background-color: #ff0000;
+border: solid 1px #ff0000;
 color: #deeaee;
 border-radius: 0.75em;
 font-size: 1.5vw;
