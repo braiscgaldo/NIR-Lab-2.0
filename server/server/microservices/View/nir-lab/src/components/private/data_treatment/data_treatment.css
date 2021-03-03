@@ -76,7 +76,7 @@ width: 10%;
 
 /* Design palette */
 #palette {
-float: left;
+float: right;
 margin: 0 2vw;
 width: 50%;
 max-height: fit-content;
@@ -273,7 +273,6 @@ margin-right: 3vw;
 width: 4.5vw;
 margin-left: 1vw;
 margin-right: 1vw;
-transform: rotate(180deg);
 }
 
 .key_img {

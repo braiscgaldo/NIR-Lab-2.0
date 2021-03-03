@@ -94,33 +94,6 @@
         <div class="border_rect">
           <div id="var_id">
             <draggable
-              :list="configuration_file_var_id"
-              class="list-group"
-              ghost-class="ghost"
-              :move="adminImagesDropArea"
-              :group="{ name: 'inputs', pull: 'clone'}"
-              @change="adminImagesDropArea"
-            >
-              <div
-                id="var_container"
-                v-for="(Input, idx) in configuration_file_var_id"
-                :key="idx"
-              >
-                <div :id="'var_id$' + Input.name + '$' + idx" class="input_drop" @dblclick="deleteDiv">
-                  {{ Input.name }}
-                </div>
-              </div>
-            </draggable>
-            <div class="images_drop">
-              <div v-for="index in configuration_file_rows" :key="index">
-                <b-img
-                  class="arrow_img"
-                  :src="getImgArrow()"
-                  alt="Arrow image"
-                ></b-img>
-              </div>
-            </div>
-            <draggable
               :list="configuration_file_opper_apply"
               class="list-group"
               ghost-class="ghost"
@@ -227,6 +200,33 @@
                 ></b-img>
               </div>
             </div>
+            <div class="images_drop">
+              <div v-for="index in configuration_file_rows" :key="index">
+                <b-img
+                  class="arrow_img"
+                  :src="getImgArrow()"
+                  alt="Arrow image"
+                ></b-img>
+              </div>
+            </div>
+            <draggable
+              :list="configuration_file_var_id"
+              class="list-group"
+              ghost-class="ghost"
+              :move="adminImagesDropArea"
+              :group="{ name: 'inputs', pull: 'clone'}"
+              @change="adminImagesDropArea"
+            >
+              <div
+                id="var_container"
+                v-for="(Input, idx) in configuration_file_var_id"
+                :key="idx"
+              >
+                <div :id="'var_id$' + Input.name + '$' + idx" class="input_drop" @dblclick="deleteDiv">
+                  {{ Input.name }}
+                </div>
+              </div>
+            </draggable>
           </div>
         </div>
       </div>
@@ -350,7 +350,6 @@ export default {
     showModalErrorDrag: false,
     showModalEditConstantVar1: false,
     showModalEditConstantVar2: false,
-    showModals: false,
     new_var: '',
     new_value: '',
     id_click: '',
@@ -536,6 +535,12 @@ export default {
     isOneParamVar1(idx){
       if (this.configuration_file_opper_apply[idx] != null) return this.configuration_file_opper_apply[idx].num_parameters == 1
     },
+    adminImagesVarId(event){
+      if (this.configuration_file_var_id.length > this.configuration_file_opper_apply.length){
+        this.configuration_file_var_id.splice(event.added.newIndex,1);
+        this.showModalErrorDrag = true ;
+      }
+    },
     generateConstantsDivs(num_parameters){
       if (num_parameters == 2){
         this.configuration_file_var_1.push({name:'const:', id:this.configuration_file_var_1.length});
@@ -546,7 +551,7 @@ export default {
       }
     },
     adminImagesOpperApply(event){
-      if (this.configuration_file_opper_apply.length > this.configuration_file_var_id.length){
+      if (this.configuration_file_opper_apply.length > this.configuration_file_var_id.length + 1){
         this.showModalErrorDrag = true;
         this.configuration_file_opper_apply.splice(event.added.newIndex,1); 
       }
@@ -562,7 +567,6 @@ export default {
       if (this.configuration_file_var_1.length > this.configuration_file_opper_apply.length){
         this.configuration_file_var_1.splice(event.added.newIndex,1);
         this.showModalErrorDrag = true ;
-        this.showModals = false;
       }
     },
     treatMovements(){
@@ -577,12 +581,11 @@ export default {
       if (this.configuration_file_var_2.length > this.configuration_file_opper_apply.length){
         this.configuration_file_var_2.splice(event.added.newIndex,1);      
         this.showModalErrorDrag = true;
-        this.showModals = false;
       } 
       this.treatMovements();
     },
     adminImagesDropArea(event) {
-      //this.adminImagesVarId(); Admin not needed for id
+      this.adminImagesVarId(event);
       // event for deleting correspondent element if needed
       this.adminImagesOpperApply(event);
       this.adminImagesVar1(event);
@@ -625,7 +628,7 @@ export default {
       }
     },
     deleteDiv(event){
-      if (this.configuration_file_var_id.length == 1) return null;   
+      if (this.configuration_file_opper_apply.length == 1) return null;   
       var id = event.target.id.substring(event.target.id.lastIndexOf('$') + 1);
       var list = event.target.id.substring(0, event.target.id.indexOf('$'));
       if (list == 'var_id' && this.configuration_file_var_id.length > this.configuration_file_opper_apply.length){
@@ -637,6 +640,8 @@ export default {
         this.configuration_file_opper_apply.splice(id, 1);
         this.configuration_file_var_1.splice(id, 1);
         this.configuration_file_var_2.splice(id, 1);
+        this.configuration_file_rows = Math.max(this.configuration_file_var_id.length, this.configuration_file_opper_apply.length,
+                                this.configuration_file_var_1.length, this.configuration_file_var_2.length)
       }
     },
     editConstantVar1(){

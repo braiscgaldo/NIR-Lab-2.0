@@ -66,7 +66,7 @@ export default {
         ],    
     }
   },
-  methods: {
+  methods: {   
     getImgUrl(imgSrc) {
       return require('/src/assets/common/footer/' + imgSrc);
     }
@@ -127,6 +127,7 @@ p {
 
 #images{
   text-align: center;
+  margin-bottom: 2vw;
 }
 
 #front_image {

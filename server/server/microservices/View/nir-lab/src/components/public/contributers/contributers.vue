@@ -12,12 +12,18 @@
           <li>
             <strong>RNASA-IMEDIR research group</strong>: this is the research group in which the development 
             of this project has been carried out.
+            <br><br>
+            The RNASA-IMEDIR research group is the group in which this project has been developed. This group has numerous milestones in fields such as machine learning since its foundation.
+            It has many diverse lines of research and is composed of 37 researchers.
           </li>
         </ul>
       </p>
     </div>
     
- 
+    <div class='images_contrib_div'>
+      <b-img class="images_cont" :src="require('/src/assets/common/footer/rnasa_imedir.png')" :alt="RNASA-IMEDIR"/>
+    </div>
+
     <div>
       <Footer/>
     </div>
@@ -87,6 +93,15 @@ export default {
 h1 {
   margin-top: 3vw;
   margin-bottom: 3vw;
+  text-align: center;
+}
+
+.images_cont {
+  position: relative;
+  margin: 1vw;
+}
+
+.images_contrib_div {
   text-align: center;
 }
 
