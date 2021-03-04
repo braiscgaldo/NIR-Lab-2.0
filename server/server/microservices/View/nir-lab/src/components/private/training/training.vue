@@ -235,7 +235,6 @@
                 <div
                   :id="layer.name + '$' + idx"
                   class="layer_drop"
-                  @dblclick="deleteLayer"
                 >
                   {{ layer.name }}
                 </div>
@@ -285,6 +284,14 @@
                   class="key_img"
                   :src="getImgKey()"
                   alt="Key image"
+                ></b-img>
+            </div>
+            <div class="images_drop">
+                <b-img
+                  class="trash_img"
+                  :src="getImgTrash()"
+                  alt="Trash image"
+                  @click="deleteLayer"
                 ></b-img>
             </div>
               <VueModal v-model="showModalEditValue" title="Introduce the correspondant number!">
@@ -409,6 +416,9 @@ export default {
     },
     getImgArrow() {
       return require("/src/assets/private/training/arrow_right.png");
+    },
+    getImgTrash() {
+      return require("/src/assets/private/training/trash.png");
     },
     adminImagesDropArea() {
       var id, idparam, idact = null;
@@ -683,6 +693,13 @@ label {
     margin-bottom: 0.18vw;
 }
 
+.trash_img {
+width: 2.5vw;
+margin-left: 1vw;
+margin-right: 1vw;
+margin-top: 0.25vw;
+}
+
 .key_img_left {
     width: 1.35vw; 
     margin: 0px;
@@ -773,150 +790,26 @@ label {
   appearance: none;
 }
 
-@media screen and (max-width: 1300px){
+
+@media screen and (max-width: 1408px){
   #config_parameters, #admin_models, #layers_names, #palette {
+    display: none;
+  }
+
+  .combo_select_db, .combo_select_model {
     width: 99%;
+    float: left;
   }
 
-  .layer, .layer_drop, .parameter_drop {
-    font-size: 2.5vw;
-  }
 
-  h2 {
-    font-size: 3.5vw;
-  }
-
-  h1 {
-    font-size: 4vw;
-  }
-
-  h3 {
-    font-size: 3vw;
-  }
-
-  .key_img, .key_img_left {
-    width: 2.25vw;
-  }
-
-  .cf_button {
-    width: 40vw;
-    font-size: 2vw;
-  }
 
   .vue-form input[type="submit"] {
     float: inherit;
-    width: auto;
+    width: 98.5%;
   }
 
-}
-
-@media screen and (max-width: 1018px){
-  #config_parameters, #admin_models, #layers_names, #palette {
-    width: 99%;
-  }
-
-  .layer, .layer_drop, .parameter_drop {
-    font-size: 2vw;
-  }
-
-  h2 {
-    font-size: 3.5vw;
-  }
-
-  h1 {
-    font-size: 4vw;
-  }
-
-  h3 {
-    font-size: 3vw;
-  }
-
-  .key_img, .key_img_left {
-    width: 2vw;
-  }
-
-  .cf_button {
-    width: 40vw;
-    font-size: 2vw;
-  }
-
-  .vue-form input[type="submit"] {
-    float: inherit;
-    width: auto;
-  }
-
-}
-
-@media screen and (max-width: 750px){
-  #config_parameters, #admin_models, #layers_names, #palette {
-    width: 99%;
-  }
-
-  .layer, .layer_drop, .parameter_drop {
-    font-size: 2vw;
-  }
-
-  h2 {
-    font-size: 3.5vw;
-  }
-
-  h1 {
-    font-size: 4vw;
-  }
-
-  h3 {
-    font-size: 3vw;
-  }
-
-  .key_img, .key_img_left {
-    width: 2.25vw;
-  }
-
-  .cf_button {
-    width: 40vw;
-    font-size: 2vw;
-  }
-
-  .vue-form input[type="submit"] {
-    float: inherit;
-    width: auto;
-  }
-
-}
-
-@media screen and (max-width: 500px){
-  #config_parameters, #admin_models, #layers_names, #palette {
-    width: 99%;
-  }
-
-  .layer {
-    font-size: 2.5vw;
-  }
-
-  h2 {
-    font-size: 3.5vw;
-  }
-
-  h1 {
-    font-size: 4vw;
-  }
-
-  h3 {
-    font-size: 3vw;
-  }
-
-  .key_img, .key_img_left {
-    width: 3vw;
-  }
-
-  .cf_button {
-    width: 40vw;
-    font-size: 2vw;
-  }
-
-  .vue-form input[type="submit"] {
-    float: inherit;
-    width: auto;
+  footer {
+    position: fixed;
   }
 
 }

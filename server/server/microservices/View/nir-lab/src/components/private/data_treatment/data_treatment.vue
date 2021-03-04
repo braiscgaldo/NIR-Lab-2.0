@@ -106,7 +106,7 @@
                 v-for="(operation, idx) in configuration_file_opper_apply"
                 :key="idx"
               >
-                <div :id="'opper_apply$' + operation.name + '$' + idx" class="operation_drop" @dblclick="deleteDiv">
+                <div :id="'opper_apply$' + operation.name + '$' + idx" class="operation_drop">
                   {{ operation.abreviation }}
                 </div>
               </div>
@@ -170,7 +170,7 @@
                 <div v-if="isConstant(Input.name)" :id="'var_2$' + Input.name + '$' + idx" class="constant" @dblclick="showModalEditConstantVar2 = true; id_click = idx;">
                   {{ Input.name }}
                 </div>
-                <div v-else-if="isHidden(Input.name)" :id="'var_2$' + Input.name + '$' + idx" class="input_drop" style="visibility:hidden" @dblclick="deleteDiv">
+                <div v-else-if="isHidden(Input.name)" :id="'var_2$' + Input.name + '$' + idx" class="input_drop" style="visibility:hidden">
                   {{ Input.name }}
                 </div>
                 <div v-else :id="'var_2$' + Input.name + '$' + idx" class="input_drop" @dblclick="deleteVars">
@@ -222,11 +222,22 @@
                 v-for="(Input, idx) in configuration_file_var_id"
                 :key="idx"
               >
-                <div :id="'var_id$' + Input.name + '$' + idx" class="input_drop" @dblclick="deleteDiv">
+                <div :id="'var_id$' + Input.name + '$' + idx" class="input_drop">
                   {{ Input.name }}
                 </div>
               </div>
             </draggable>
+            <div class="images_drop">
+              <div v-for="index in configuration_file_rows" :key="index">
+                <b-img
+                  :id="'trash$' + index"
+                  class="trash_img"
+                  :src="getImgTrash()"
+                  alt="Trash image"
+                  @click="deleteRow"
+                ></b-img>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -515,6 +526,9 @@ export default {
     getImgKey() {
       return require("/src/assets/private/data_treatment/key_right.png");
     },
+    getImgTrash() {
+      return require("/src/assets/private/data_treatment/trash.png");
+    },
     generateNewDB() {
       // Call Facade
       return null;
@@ -627,22 +641,20 @@ export default {
         this.showModalEditVar = false;
       }
     },
-    deleteDiv(event){
+    deleteRow(event){
       if (this.configuration_file_opper_apply.length == 1) return null;   
-      var id = event.target.id.substring(event.target.id.lastIndexOf('$') + 1);
-      var list = event.target.id.substring(0, event.target.id.indexOf('$'));
-      if (list == 'var_id' && this.configuration_file_var_id.length > this.configuration_file_opper_apply.length){
-        this.configuration_file_var_id.splice(id, 1);
-        // update images after deleting row 
-        this.configuration_file_rows = Math.max(this.configuration_file_var_id.length, this.configuration_file_opper_apply.length,
-                                this.configuration_file_var_1.length, this.configuration_file_var_2.length)
-      }else if (list == 'opper_apply'){
-        this.configuration_file_opper_apply.splice(id, 1);
-        this.configuration_file_var_1.splice(id, 1);
-        this.configuration_file_var_2.splice(id, 1);
-        this.configuration_file_rows = Math.max(this.configuration_file_var_id.length, this.configuration_file_opper_apply.length,
-                                this.configuration_file_var_1.length, this.configuration_file_var_2.length)
-      }
+      var id = event.target.id.substring(event.target.id.lastIndexOf('$'));
+      console.log(id)
+      // test if delete var id
+      if (this.configuration_file_var_id.length == this.configuration_file_opper_apply.length) this.configuration_file_var_id.splice(id, 1);
+      // delete other images
+      this.configuration_file_opper_apply.splice(id, 1);
+      this.configuration_file_var_1.splice(id, 1);
+      this.configuration_file_var_2.splice(id, 1);
+      
+      // update images after deleting row 
+      this.configuration_file_rows = Math.max(this.configuration_file_var_id.length, this.configuration_file_opper_apply.length,
+                              this.configuration_file_var_1.length, this.configuration_file_var_2.length)
     },
     editConstantVar1(){
       if (this.new_value.match(/^-?[1-9]{1,9}(\.[1-9]{1,9})?$/) != null || this.new_value == ''){

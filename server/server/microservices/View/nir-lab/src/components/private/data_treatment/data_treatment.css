@@ -275,6 +275,13 @@ margin-left: 1vw;
 margin-right: 1vw;
 }
 
+.trash_img {
+width: 2.5vw;
+margin-left: 1vw;
+margin-right: 1vw;
+margin-top: 0.25vw;
+}
+
 .key_img {
 margin: 0px;
 width: 1.35vw;
@@ -383,135 +390,38 @@ appearance: none;
 }
 
 @media screen and (max-width: 1408px){
-    #design_palette, #operation_names, #var_names, #palette, #inputs, .Input, #var_id, #oper_apply, #var_1, #var_2, .border_rect {
+    .border_rect {
         width: 99%;  
         float: left;   
     }
 
-    .input_drop, .operation_drop, .Input, .operation, .constant {
-        font-size: 3vw;
+    #design_palette, #operation_names, #var_names, #palette, #inputs, .Input, #var_id, #oper_apply, #var_1, #var_2, .input_drop, .operation_drop, .Input, .operation, .constant {
+        display: none;
     }
 
     .key_img, .key_left_img {
-        width: 2.5vw;
+        display: none;
     }
 
     .arrow_img {
-        width: 9vw;
+        display: none;
     }
     
 
     #var_names, #operation_names {
-        width:70%;
-        float: left;
+        display: none;
     }
 
-    h3 {
-        margin: 0 15vw 0 9vw;
-        float: right;
-        display: block;
-    }
-
-    #var_title {
-        margin-right: 23vw;
-    }
-
-    #output_title {
-        float: left;
-        margin-left: 0.5vw;
-    }
-
-}
-
-@media screen and (max-width: 862px){
-    #design_palette, #operation_names, #var_names, #palette, #inputs, .Input, #var_id, #oper_apply, #var_1, #var_2, .border_rect {
-        width: 99%;  
-        float: left;   
-    }
-
-    .input_drop, .operation_drop, .Input, .operation, .constant {
-        font-size: 3vw;
-    }
-
-    .key_img, .key_left_img {
-        width: 2.5vw;
-    }
-
-    .arrow_img {
-        width: 9vw;
-    }
-    
-
-    #var_names, #operation_names {
-        width:70%;
-        float: left;
-    }
-
-    h3 {
-        margin: 0 15vw 0 9vw;
-        float: right;
+    h2, h3 {
         display: none;
     }
 
     #var_title {
-        margin-right: 23vw;
-    }
-
-    #output_title {
-        float: left;
-        margin-left: 0.5vw;
-    }
-
-}
-
-@media screen and (max-width: 576px){
-    #design_palette, #operation_names, #var_names, #palette, #inputs, .Input, #var_id, #oper_apply, #var_1, #var_2, .border_rect {
-        width: 99%;  
-        float: left;   
-    }
-
-    .input_drop, .operation_drop, .Input, .operation, .constant {
-        font-size: 3vw;
-    }
-
-    .operation {
-        min-width: 85vw;
-    }
-
-    .key_img, .key_left_img {
-        width: 3.5vw;
-    }
-
-    .arrow_img {
-        width: 11vw;
-    }
-
-    .container_var {
-        float: left;
-    }
-    
-    .Input {
-        min-width: 80vw;
-    }
-
-    #var_names, #operation_names {
-        width:100%;
-        float: left;
-    }
-
-    h3 {
-        margin: 0 15vw 0 9vw;
-        float: right;
         display: none;
     }
 
-    #var_title {
-        margin-right: 23vw;
-    }
-
     #output_title {
-        float: left;
-        margin-left: 0.5vw;
+        display: none;
     }
 
 }
