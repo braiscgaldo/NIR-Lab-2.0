@@ -276,8 +276,8 @@
                 class="parameter_drop"
                 @dblclick="showModalEditValue = true; id_layer = idx;"
               >
-                {{ Object.keys(layer)[3] + ": " }}
-                {{ layer[Object.keys(layer)[3]] }}
+                {{ Object.keys(layer)[2] + ": " }}
+                {{ layer[Object.keys(layer)[2]] }}
               </div>
             <div class="images_drop">
                 <b-img
@@ -291,7 +291,7 @@
                   class="trash_img"
                   :src="getImgTrash()"
                   alt="Trash image"
-                  @click="deleteLayer"
+                  @click="del_layer_idx=idx; deleteLayer()"
                 ></b-img>
             </div>
               <VueModal v-model="showModalEditValue" title="Introduce the correspondant number!">
@@ -364,6 +364,7 @@ export default {
     },
     activations: ['relu', 'sigmoid', 'softmax', 'softplus', 'softsign', 'tanh', 'selu', 'elu', 'exponential'],
     model_names: ["model_1", "model_2"],
+    del_layer_idx: '',
     layers: [
       {
         name: "Dense",
@@ -401,7 +402,6 @@ export default {
     configuration_file_layers_id: [
       {
         name: "Dense",
-        id: 0,
         activation: "relu",
         units: "35"
       },
@@ -424,20 +424,29 @@ export default {
       var id, idparam, idact = null;
       for (var i = 0; i < this.configuration_file_layers_id.length; i++) {
         id = this.configuration_file_layers_id[i].name + '$' + i;
-        this.configuration_file_layers_id[i].id = i;
         idparam = id + '$';
         idact = id + '$activation';
-        document.getElementById(id).id = this.configuration_file_layers_id[i].name + '$' + i;
-        document.getElementById(idact).innerHTML = 'activation: ' + this.configuration_file_layers_id[i].activation;
-        if (document.getElementById(id + '$') != null) document.getElementById(id + '$').id = idparam;
-        document.getElementById(idparam).innerHTML = Object.keys(this.configuration_file_layers_id[i])[3] + ':' +  this.configuration_file_layers_id[i][Object.keys(this.configuration_file_layers_id[i])[3]];
+        if (document.getElementById(id) != null){
+          console.log(id)
+          document.getElementById(id).id = this.configuration_file_layers_id[i].name + '$' + i;
+          document.getElementById(idact).innerHTML = 'activation: ' + this.configuration_file_layers_id[i].activation;
+          document.getElementById(id + '$').id = idparam;
+          document.getElementById(idparam).innerHTML = Object.keys(this.configuration_file_layers_id[i])[2] + ':' +  this.configuration_file_layers_id[i][Object.keys(this.configuration_file_layers_id[i])[2]];
+        }
        }
     },
-    deleteLayer(event){
-      var id = event.target.id.substring(event.target.id.indexOf('$') + 1);
-      if (this.configuration_file_layers_id.length == 1 ) return null;   
-      this.configuration_file_layers_id.splice(id, 1);
-      this.adminImagesDropArea()
+    deleteLayer(){
+      if (this.configuration_file_layers_id.length == 1) return null;
+      var id, idact, idparam = null;
+      for (var i = 0; i < this.configuration_file_layers_id.length-1; i++){
+        console.log(this.configuration_file_layers_id[i].name)
+        id = this.configuration_file_layers_id[i].name + '$' + i;
+        idparam = id + '$';
+        idact = id + '$activation';
+        document.getElementById(idact).innerHTML = 'activation: ' + this.configuration_file_layers_id[i+1].activation;
+        document.getElementById(idparam).innerHTML = Object.keys(this.configuration_file_layers_id[i+1])[2] + ':' +  this.configuration_file_layers_id[i+1][Object.keys(this.configuration_file_layers_id[i+1])[2]];
+      }
+      this.configuration_file_layers_id.splice(this.del_layer_idx, 1);
     },
     matchLayer(layer){
       switch (layer) {
@@ -454,41 +463,30 @@ export default {
       }
     },
     onDrop(event){
-      if (event.added != null){ console.log(event.added.newIndex)
+      if (event.added != null){ 
         var nameLayer = this.configuration_file_layers_id[event.added.newIndex].name;
         if (Object.keys(this.configuration_file_layers_id[event.added.newIndex]).includes('parameters')){
-          this.configuration_file_layers_id[event.added.newIndex] = { name: nameLayer, id: event.added.newIndex, activation: 'relu' };
+          this.configuration_file_layers_id[event.added.newIndex] = { name: nameLayer, activation: 'relu' };
           this.configuration_file_layers_id[event.added.newIndex][this.layers[this.matchLayer(nameLayer)].parameters[0]] = this.new_value;
         }
       }
       this.adminImagesDropArea();
     },
-    changeValuesInEdition(index){
-      console.log(index, index, Object.keys(this.configuration_file_layers_id[index])[3] + ':'+ this.new_value)
-
-      var id = this.configuration_file_layers_id[index].name + '$' + index + '$';
-      // change values in script
-      this.configuration_file_layers_id[index][Object.keys(this.configuration_file_layers_id[index])[3]] = this.new_value;
-      // change values in html
-      document.getElementById(id).innerHTML = Object.keys(this.configuration_file_layers_id[index])[3] + ': ' + this.new_value;
-    },
     editValue(){
       if (this.new_value == '' || !this.new_value.match("^[0-9]+$")) {
         this.showModalErrorEditValue = true;
       }else{
-        for (var i=0; i < this.configuration_file_layers_id.length; i++) if (this.configuration_file_layers_id[i].id == this.id_layer) this.changeValuesInEdition(i);
+        this.configuration_file_layers_id[this.id_layer][Object.keys(this.configuration_file_layers_id[this.id_layer])[2]] = this.new_value;
+        var id = this.configuration_file_layers_id[this.id_layer].name + '$' + this.id_layer + '$';
+        document.getElementById(id).innerHTML = Object.keys(this.configuration_file_layers_id[this.id_layer])[2] + ': ' + this.new_value;
         this.showModalEditValue = false;
       }
     },
-    changeActivationInEdition(index){
-      var id = this.configuration_file_layers_id[index].name + '$' + index + '$activation';
-      // change values in script
-      this.configuration_file_layers_id[index].activation = this.new_activation;
+    editActivation(){
+      this.configuration_file_layers_id[this.id_layer].activation = this.new_activation;
+      var id = this.configuration_file_layers_id[this.id_layer].name + '$' + this.id_layer + '$activation';
       // change values in html
       document.getElementById(id).innerHTML = 'activation: ' + this.new_activation;
-    },
-    editActivation(){
-      for (var i=0; i < this.configuration_file_layers_id.length; i++) if (this.configuration_file_layers_id[i].id == this.id_layer) this.changeActivationInEdition(i);
       this.showModalEditActivation = false;
     }
   },
@@ -694,10 +692,11 @@ label {
 }
 
 .trash_img {
-width: 2.5vw;
+width: 1vw;
 margin-left: 1vw;
 margin-right: 1vw;
-margin-top: 0.25vw;
+margin-top: 1.15vw;
+margin-bottom: 1.15vw;
 }
 
 .key_img_left {
