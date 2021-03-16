@@ -5,7 +5,7 @@ class Training:
 
     def __init__(self, path_preprocessed_database, path_configuration_model, target_label):
         self.image = 'training:v1'
-        self.links = {'database': 'database'}
+        self.links = {'dockers_database_1': 'database'}
         self.volumes = {'/home/brais/NIR-Lab/server/server/microservices/scripts/MongoDB': {'bind': '/home/brais'}}
         self.path_preprocessed_database = path_preprocessed_database
         self.path_configuration_model, self.target_label = path_configuration_model, target_label

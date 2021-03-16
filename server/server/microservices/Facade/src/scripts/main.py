@@ -16,7 +16,7 @@ def parse_args():
     """
     parser = argparse.ArgumentParser(description='This file works as an interface for the Facade service. It '
                                                  'takes several arguments to make the action required by the user')
-    parser.add_argument('-t', '--type', type=str, required=True, help='Type of the microservice to start. The possible'
+    parser.add_argument('-t', '--type', type=str, required=True, help='Type of the microservice to start. The possible '
                                                                       'values are:\n * DataTreatment\n * Training\n'
                                                                       ' * ListFiles\n * AddFile\n * DeleteFile\n'
                                                                       ' * ListCharacteristics\n * JoinFiles\n'

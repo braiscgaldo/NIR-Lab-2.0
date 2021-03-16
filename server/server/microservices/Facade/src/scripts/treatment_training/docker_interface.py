@@ -1,4 +1,5 @@
 import pydocker
+import docker
 
 
 class Dockers:
@@ -17,7 +18,7 @@ class Dockers:
         """
         return self.__client.containers.run(image=self.__docker.image, command=str(self.__docker), auto_remove=True,
                                             working_dir='/opt/src/scripts/', links=self.__docker.links,
-                                            volumes=self.__docker.volumes)
+                                            network='dockers_nir_net', volumes=self.__docker.volumes)
 
 
 class DockerInterface:
@@ -36,10 +37,8 @@ class DockerInterface:
         """
         if 'training' in docker_info.image:
             self.__dockers['training'].append(Dockers(docker_info, self.__client).launch_docker())
-            print(self.__dockers['training'])
         else:
             self.__dockers['data_treatment'].append(Dockers(docker_info, self.__client).launch_docker())
-            print(self.__dockers['data_treatment'])
 
     def main(self, docker_info):
         """

@@ -5,7 +5,7 @@ class DataTreatment:
 
     def __init__(self, username_sql, password_sql_user, host_sql, database_name, configuration_name, file_data_name):
         self.image = 'data_treatment:v1'
-        self.links = {'database': 'database'}
+        self.links = {'dockers_database_1': 'database'}
         self.volumes = {'/home/brais/NIR-Lab/server/server/microservices/scripts/MongoDB': {'bind': '/home/brais'}}
         self.username_sql, self.password_sql_user, self.host_sql = username_sql, password_sql_user, host_sql
         self.database_name, self.configuration_name = database_name, configuration_name

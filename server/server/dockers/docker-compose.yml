@@ -1,13 +1,23 @@
 version: "3"
 
 services:
-    web_view:
-        image: web_view:v1
+    view:
+        image: view:v1
         networks:
             - nir_net
         tty: true
         ports:
-            - "8080:80"
+            - "8080:8080"
+        links:
+            - data_treatment
+            - training
+            - database
+
+    facade:
+        image: facade:v1
+        networks:
+            - nir_net
+        tty: true
         links:
             - data_treatment
             - training
@@ -34,7 +44,7 @@ services:
             - /home/brais/NIR-Lab/server/server/microservices/scripts/MongoDB/:/home/brais
 
     database:
-        image: mariadb:10.5.8
+        image: database:v1
         networks:
             - nir_net
         tty: true

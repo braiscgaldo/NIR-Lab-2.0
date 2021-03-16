@@ -643,8 +643,7 @@ export default {
     },
     deleteRow(event){
       if (this.configuration_file_opper_apply.length == 1) return null;   
-      var id = event.target.id.substring(event.target.id.lastIndexOf('$'));
-      console.log(id)
+      var id = event.target.id.substring(event.target.id.lastIndexOf('$')+1)-1;
       // test if delete var id
       if (this.configuration_file_var_id.length == this.configuration_file_opper_apply.length) this.configuration_file_var_id.splice(id, 1);
       // delete other images
