@@ -1,0 +1,48 @@
+#!/bin/sh
+echo 'Post install process'
+
+install_jq() {
+  echo 'installing jq'
+
+  if [[ $OSTYPE == 'darwin'* ]]; then
+    if ! [ -x "$(command -v brew)" ]; then
+      echo 'Please install homebrew'
+      exit 1
+    fi
+
+    brew install jq
+  elif [[ $OSTYPE == 'linux-gnu' ]]; then
+    linux_install_jq
+  elif [[ $OSTYPE == 'msys' ]]; then
+    if ! [ -x "$(command -v choco)" ]; then
+      echo 'Please install chocolatey'
+      exit 1
+    fi
+
+    powershell -Command "Start-Process PowerShell -Verb RunAs 'choco install jq'"
+  fi
+
+  echo 'jq has be installed'
+}
+
+linux_install_jq() {
+  if [ -x "$(command -v apt)" ]; then
+    sudo apt install jq
+  elif [ -x "$(command -v dnf)" ]; then
+    sudo dnf install jq
+  fi
+}
+
+if [ "$(git config core.hooksPath)" != '.hooks' ]; then
+  echo 'config git hoooks'
+  git config core.hooksPath .hooks
+fi
+
+if ! [ -x "$(command -v jq)" ]; then
+  echo 'jq not installed...'
+  install_jq
+fi
+
+echo 'Post install end'
+
+exit 0

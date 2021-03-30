@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations:
+    nginx.ingress.kubernetes.io/session-cookie-name: "ggtech"
+    nginx.ingress.kubernetes.io/session-cookie-samesite: "None"
+    nginx.ingress.kubernetes.io/session-cookie-none: "true"
+spec:
+  rules:
+  - host: api.ggtech.global
+    http:
+      paths:
+        - path: /auth
+          backend:
+            serviceName: auth-ms-svc
+            servicePort: 80
+        - path: /competition
+          backend:
+              serviceName: competition-ms-svc
+              servicePort: 80
+        - path: /
+          backend:
+              serviceName: api-horizon-svc
+              servicePort: 80

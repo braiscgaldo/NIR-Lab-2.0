@@ -1,0 +1,21 @@
+#!/bin/sh
+echo 'Pre commit process'
+
+if ! [ -x "$(command -v jq)" ]; then
+  echo 'jq package is required, try commit again after the install process end'
+
+  sh hooks/post-install.sh
+fi
+
+tmp="package-tmp.json"
+utilsPkg="git+ssh://git@git.ggtech.global:ggtech/esports-cms/utils.git#master"
+dbPkg="git+ssh://git@git.ggtech.global:ggtech/esports-cms/database.git#master"
+
+jq --arg pkg "$utilsPkg" '.dependencies."@ecms/utils" = $pkg' package.json > $tmp && mv $tmp package.json
+jq --arg pkg "$dbPkg" '.dependencies."@ecms/db" = $pkg' package.json > $tmp && mv $tmp package.json
+
+git add package.json
+
+echo 'Pre commit process end'
+
+exit 0
