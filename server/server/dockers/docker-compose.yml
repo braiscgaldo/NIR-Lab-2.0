@@ -24,17 +24,19 @@ services:
             - database
 
     data_treatment:
-        image: data_treatment:v1
+        image: data_treatment:v2
         networks:
             - nir_net
         tty: true
+        ports:
+            - "5000:5000"
         links:
             - database
         volumes:
             - /home/brais/NIR-Lab/server/server/microservices/scripts/MongoDB/:/home/brais
 
     training:
-        image: training:v1
+        image: training:v2
         networks:
             - nir_net
         tty: true

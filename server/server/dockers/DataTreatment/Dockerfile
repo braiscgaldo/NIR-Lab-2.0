@@ -11,8 +11,6 @@ RUN apt install python3-pip -y
 # installing mariadb dependencies
 RUN apt install libmysqlclient-dev python-dev -y
 
-
-
 # copy files
 COPY DataTreatment.tar.gz /opt
 
@@ -22,6 +20,12 @@ RUN cd /opt && tar -xf DataTreatment.tar.gz && rm DataTreatment.tar.gz
 # installing python dependencies
 RUN cd /opt/ && pip3 install -r requirements.txt
 
+# expose ports
+EXPOSE 5000
+
+# Running flask environment
+WORKDIR /opt/src/scripts
+
 # running docker
-CMD [ "/bin/bash" ]
+CMD [ "flask", "run", "--host", "0.0.0.0" ]
 

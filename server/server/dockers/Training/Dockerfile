@@ -18,6 +18,12 @@ RUN cd /opt && tar -xf Training.tar.gz && rm Training.tar.gz
 # installing python dependencies
 RUN cd /opt/ && pip3 install -r requirements.txt
 
+# expose ports
+EXPOSE 5050
+
+# Running flask environment
+WORKDIR /opt/src/scripts
+
 # running docker
-CMD [ "/bin/bash" ]
+CMD [ "flask", "run", "--host", "0.0.0.0", "--port", "5050" ]
 
