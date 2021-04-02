@@ -21,13 +21,21 @@ Así mismo, como segundo objetivo para la aplicación web, esta deberá permitir
 Finalmente, con el fin de comprobar el funcionamiento, se realizará una nueva aplicación práctica en la que se realizará una toma de mediciones acerca de diferentes tipos de materiales para tratar de inferir alguna característica sobre los datos recogidos.
 
 Bibliografía:
+
 [1] Espectrofotómetro [Online], https://www.ecured.cu/Espectrofot%C3%B3metro
+
 [2] Espectrometría de masas [Online], https://www.mncn.csic.es/docs/repositorio/es_ES/investigacion/cromatografia/espectrometria_de_masas.pdf
-[3] Díaz, N. A., Ruiz, J. A. B., Reyes, E. F., Cejudo, A. G., Novo, J. J., Peinado, J. P., ... & Fiñana, I. T. (2010). Espectrofometría: Espectros de absorción y cuantificación colorimétrica de biomoléculas. sf http://www.uco.es/dptos/bioquimica-biolmol/pdfs/08_ESPECTROFOTOMETR%C3%8DA.pdf .
+
+[3] Díaz, N. A., Ruiz, J. A. B., Reyes, E. F., Cejudo, A. G., Novo, J. J., Peinado, J. P., ... & Fiñana, I. T. (2010). Espectrofometría: Espectros de absorción y cuantificación colorimétrica de biomoléculas. sf http://www.uco.es/dptos/bioquimica-biolmol/pdfs/08_ESPECTROFOTOMETR%C3%8DA.pdf.
+
 [4] Galdo, Brais (2018). Desarrollo de un laboratorio portátil basado en espectrometría de infrarrojo cercano. Traballo Fin de Grao. UDC.
+
 [5] Evan You (2021) [Online] https://vuejs.org/
+
 [6] Abadi, M., Barham, P., Chen, J., Chen, Z., Davis, A., Dean, J., ... & Kudlur, M. (2016). Tensorflow: A system for large-scale machine learning. In 12th {USENIX} symposium on operating systems design and implementation ({OSDI} 16) (pp. 265-283).
+
 [7] Martín Abadi, Ashish Agarwal, Paul Barham, Eugene Brevdo, Zhifeng Chen, Craig Citro, Greg S. Corrado, Andy Davis, Jeffrey Dean, Matthieu Devin, Sanjay Ghemawat, Ian Goodfellow, Andrew Harp, Geoffrey Irving, Michael Isard, Rafal Jozefowicz, Yangqing Jia, Lukasz Kaiser, Manjunath Kudlur, Josh Levenberg, Dan Mané, Mike Schuster, Rajat Monga, Sherry Moore, Derek Murray, Chris Olah, Jonathon Shlens, Benoit Steiner, Ilya Sutskever, Kunal Talwar, Paul Tucker, Vincent Vanhoucke, Vijay Vasudevan, Fernanda Viégas, Oriol Vinyals, Pete Warden, Martin Wattenberg, Martin Wicke, Yuan Yu, and Xiaoqiang Zheng. TensorFlow: Large-scale machine learning on heterogeneous systems, 2015. Software available from tensorflow.org.
+
 [8] Anderson, C. (2015). Docker [software engineering]. Ieee Software, 32(3), 102-c3.
 
 ## Motivación
