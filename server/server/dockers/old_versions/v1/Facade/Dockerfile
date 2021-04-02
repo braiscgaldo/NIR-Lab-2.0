@@ -25,11 +25,5 @@ RUN cd /opt/ && pip3 install -r requirements.txt
 # Python path
 ENV PYTHONPATH :/opt/src
 
-# expose ports
-EXPOSE 4000
-
-# Running flask environment
-WORKDIR /opt/src/scripts
-
 # running docker
-CMD [ "flask", "run", "--host", "0.0.0.0", "--port", "4000" ]
+CMD [ "/bin/bash" ]

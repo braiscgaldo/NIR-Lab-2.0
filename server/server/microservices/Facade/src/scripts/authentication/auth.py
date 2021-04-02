@@ -1,11 +1,46 @@
 from src.scripts.authentication.user import User
 from src.scripts.authentication.sql_connection import SQLConnection
+import os
+import shutil
 
 
 class Auth:
     """
     Class that represents the authentication
     """
+
+    @staticmethod
+    def create_dirs(username):
+        """
+        Method for creating correspondent directories
+        :param: username: username for create directories
+        :return: create_successful: if directories where correctly created
+        """
+        try:
+            os.mkdir('/home/' + username)
+            os.mkdir('/home/' + username + '/databases')
+            os.mkdir('/home/' + username + '/databases_config')
+            os.mkdir('/home/' + username + '/models')
+            os.mkdir('/home/' + username + '/models_config')
+        except:
+            print('error creating directories')
+            return False
+        return True
+
+    @staticmethod
+    def remove_dirs(username):
+        """
+        Method for creating correspondent directories
+        :param: username: username for create directories
+        :return: create_successful: if directories where correctly created
+        """
+        try:
+            shutil.rmtree('/home/' + username)
+        except:
+            print('error deleting directories')
+            return False
+        return True
+
     @staticmethod
     def login(username, password):
         """
@@ -40,11 +75,14 @@ class Auth:
         :param: password: password of the user
         :return dropped_user
         """
-        connection = SQLConnection()
-        connection.connect()
-        dropped_user = connection.drop_user(username, password)
-        connection.disconnect()
-        return dropped_user
+        if Auth.remove_dirs(username):
+            connection = SQLConnection()
+            connection.connect()
+            dropped_user = connection.drop_user(username, password)
+            connection.disconnect()
+            return dropped_user
+        else:
+            return None
 
     @staticmethod
     def info_user(username, password):
@@ -71,12 +109,15 @@ class Auth:
         :param: email: email of the user
         :return created_user
         """
-        user = User(username, name, surname, password, email)
-        connection = SQLConnection(user)
-        connection.connect()
-        created_user = connection.create_user()
-        connection.disconnect()
-        return created_user
+        if Auth.create_dirs(username):
+            user = User(username, name, surname, password, email)
+            connection = SQLConnection(user)
+            connection.connect()
+            created_user = connection.create_user()
+            connection.disconnect()
+            return created_user
+        else:
+            return None
 
     @staticmethod
     def edit_user(username, name, surname, password, email, new_password):

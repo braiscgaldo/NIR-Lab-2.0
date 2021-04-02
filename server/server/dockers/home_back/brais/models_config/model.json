@@ -1,0 +1,42 @@
+{
+    "name": "model_1",
+    "target": "Graduation",
+    "num_epochs": 10,
+    "loss_function": "categorical_crossentropy",
+    "learning_rate": 0.01,
+    "epsilon": 0.05,
+    "optimizer": "adam",
+    "metrics": ["accuracy"],
+    "batch_size": 32,
+    "decay": 0.05,
+    "train_size": 0.50,
+    "validation_size": 0.0,
+    "test_size": 0.50,
+    "layers": {
+        "1": {
+            "name": "Dense",
+            "units": 128,
+            "activation": "relu"
+        },
+        "2": {
+            "name": "Dropout",
+            "rate": 0.5
+        },
+        "3": {
+            "name": "MaxPool1D",
+            "pool_size": 2
+        },
+        "4": {
+            "name": "AveragePooling1D",
+            "pool_size": 28
+        },
+        "5": {
+            "name": "Softmax"
+        },
+        "6": {
+            "name": "Dense",
+            "units": 10,
+            "activation": "softmax"
+        }
+    }
+}

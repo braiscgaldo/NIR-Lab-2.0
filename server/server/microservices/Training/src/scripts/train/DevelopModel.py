@@ -16,6 +16,7 @@ class DevelopModel:
         self.__model = None
         self.__data_train = self.__labels_train = None
         self.__data_test = self.__labels_test = None
+        self.__test_acc, self.__train_acc, self.__test_loss, self.__train_loss = None, None, None, None
 
     def __develop_model(self):
         """
@@ -130,11 +131,31 @@ class DevelopModel:
         """
         data_test = self.__get_only_data(self.__data_test)
         data_labels = self.__labels_modify(self.__labels_test)
+        train_loss, train_acc = self.__model.get_model().\
+            evaluate(self.__get_only_data(self.__data_train), self.__labels_modify(self.__labels_train),
+                     batch_size=self.__information.model_parameters['batch_size'])
         test_loss, test_acc = self.__model.get_model().\
             evaluate(data_test, data_labels, batch_size=self.__information.model_parameters['batch_size'])
 
+        self.__test_acc, self.__train_acc, self.__test_loss, self.__train_loss = test_acc, train_acc, test_loss, \
+                                                                                 train_loss
         print('Test accuracy:', test_acc)
         print('Test loss:', test_loss)
+
+    def __develop_json(self):
+        """
+        Method for develop the json stats file
+        :return: json stats
+        """
+        return {
+            "name": str(self.__information.model_parameters['name']),
+            "problem": str(self.__information.preprocessed_db_name[self.__information.preprocessed_db_name.rindex('/')+1:-4]),
+            "target": str(self.__information.target_label),
+            "training_loss": self.__train_loss,
+            "training_accuracy": self.__train_acc,
+            "test_loss": self.__train_loss,
+            "test_accuracy": self.__test_acc
+        }
 
     def __save_model(self):
         """
@@ -144,11 +165,10 @@ class DevelopModel:
         self.__model.get_model().save(
             self.__information.preprocessed_db_name[:self.__information.preprocessed_db_name.index('/', 6)] +
             '/models/' + self.__information.model_parameters['name'] + '.h5')
-        '''
-        with open(self.__information.preprocessed_db_name[:self.__information.preprocessed_db_name.rindex('/')] +
-                  '/models/' + self.__information.model_parameters['name'] + '.json', 'w') as json_model:
-            json_model.write(self.__model.get_model().to_json())
-        '''
+
+        with open(self.__information.preprocessed_db_name[:self.__information.preprocessed_db_name.index('/', 6)] +
+            '/models/' + self.__information.model_parameters['name'] + '.json', 'w') as json_f:
+            json_f.write(str(self.__develop_json()).replace("'", '"'))
 
     def run(self):
         """

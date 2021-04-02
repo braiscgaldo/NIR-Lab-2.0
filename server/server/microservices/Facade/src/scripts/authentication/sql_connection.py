@@ -6,8 +6,8 @@ class SQLConnection:
     Class for connect to SQL database for authentication
     """
 
-    def __init__(self, user='brais', database='nirlab', host='dockers_database_1', name='nirlab', generic_user='brais',
-                 generic_password='password1'):
+    def __init__(self, user='brais', database='nirlab', host='nirlab_database', name='nirlab', generic_user='root',
+                 generic_password='password'):
         self.__user, self.__database, self.__host, self.__name = user, database, host, name
         self.__generic_user, self.__generic_password = generic_user, generic_password
         self._connection, self._cursor = None, None
@@ -18,7 +18,7 @@ class SQLConnection:
         :return: None - established connection
         """
         self._connection = mysql.connector.connect(user=self.__generic_user, password=self.__generic_password,
-                                                   host=self.__host, port=3336,
+                                                   host=self.__host,
                                                    database=self.__database)
         self._cursor = self._connection.cursor(buffered=True)
 

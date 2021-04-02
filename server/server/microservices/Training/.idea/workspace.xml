@@ -22,7 +22,16 @@
     <list default="true" id="fca4b4aa-0037-4544-89a9-340a3117a16c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../../../../doc/anteproyecto/Anteproyecto.odt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../doc/anteproyecto/Anteproyecto.odt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../../doc/anteproyecto/Anteproyecto.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../doc/anteproyecto/Anteproyecto.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Authentication/auth-ms" beforeDir="false" afterPath="$PROJECT_DIR$/../Authentication/auth-ms" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/Facade/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/Facade/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/Facade/Facade.tar.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/Facade/Facade.tar.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Facade/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Facade/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Facade/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Facade/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Facade/src/scripts/authentication/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Facade/src/scripts/authentication/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Facade/src/scripts/authentication/sql_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Facade/src/scripts/authentication/sql_connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Facade/src/scripts/data_info/read_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Facade/src/scripts/data_info/read_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scripts/train/DevelopModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/train/DevelopModel.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +56,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Facade" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -142,10 +151,10 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.ObtainedData" />
       <item itemvalue="Python.DevelopModel" />
-      <item itemvalue="Python.PreprocessedDatabase" />
       <item itemvalue="Python.Main" />
+      <item itemvalue="Python.ObtainedData" />
+      <item itemvalue="Python.PreprocessedDatabase" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -186,17 +195,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/scripts/train/DevelopModel.py</url>
-          <line>117</line>
+          <line>118</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/scripts/train/DevelopModel.py</url>
-          <line>86</line>
+          <line>87</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/scripts/train/DevelopModel.py</url>
-          <line>67</line>
+          <line>68</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

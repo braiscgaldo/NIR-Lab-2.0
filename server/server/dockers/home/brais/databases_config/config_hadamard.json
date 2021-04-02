@@ -1,0 +1,27 @@
+{
+  "name": "config_hadamard_1",
+  "data_operations": {
+    "a": ["sum", "intensity", "absorbance"],
+    "b": ["subtract", "intensity", 900],
+    "c": ["multiply", "a", "reflectance"],
+    "d": ["divide", "a", "c"],
+    "e": ["module", "intensity", 1000],
+    "f": ["whole_divide", "c", 7],
+    "g": ["square_root", "absorbance"],
+    "h": ["raise_x", "reflectance", 3],
+    "i": ["standard_deviation", "intensity"],
+    "j": ["mean", "reflectance"],
+    "k": ["median", "d"],
+    "l": ["mode", "f"],
+    "m": ["sum_all", "intensity"],
+    "n": ["minimum", "absorbance"],
+    "o": ["maximum", "reflectance"],
+    "p": ["min_max_normalization", "c"],
+    "r": ["normalize", "absorbance"],
+    "s": ["variance", "o"],
+    "t": ["max_abs_normalization", "intensity"],
+    "u": ["sum", 0, 15.5],
+    "v": ["value_at", "intensity", 7]
+  },
+  "output_chars": ["c", "r"]
+}

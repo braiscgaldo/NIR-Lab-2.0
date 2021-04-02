@@ -3,6 +3,9 @@ version: "3"
 services:
     view:
         image: view:v1
+        container_name: nirlab_view 
+        hostname: nir_lab
+        domainname: nir_lab.com
         networks:
             - nir_net
         tty: true
@@ -14,17 +17,23 @@ services:
             - database
 
     facade:
-        image: facade:v1
+        image: facade:v3
+        container_name: nirlab_facade
         networks:
             - nir_net
         tty: true
+        ports:
+            - "4000:4000"
         links:
             - data_treatment
             - training
             - database
+        volumes:
+            - /home/brais/NIR-Lab/server/server/dockers/home/:/home/
 
     data_treatment:
         image: data_treatment:v2
+        container_name: nirlab_data_treatment
         networks:
             - nir_net
         tty: true
@@ -33,26 +42,31 @@ services:
         links:
             - database
         volumes:
-            - /home/brais/NIR-Lab/server/server/microservices/scripts/MongoDB/:/home/brais
+            - /home/brais/NIR-Lab/server/server/dockers/home/:/home/
 
     training:
-        image: training:v2
+        image: training:v3
+        container_name: nirlab_training
         networks:
             - nir_net
         tty: true
         links:
             - database
         volumes:
-            - /home/brais/NIR-Lab/server/server/microservices/scripts/MongoDB/:/home/brais
+            - /home/brais/NIR-Lab/server/server/dockers/home/:/home/
 
     database:
         image: database:v1
+        container_name: nirlab_database
         networks:
             - nir_net
         tty: true
         ports:
             - "3336:3306"
         environment:
+            - MYSQL_USER=user
+            - MYSQL_PASSWORD=password
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
             - MYSQL_ROOT_PASSWORD=password
 
 networks:
