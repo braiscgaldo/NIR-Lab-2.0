@@ -1,16 +1,22 @@
 import sys
 import threading
 import requests
+import datetime
 
 sys.path.append('../../')
 from src.scripts.data_info.read_data import DataInfo
 from src.scripts.authentication.auth import Auth
 from flask import Flask, request
+from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 
 app = Flask(__name__)
 app.config['FLASK_ENV'] = 'development'
 app.config['HOST'] = '0.0.0.0'
 app.config['BUNDLE_ERRORS'] = True
+app.config['SECRET_KEY'] = '7110c8ae51a4b5af97be6534caef90e4bb9bdcb3380af008f90b23a5d1616bf319bc298105da20fe'
+
+# login manager
+login_manager = LoginManager(app)
 
 
 # Parse petition
@@ -18,26 +24,42 @@ def parse_request():
     return request.get_json(force=True)
 
 
-# Creates a session
+# Loads an user
+@login_manager.user_loader
+def load_user(username):
+    return Auth.get_user_by_name(username)
+
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    pass
+    if current_user.is_authenticated:
+        return {'message': 'Already authenticated'}
+    data = parse_request()
+    if Auth.login(data['username'], data['password']):
+        login_user(Auth.get_user(data['username'], data['password']), remember=True, duration=datetime.timedelta(days=0, minutes=15))
+        return {'message': 'login successful'}
+    return {'message': 'login failed'}
 
 
 # Delete a session
-def sign_out():
-    pass
+def logout(data):
+    logout_user()
+    return {'message': 'logged out'}
 
 
-def create_user(data):
+@app.route('/create_user', methods=['PUT'])
+def create_user():
+    data = parse_request()
     if Auth.create_user(username=data['username_auth'], password=data['password_auth'], name=data['name_auth'],
                         surname=data['surname_auth'], email=data['email_auth']):
-        print({'message': 'User ' + data['username_auth'] + ' created', 'token': 'KJAHSDC432H4RHKFE98CASDIJC'}, 200)
         return {'message': 'User ' + data['username_auth'] + ' created', 'token': 'KJAHSDC432H4RHKFE98CASDIJC'}, 200
 
     return {'message': 'Internal server error'}, 500
 
 
-def edit_user(data):
+@app.route('/edit_user', methods=['POST'])
+def edit_user():
+    data = parse_request()
     if Auth.edit_user(username=data['username_auth'], password=data['password_auth'], name=data['name_auth'],
                       surname=data['surname_auth'], email=data['email_auth'], new_password=data['new_password_auth']):
         return {'message': 'User created', 'token': 'KJAHSDC432H4RHKFE98CASDIJC'}, 200
@@ -47,12 +69,15 @@ def edit_user(data):
 
 def drop_user(data):
     if Auth.drop_user(username=data['username_auth'], password=data['password_auth']):
+        logout(None) # Automatically logout when dropping user
         return {'message': 'User ' + data['username_auth'] + ' dropped'}, 200
 
     return {'message': 'Internal server error'}, 500
 
 
-def info_user(data):
+@app.route('/edit_user', methods=['GET'])
+def info_user():
+    data = parse_request()
     info = Auth.info_user(username=data['username_auth'], password=data['password_auth'])
     if info:
         print(info)
@@ -63,7 +88,6 @@ def info_user(data):
 
 def list_users(data):
     users = Auth.list_users()
-    print({'users': users})
     if users:
         return {'message': 'users returned', 'users': users}, 200
 
@@ -71,8 +95,7 @@ def list_users(data):
 
 
 def list_files(data):
-    files = DataInfo(data['username']).list_files()
-    print({'message': 'files returned', 'files': files})
+    files = DataInfo(current_user.id).list_files()
     if files:
         return {'message': 'files returned', 'files': files}, 200
 
@@ -96,7 +119,7 @@ def delete_file(data):
 
 
 def list_characteristics(data):
-    chars = DataInfo(data['username']).list_characteristics(data['filename'])
+    chars = DataInfo(current_user.id).list_characteristics(data['filename'])
     if chars:
         print(chars)
         return {'characteristics': chars}, 200
@@ -123,24 +146,25 @@ def treat_data(data):
 
     return {"message": "Executing background task..."}, 202
 
+# Only permitted when logged
+
 
 operations = {
+    'Logout': logout,
     'DataTreatment': treat_data,
     'Training': training,
     'ListFiles': list_files,
     'AddFile': add_file,
     'DeleteFile': delete_file,
     'ListCharacteristics': list_characteristics,
-    'Login': login,
-    'CreateUser': create_user,
-    'EditUser': edit_user,
     'DropUser': drop_user,
-    'InfoUser': info_user,
-    'ListUsers': list_users
+    'ListUsers': list_users,
+    'InfoUser': info_user
 }
 
 
 @app.route('/', methods=['GET', 'PUT', 'DELETE', 'POST'])
+@login_required
 def facade_operation():
     data = parse_request()
     return operations[data['type']](data=data)

@@ -37,8 +37,9 @@ class SQLConnection:
         :param: password: password for the user
         :return: valid_user
         """
-        valid_user_query = 'select username, password from USERS where username = \'' + username + \
-                           '\' and password = ' + password
+        valid_user_query = "select username, password from USERS where username = '" + username + \
+                           "' and password = '" + password + "'"
+        print(password)
         self._cursor.execute(valid_user_query)
         if len(self._cursor.fetchall()) > 0:
             return True
@@ -70,7 +71,7 @@ class SQLConnection:
         :return: userDropped
         """
         if self.__valid_user(username, password):
-            drop_user_query = 'delete from USERS where username = \'' + username + '\' and password = ' + password
+            drop_user_query = "delete from USERS where username = '" + username + "' and password = '" + password + "'"
             try:
                 self._cursor.execute(drop_user_query)
                 self._connection.commit()
@@ -86,9 +87,10 @@ class SQLConnection:
         :return: created_user
         """
         if self.list_users() is None or self.__name not in self.list_users():
-            add_user_query = 'insert into USERS (username, name, surname, password, email) values (\'' + \
-                             self.__user.username + '\', \'' + self.__user.name + '\', \'' + self.__user.surname + \
-                             '\', ' + self.__user.password + ', \'' + self.__user.email + '\')'
+            print(self.__user.password)
+            add_user_query = "insert into USERS (username, name, surname, password, email) values ('" + \
+                             self.__user.username + "', '" + self.__user.name + "', '" + self.__user.surname + \
+                             "', '" + self.__user.password + "', '" + self.__user.email + "')"
             try:
                 self._cursor.execute(add_user_query)
                 self._connection.commit()
@@ -108,10 +110,9 @@ class SQLConnection:
         """
         if self.__valid_user(username, password):
             self.__user = new_user
-            edit_user_query = 'update USERS SET name=\'' + self.__user.name + '\', surname=\'' + self.__user.surname + \
-                              '\', password=' + self.__user.password + ', email=\'' + self.__user.email + \
-                              '\' where username=\'' + username + '\' and password=' + password
-            print(edit_user_query)
+            edit_user_query = "update USERS SET name='" + self.__user.name + "', surname='" + self.__user.surname + \
+                              "', password='" + self.__user.password + "', email='" + self.__user.email + \
+                              "' where username='" + username + "' and password='" + password + "'"
             self._cursor.execute(edit_user_query)
             self._connection.commit()
             return True
@@ -124,7 +125,29 @@ class SQLConnection:
         :param: password: password
         :return: user_info
         """
-        info_user_query = 'select name, surname, email from USERS where username = \'' + username + \
-                          '\' and password = ' + password
+        info_user_query = "select name, surname, email from USERS where username = '" + username + \
+                          "' and password = '" + password + "'"
         self._cursor.execute(info_user_query)
+        return self._cursor.fetchall()
+
+    def get_user(self, username, password):
+        """
+        Method for obtain an user
+        :param: username: username
+        :param: password: password
+        :return: user_info
+        """
+        user_query = "select username, password, name, surname, email from USERS where username = '" + username + \
+                     "' and password = '" + password + "'"
+        self._cursor.execute(user_query)
+        return self._cursor.fetchall()
+
+    def get_user_by_name(self, username):
+        """
+        Method for obtain an user
+        :param: username: username
+        :return: user_info
+        """
+        user_query = "select username, password, name, surname, email from USERS where username = '" + username + "'"
+        self._cursor.execute(user_query)
         return self._cursor.fetchall()

@@ -1,5 +1,6 @@
 from src.scripts.authentication.user import User
 from src.scripts.authentication.sql_connection import SQLConnection
+import hashlib
 import os
 import shutil
 
@@ -51,7 +52,7 @@ class Auth:
         """
         connection = SQLConnection()
         connection.connect()
-        login_successful = connection.login(username, password)
+        login_successful = connection.login(username, hashlib.sha256(password.encode('utf-8')).hexdigest())
         connection.disconnect()
         return login_successful
 
@@ -75,13 +76,14 @@ class Auth:
         :param: password: password of the user
         :return dropped_user
         """
-        if Auth.remove_dirs(username):
+        try:
             connection = SQLConnection()
             connection.connect()
-            dropped_user = connection.drop_user(username, password)
+            dropped_user = connection.drop_user(username, hashlib.sha256(password.encode('utf-8')).hexdigest())
             connection.disconnect()
+            Auth.remove_dirs(username)
             return dropped_user
-        else:
+        except:
             return None
 
     @staticmethod
@@ -94,7 +96,7 @@ class Auth:
         """
         connection = SQLConnection()
         connection.connect()
-        info_user = connection.info_user(username, password)
+        info_user = connection.info_user(username, hashlib.sha256(password.encode('utf-8')).hexdigest())
         connection.disconnect()
         return info_user
 
@@ -110,7 +112,7 @@ class Auth:
         :return created_user
         """
         if Auth.create_dirs(username):
-            user = User(username, name, surname, password, email)
+            user = User(username, name, surname, hashlib.sha256(password.encode('utf-8')).hexdigest(), email)
             connection = SQLConnection(user)
             connection.connect()
             created_user = connection.create_user()
@@ -131,9 +133,38 @@ class Auth:
         :param: new_password: new password for the user
         :return edited_user
         """
-        user = User(username, name, surname, new_password, email)
+        user = User(username, name, surname, hashlib.sha256(new_password.encode('utf-8')).hexdigest(), email)
         connection = SQLConnection(user)
         connection.connect()
-        created_user = connection.edit_user(username, password, user)
+        created_user = connection.edit_user(username, hashlib.sha256(password.encode('utf-8')).hexdigest(), user)
         connection.disconnect()
         return created_user
+
+    @staticmethod
+    def get_user(username, password):
+        """
+        Method for obtain all info of an user
+        :param: username: user name
+        :param: password: password of the user
+        return user
+        """
+        user = User(username=username, name=username, surname=username, password=password, email=username)
+        connection = SQLConnection(user)
+        connection.connect()
+        user_info = connection.get_user(username, hashlib.sha256(password.encode('utf-8')).hexdigest())[0]
+        connection.disconnect()
+        return User(username, user_info[1], user_info[2], user_info[3], user_info[4])
+
+    @staticmethod
+    def get_user_by_name(username):
+        """
+        Method for obtain all info of an user
+        :param: username: user name
+        return user
+        """
+        user = User(username=username, name=username, surname=username, password=username, email=username)
+        connection = SQLConnection(user)
+        connection.connect()
+        user_info = connection.get_user_by_name(username)[0]
+        connection.disconnect()
+        return User(username, user_info[1], user_info[2], user_info[3], user_info[4])

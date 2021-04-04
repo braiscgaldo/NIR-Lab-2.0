@@ -17,7 +17,7 @@ services:
             - database
 
     facade:
-        image: facade:v3
+        image: facade:v4
         container_name: nirlab_facade
         networks:
             - nir_net
