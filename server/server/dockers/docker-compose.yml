@@ -63,6 +63,8 @@ services:
         tty: true
         ports:
             - "3336:3306"
+        volumes:
+            - /home/brais/NIR-Lab/server/server/dockers/DataBase_data:/var/lib/mysql
         environment:
             - MYSQL_USER=user
             - MYSQL_PASSWORD=password
