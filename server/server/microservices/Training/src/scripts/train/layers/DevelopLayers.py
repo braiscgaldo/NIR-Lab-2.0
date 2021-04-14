@@ -80,7 +80,7 @@ class MaxPool1DLayer(metaclass=Layer):
     @staticmethod
     def generate_layer(params):
         if 'input_shape' in params.keys():
-            return layers.MaxPool1D(input_shape=params['input_shape'], rate=params['pool_size'])
+            return layers.MaxPool1D(input_shape=params['input_shape'], pool_size=params['pool_size'])
         return layers.MaxPool1D(pool_size=params['pool_size'])
 
 
@@ -93,7 +93,7 @@ class AveragePooling1DLayer(metaclass=Layer):
     @staticmethod
     def generate_layer(params):
         if 'input_shape' in params.keys():
-            return layers.AveragePooling1D(input_shape=params['input_shape'], rate=params['pool_size'])
+            return layers.AveragePooling1D(input_shape=params['input_shape'], pool_size=params['pool_size'])
         return layers.AveragePooling1D(pool_size=params['pool_size'])
 
 

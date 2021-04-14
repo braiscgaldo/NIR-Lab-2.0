@@ -1,7 +1,7 @@
 <template>
   <div class="logs-page">
     <div>
-      <Menu page="/logs" name="brais"/>
+      <Menu page="/logs" name="brais" />
     </div>
     <h1>Logs</h1>
 
@@ -9,8 +9,8 @@
       <h2>Databases</h2>
       <div id="database_area" class="border_rect">
         <div class="container" v-for="(db, idx) in databases" :key="idx">
-          <div :id="db.name" class="database">
-            {{  db.name  }}          
+          <div :id="db.name" class="database" @dblclick="downloadFile">
+            {{ db.name }}
           </div>
         </div>
       </div>
@@ -20,8 +20,8 @@
       <h2>Models</h2>
       <div id="models_area" class="border_rect">
         <div class="container" v-for="(model, idx) in models" :key="idx">
-          <div :id="model.name" class="model" v-on:click="clickedModel($event)">
-            {{  model.name  }}          
+          <div :id="model.name" class="model" v-on:click="clickedModel($event)" @dblclick="downloadFile">
+            {{ model.name }}
           </div>
         </div>
       </div>
@@ -30,24 +30,24 @@
     <div id="info_samples">
       <div id="information">
         <label><h2>Information</h2></label>
-        <vue-table-dynamic :params="table_model" id="table_info"></vue-table-dynamic>
+        <vue-table-dynamic
+          :params="table_model"
+          id="table_info"
+        ></vue-table-dynamic>
       </div>
       <div id="samples">
         <label><h2>Results</h2></label>
-        <vue-table-dynamic :params="table_results" id="table_results"></vue-table-dynamic>
-      </div>    
+        <vue-table-dynamic
+          :params="table_results"
+          id="table_results"
+        ></vue-table-dynamic>
+      </div>
     </div>
-
 
     <label><h2>Results</h2></label>
     <div id="upload_model" class="border_rect">
-      <b-img
-        class="data_image"
-        :src="getImgData()"
-        alt="Model image"
-      ></b-img>
+      <b-img class="data_image" :src="getImgData()" alt="Model image"></b-img>
     </div>
-    
 
     <div>
       <Footer />
@@ -58,17 +58,18 @@
 <script>
 import Menu from "../../common/header/private/menu.vue";
 import Footer from "../../common/footer/footer.vue";
+const axioslib = require('axios');
+const axios = axioslib.create({
+  headers: {
+    'Access-Control-Allow-Origin': '*'
+  }
+});
 
 export default {
   data: () => ({
     databases : [
-      {
-        name: 'HadaBeer'
-      },
-      {
-        name: 'Chocolate'
-      }
     ],
+    database_selected: "",
     models: [
       {
         name: "model_1",
@@ -139,12 +140,58 @@ export default {
         header: 'row',
         border: true,
         stripe: true,
-        showCheck: true,
+        showCheck: true, 
         sort: [0, 1]
-      
     }    
   }),
+  created() {
+    this.obtainFiles();
+  },
   methods: {
+    // Obtain model data
+    obtainModelData(modelName){
+      axios.get('http://localhost:4000/download', { params:{ username: this.$store['state']['user'], path: 'models/'+modelName+'.json' } }).then(response => {
+        if (response.status == 200 && response.data['file_content'] != 'File not exists'){
+          var data = JSON.parse(response.data['file_content']);
+          console.log(data)
+          for (var i = 0; i < this.models.length; i++){
+            if (this.models[i].name == modelName){
+              for (var j = 0; j < Object.keys(data).length; j++){
+                this.models[i][Object.keys(data)[j]] = data[Object.keys(data)[j]]
+              }
+              break;
+            }
+          }
+          
+        } else {
+          console.log('File not exists')
+        }
+        console.log(this.database_names)
+      })
+    },
+    // Obtain files
+    obtainFiles() {
+      axios.get('http://localhost:4000/list_files', { params:{ username: this.$store['state']['user'] } }).then(response => {
+        if (response.status == 200 && response.data['message'] == 'files returned'){
+          var db = response.data['files']['databases'][1];
+          var mdls = response.data['files']['models'][1];
+          this.databases = []; this.models = [];
+          for (var i = 0; i < db.length; i++){
+            this.databases.push({ name: db[i].slice(0, -5) });
+          }
+          for (i = 0; i < mdls.length; i++){
+            var name = (mdls[i].length - mdls[i].indexOf('.') == 3) ? mdls[i].slice(0, mdls[i].indexOf('.')) : null;
+            if (name != null){
+              this.models.push({ name: name });
+              console.log(mdls[i].slice(0, mdls[i].indexOf('.')))
+              this.obtainModelData(name);
+            }
+          }
+        } else {
+          console.log('bad return')
+        }
+      })
+    },
     getImgData() {
       return require("/src/assets/private/model_logs/data.png");
     },
@@ -176,6 +223,34 @@ export default {
       var data = [model.name, model.problem, model.target, model.train_size, model.train_acc, model.test_size, model.test_acc];
       this.table_model.data.push(data)
       
+    },
+    // Download files
+    downloadFile(event){
+      var target = event.target;
+      var targetId = target.id;
+      var targetClass = target.className;
+      var targetPath = (targetClass == 'database') ? 'databases/'+targetId+'.json' : 'models/'+targetId+'.h5';
+      console.log(target)
+      console.log(targetId, targetClass);
+      console.log(targetPath)
+      axios.get('http://localhost:4000/download', { params:{ username: this.$store['state']['user'], path: targetPath } }).then(response => {
+        if (response.status == 200){
+          var data = response.data['file_content'];
+          var type = response.data['file_type'] 
+          const blob = new Blob([data], {type: 'text/plain'})
+          const e = document.createEvent('MouseEvents'),
+          a = document.createElement('a');
+          a.download = targetId + type;
+          a.href = window.URL.createObjectURL(blob);
+          a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+          e.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+          a.dispatchEvent(e);
+        } else {
+          console.log('bad return')
+        }
+        console.log(this.database_names)
+      })
+
     }
   },
   mounted(){
@@ -200,7 +275,9 @@ export default {
   padding-bottom: 10vw; /* height of your footer */
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin-top: 4vw;
   margin-bottom: 3vw;
   text-align: center;
@@ -216,7 +293,8 @@ label {
   width: 100% !important;
 }
 
-#select_model, #select_database {
+#select_model,
+#select_database {
   width: 100%;
   padding: 0vw;
 }
@@ -278,12 +356,12 @@ label {
 }
 
 .model {
-  padding:5px;
-  margin:5px;
+  padding: 5px;
+  margin: 5px;
   margin-left: 0%;
   margin-right: 0%;
-  background-color: #EE3744;
-  border: solid 1px #EE3744;
+  background-color: #ee3744;
+  border: solid 1px #ee3744;
   color: #deeaee;
   border-radius: 0.75em;
   text-align: justify;
@@ -293,8 +371,8 @@ label {
 }
 
 .database {
-  padding:5px;
-  margin:5px;
+  padding: 5px;
+  margin: 5px;
   margin-left: 0%;
   margin-right: 0%;
   background-color: #2fa2a2;
@@ -306,5 +384,4 @@ label {
   font-size: 1.5vw;
   width: fit-content;
 }
-
 </style>

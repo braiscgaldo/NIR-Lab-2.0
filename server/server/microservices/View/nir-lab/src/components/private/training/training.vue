@@ -1,13 +1,13 @@
 <template>
   <div class="training-page">
     <div>
-      <Menu page="/training" name="brais" />
+      <Menu page="/training" username="brais" />
     </div>
     <h1>Training</h1>
 
     <!-- Train menu -->
     <div id="train_menu">
-      <form class="vue-form train_form" @submit.prevent="train">
+      <form class="vue-form train_form" @submit.prevent="trainModel">
         <fieldset>
           <input class="train_button" type="submit" value="Train" />
           <v-combobox
@@ -16,14 +16,24 @@
             v-model="database_selected"
             :items="database_names"
             placeholder="Select a database"
+            @change="obtainLabels"
           >
           </v-combobox>
+          <v-combobox
+              class="combo_target"
+              required
+              placeholder="Target"
+              name="target selected"
+              id="target_selected"
+              :items="target"
+              v-model="target_selected"
+          />
           <v-combobox
             class="combo_select_model"
             required
             v-model="model_selected"
-            :items="model_names"
-            placeholder="Select a model"
+            :items="config_model_names"
+            placeholder="Select a configuration model file"
           >
           </v-combobox>
         </fieldset>
@@ -153,7 +163,7 @@
 
       <!-- Admin models -->
       <div id="admin_models">
-        <form class="vue-form sel_db_form" @submit.prevent="deleteDB">
+        <form class="vue-form sel_db_form" @submit.prevent="deleteModel">
           <fieldset>
             <input
               class="delete_button"
@@ -168,7 +178,7 @@
               placeholder="Select a model"
             >
             </v-combobox>
-            <div class="drop-zone">
+            <div class="drop-zone" ref='file' accept=".h5" @drop.prevent='uploadModel' @dragover.prevent>
               <b-img
                 class="db_image"
                 :src="getImgNN()"
@@ -205,7 +215,7 @@
         <h2>Design Palette</h2>
         <form
           class="vue-form palette_form"
-          @submit.prevent="generateNewConfigFile()"
+          @submit.prevent="generateConfigFile"
         >
           <fieldset>
             <input
@@ -314,6 +324,11 @@
               </div>
           </div>
         </div>
+        <VueModal v-model="showModalErrorConfigIntegrity" title="Error treating Inputs">
+        <p>
+          The configuration file does not pass integrity, it is bad composed. Please, fill all information!
+        </p>
+      </VueModal>
       </div>
     </div>
 
@@ -327,19 +342,27 @@
 import Menu from "../../common/header/private/menu.vue";
 import Footer from "../../common/footer/footer.vue";
 import draggable from "vuedraggable";
+const axioslib = require('axios');
+const axios = axioslib.create({
+  headers: {
+    'Access-Control-Allow-Origin': '*'
+  }
+});
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 // dialogs
 import VueModal from '@kouts/vue-modal';
 
 export default {
   data: () => ({
     database_selected: "",
-    database_names: ["HadaBeer", "Chocolate"],
+    database_names: [],
+    model_names: [],
     model_selected: "",
+    target_selected: "",
+    target: [],
     config_parameters: {
       model_name: "",
       learning_rate: "learning_rate",
-      target_selected: "",
-      target: ["Graduation", "intensity"],
       epsilon: "Epsilon",
       epochs: "Epochs",
       optimizer_selected: "",
@@ -363,7 +386,7 @@ export default {
       validation_size: "Validation size",
     },
     activations: ['relu', 'sigmoid', 'softmax', 'softplus', 'softsign', 'tanh', 'selu', 'elu', 'exponential'],
-    model_names: ["model_1", "model_2"],
+    config_model_names: ["model_1", "model_2"],
     del_layer_idx: '',
     layers: [
       {
@@ -387,7 +410,7 @@ export default {
         parameters: ["pool_size"]
       },
       {
-        name: "AveragePool1D",
+        name: "AveragePooling1D",
         activation: "",
         parameters: ["pool_size"]
       },
@@ -396,6 +419,7 @@ export default {
     showModalEditValue: false,
     showModalErrorEditValue: false,
     showModalEditActivation: false,
+    showModalErrorConfigIntegrity: false,
     new_value: '32',
     id_layer: '',
     new_activation: 'relu',
@@ -407,7 +431,37 @@ export default {
       },
     ],
   }),
+  created () {
+    this.obtainFiles();
+    console.log('change')
+  }, 
   methods: {
+    // Obtain files
+    obtainFiles() {
+      axios.get('http://localhost:4000/list_files', { params:{ username: this.$store['state']['user'] } }).then(response => {
+        if (response.status == 200 && response.data['message'] == 'files returned'){
+          this.database_names = response.data['files']['databases'][1];
+          this.model_names = response.data['files']['models'][1];
+          this.config_model_names = response.data['files']['models_config'][1];
+          this.database_names.forEach(function(part, index, db_names) { db_names[index] = db_names[index].slice(0,-5);});
+          this.config_model_names.forEach(function(part, index, db_names) { db_names[index] = db_names[index].slice(0,-5);});
+          this.model_names.forEach(function(part, index, db_names) { db_names[index] = db_names[index].slice(0,-3);});
+        } else {
+          console.log('bad return')
+        }
+        console.log(this.database_names)
+      })
+    },
+    // Obtain labels
+    obtainLabels(){
+      axios.get('http://localhost:4000/list_characteristics', { params:{ username: this.$store['state']['user'], filename: this.database_selected } }).then(response => {
+        if (response.status == 200){
+          this.target = response['data']['characteristics']['labels'];
+        } else {
+          console.log('bad return ')
+        }
+      })
+    },
     getImgNN() {
       return require("/src/assets/private/training/neural_net.png");
     },
@@ -427,7 +481,6 @@ export default {
         idparam = id + '$';
         idact = id + '$activation';
         if (document.getElementById(id) != null){
-          console.log(id)
           document.getElementById(id).id = this.configuration_file_layers_id[i].name + '$' + i;
           document.getElementById(idact).innerHTML = 'activation: ' + this.configuration_file_layers_id[i].activation;
           document.getElementById(id + '$').id = idparam;
@@ -458,7 +511,7 @@ export default {
           return 2;
         case 'MaxPool1D':
           return 3;
-        case 'AveragePool1D':
+        case 'AveragePooling1D':
           return 4;
       }
     },
@@ -488,6 +541,117 @@ export default {
       // change values in html
       document.getElementById(id).innerHTML = 'activation: ' + this.new_activation;
       this.showModalEditActivation = false;
+    },
+    // treat models
+    deleteModel(){
+      axios.delete('http://localhost:4000/delete_file', { params:{ username: this.$store['state']['user'], path: 'models/' + this.model_selected + '.h5' } }).then(response => {
+        if (response.status == 200){
+          this.obtainFiles();
+          this.model_selected = '';
+        }
+      })
+    },
+    uploadModel(e){
+      e.preventDefault();
+      this.$refs.file.file = e.dataTransfer.files[0];
+      this.database_files = e.dataTransfer.items;
+      if (!this.database_files || this.database_files.length > 1) return;
+
+      if (this.$refs.file.file.name.endsWith('.h5')){
+        var reader = new FileReader();
+        reader.readAsText(this.database_files[0].getAsFile());
+        reader.onloadend = event => {
+          var data = {
+            type: 'AddFile',
+            username: this.$store['state']['user'],
+            filedata: event.target.result,
+            path: 'models/' + this.$refs.file.file.name 
+          }
+          axios.put('http://localhost:4000/', data).then(response => {
+            if (response.status == 200){
+              console.log('uploaded data, updating view');
+              this.obtainFiles();
+            }
+          })
+        }
+      }
+    }, 
+    testJSON(){
+      var valid = true;
+      (this.config_parameters.model_name == '' || this.config_parameters.target_selected == '' || this.config_parameters.num_epochs == 'Epochs' || this.config_parameters.loss_selected == '' || this.config_parameters.learning_rate == 'learning_rate' || this.config_parameters.epsilon == 'Epsilon' || this.config_parameters.optimizer_selected == '' || this.config_parameters.metrics == '' || this.config_parameters.batch_size == 'Batch size' || this.config_parameters.decay == 'Decay' || this.config_parameters.train_size == 'Train size' || this.config_parameters.validation_size == 'Validation size') ? valid = false : valid = true;
+      console.log(this.config_parameters.model_name == '' || this.config_parameters.target_selected == '' || this.config_parameters.num_epochs == 'Epochs' || this.config_parameters.loss_selected == '' || this.config_parameters.learning_rate == 'learning_rate' || this.config_parameters.epsilon == 'Epsilon' || this.config_parameters.optimizer_selected == '' || this.config_parameters.metrics == '' || this.config_parameters.batch_size == 'Batch size' || this.config_parameters.decay == 'Decay' || this.config_parameters.train_size == 'Train size' || this.config_parameters.validation_size == 'Validation size')
+      return valid;    
+    },
+    // Configuration file
+    generateConfigJSON(){
+      var configJSON = {
+        name: this.config_parameters.model_name,
+        target: this.config_parameters.target_selected,
+        num_epochs: this.config_parameters.epochs,
+        loss_function: this.config_parameters.loss_selected,
+        learning_rate: this.config_parameters.learning_rate,
+        epsilon: this.config_parameters.epsilon,
+        optimizer: this.config_parameters.optimizer_selected.toLowerCase(),
+        metrics: this.config_parameters.metrics,
+        batch_size: this.config_parameters.batch_size,
+        decay: this.config_parameters.decay,
+        train_size: this.config_parameters.train_size,
+        validation_size: this.config_parameters.validation_size,
+        test_size: 1-this.config_parameters.train_size,
+        layers: {}
+      };
+      for (var i = 0; i < this.configuration_file_layers_id.length; i++){
+          configJSON['layers'][i] = this.configuration_file_layers_id[i];
+      }
+
+      for (i = 0; i < Object.keys(configJSON['layers']).length; i++){
+        console.log(Object.keys(configJSON['layers'][i]));
+        if (Object.keys(configJSON['layers'][i]).indexOf('none') > 1) {
+          delete configJSON['layers'][i].none;
+        }
+      }
+
+      console.log(configJSON);
+      return configJSON;
+    },
+    // Generate configuration file
+    generateConfigFile(){
+      if (this.testJSON()){
+        var configData = JSON.stringify(this.generateConfigJSON());
+        var data = {
+          type: 'AddFile',
+          username: this.$store['state']['user'],
+          filedata: configData,
+          path: 'models_config/' + this.config_parameters.model_name + '_config.json' 
+        }
+        console.log(data);
+        
+        axios.put('http://localhost:4000/', data).then(response => {
+          if (response.status == 200){
+            console.log('uploaded data, updating view');
+            this.showModalGenerateConfigFile = true;
+            this.obtainFiles();
+          }
+        });
+        return;
+      }
+      this.showModalErrorConfigIntegrity = true;
+    },
+    // Train model
+    trainModel(){
+      var data = {
+        type: 'Training',
+        path_preprocessed_database: '/home/' + this.$store['state']['user'] + '/databases/' + this.database_selected + '.json',
+        path_configuration_model: '/home/' + this.$store['state']['user'] + '/models_config/' + this.origin_database_selected + '.json',
+        target_label: this.target_selected
+      }
+      axios.post('http://localhost:4000/', data).then(response => {
+        if (response.status == 202){
+          console.log('executing background task');
+          this.showModalGenerateDB = true;
+        }
+      })
+      return data;
     }
   },
   components: {
@@ -545,13 +709,18 @@ label {
 }
 
 .combo_select_db {
-  width: 45%;
+  width: 30%;
   float: left;
 }
 
 .combo_select_model {
-  width: 45%;
-  float: right;
+  width: 30%;
+  float: left;
+}
+
+.combo_target {
+  width: 30%;
+  float: left;
 }
 
 .train_button {

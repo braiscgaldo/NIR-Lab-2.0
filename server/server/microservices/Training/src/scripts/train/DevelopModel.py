@@ -115,8 +115,8 @@ class DevelopModel:
         Method to train the model
         :return:
         """
-        data_train = self.__get_only_data(self.__data_train)
-        data_labels = self.__labels_modify(self.__labels_train)
+        data_train = np.array(self.__get_only_data(self.__data_train)).astype('float32')
+        data_labels = np.array(self.__labels_modify(self.__labels_train)).astype('float32')
         #model_checkpoint_callback = keras.callbacks.ModelCheckpoint("best_Model.h5", save_best_only=True)
         self.__model.get_model().fit(data_train, data_labels,
                                      epochs=self.__information.model_parameters['num_epochs'],

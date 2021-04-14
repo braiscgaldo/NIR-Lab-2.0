@@ -14,7 +14,12 @@ import draggable from 'vuedraggable';
 // dialogs
 import VueModal from '@kouts/vue-modal';
 import '@kouts/vue-modal/dist/vue-modal.css';
- 
+// http petitions
+import Axios from 'axios'
+import VueAxios from 'vue-axios'
+// login
+import store from './store';
+
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
@@ -35,10 +40,21 @@ Vue.use(VeeValidate)
 // For dialogs
 Vue.use(VueModal)
 
+// For HTTP petitions
+Vue.prototype.$http = Axios
+Vue.use(VueAxios, Axios)
+
+// For login
+const token = localStorage.getItem('token');
+if (token) {
+    Vue.prototype.$http.defaults.headers.common['Authentication = token']
+}
+
 Vue.config.productionTip = false
 
 new Vue({
     router,
     vuetify,
+    store,
     render: h => h(App)
 }).$mount('#app')

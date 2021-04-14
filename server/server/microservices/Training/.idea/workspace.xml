@@ -22,7 +22,36 @@
     <list default="true" id="fca4b4aa-0037-4544-89a9-340a3117a16c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../../../../doc/anteproyecto/Anteproyecto.odt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../doc/anteproyecto/Anteproyecto.odt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../../doc/anteproyecto/Anteproyecto.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../doc/anteproyecto/Anteproyecto.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/DataBase_data/aria_log.00000001" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/DataBase_data/aria_log.00000001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/DataBase_data/aria_log_control" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/DataBase_data/aria_log_control" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/DataBase_data/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/DataBase_data/ib_buffer_pool" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/DataBase_data/ib_logfile0" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/DataBase_data/ib_logfile0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/DataBase_data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/DataBase_data/ibdata1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/DataBase_data/mysql/innodb_index_stats.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/DataBase_data/mysql/innodb_index_stats.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/DataBase_data/mysql/innodb_table_stats.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/DataBase_data/mysql/innodb_table_stats.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/DataBase_data/nirlab/USERS.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/DataBase_data/nirlab/USERS.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/Facade/Facade.tar.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/Facade/Facade.tar.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/Training/Training.tar.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/Training/Training.tar.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataTreatment/src/scripts/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DataTreatment/src/scripts/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Facade/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Facade/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Facade/src/scripts/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Facade/src/scripts/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Facade/src/scripts/data_info/read_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Facade/src/scripts/data_info/read_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scripts/train/DevelopModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/train/DevelopModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scripts/train/layers/DevelopLayers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/train/layers/DevelopLayers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/common/header/private/menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/common/header/private/menu.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/common/header/public/menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/common/header/public/menu.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/private/data_treatment/data_treatment.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/private/data_treatment/data_treatment.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/private/logs/logs.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/private/logs/logs.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/private/training/training.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/private/training/training.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/public/create_account/create_account.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/public/create_account/create_account.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/public/login/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/public/login/login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/vue.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,10 +205,15 @@
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
     <state x="418" y="215" width="1084" height="829" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.34.1920.1046@0.34.1920.1046" timestamp="1617098460283" />
-    <state x="743" y="315" width="424" height="490" key="FileChooserDialogImpl" timestamp="1617530654072">
-      <screen x="0" y="34" width="1920" height="1046" />
+    <state x="743" y="447" width="424" height="490" key="FileChooserDialogImpl" timestamp="1618414406176">
+      <screen x="0" y="215" width="1920" height="865" />
     </state>
     <state x="743" y="315" width="424" height="490" key="FileChooserDialogImpl/0.34.1920.1046@0.34.1920.1046" timestamp="1617530654072" />
+    <state x="743" y="447" key="FileChooserDialogImpl/1920.181.1920.1080/0.215.1920.865@0.215.1920.865" timestamp="1618414406176" />
+    <state x="623" y="212" key="search.everywhere.popup" timestamp="1618383489276">
+      <screen x="0" y="34" width="1920" height="1046" />
+    </state>
+    <state x="623" y="212" key="search.everywhere.popup/1920.181.1920.1080/0.34.1920.1046@0.34.1920.1046" timestamp="1618383489276" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

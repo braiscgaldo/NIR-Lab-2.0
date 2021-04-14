@@ -22,6 +22,10 @@ def parse_request():
 @app.route('/data_treatment', methods=['POST'])
 def treat_data():
     args = parse_request()
+    args['username_sql'] = 'brais'
+    args['password_sql_user'] = 'password1'
+    args['host_sql'] = 'nirlab_database'
+    args['database_name'] = 'nirlab'
 
     def treat_data_back(**kwargs):
         odb = ObtainDataFromDB(kwargs['username_sql'], kwargs['password_sql_user'],

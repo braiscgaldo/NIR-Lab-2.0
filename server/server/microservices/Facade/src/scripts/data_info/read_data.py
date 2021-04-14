@@ -1,5 +1,5 @@
 from os import listdir, remove
-from shutil import copyfile
+import os
 import json
 
 
@@ -32,24 +32,29 @@ class DataInfo:
             'models': DataInfo.__list_files_in_dir(
             '/home/' + self.username + '/models/')}
 
-    def add_file(self, file, directory):
+    def add_file(self, filedata, path):
         """
         Method for add a file to the correspondent place
-        :param: file: info contained into file
+        :param: filedata: info contained into file
         :param: directory: directory where put the file
         :return: None
         """
-        copyfile(file, '/home/' + self.username + '/' + directory + '/' + file[file.rindex('/'):])
+        with open('/home/' + self.username + '/' + path, 'w') as created_file:
+            created_file.writelines(filedata)
+            return True
+        return False
 
-    def delete_file(self, file, directory):
+    def delete_file(self, path):
         """
         Method for delete a file
         :param: file: file to delete from server
-        :param: directory: directory where the file is
         :return: None
         """
-        remove('/home/' + self.username + '/' + directory + '/' +
-               file)
+        try:
+            remove('/home/' + self.username + '/' + path)
+        except:
+            return False
+        return True
 
     def list_characteristics(self, file):
         """
@@ -77,6 +82,17 @@ class DataInfo:
                         db_lines1, db_lines2 = db1.readlines(), db2.readlines()
                         db_lines1[-1] = db_lines1[-1][:db_lines1[-1].rindex('}')] # delete the last }
                         db_lines2[0]
+
+    def get_file_content(self, path):
+        """
+        Method for obtain the content of a file
+        :params: path: path of the file to obtain
+        :return: file_contents: content of the file
+        """
+        if not os.path.exists('/home/' + self.username + '/' + path):
+            return 'File not exists', 'json'
+        with open('/home/' + self.username + '/' + path, 'r') as f:
+            return ''.join(f.readlines()), path[path.rindex('.'):]
 
 
 if __name__ == '__main__':

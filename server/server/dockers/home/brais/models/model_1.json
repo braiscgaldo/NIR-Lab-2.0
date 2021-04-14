@@ -1,0 +1,11 @@
+{
+    "name": "model_1",
+    "download_link": "model1.h5",
+    "problem": "HadaBeer",
+    "target": "Graduation",
+    "train_size": 54,
+    "train_acc": "75%",
+    "test_size": 13,
+    "test_acc": 84,
+    "selected": true
+}

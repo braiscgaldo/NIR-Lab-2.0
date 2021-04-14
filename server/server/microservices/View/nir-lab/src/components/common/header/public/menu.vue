@@ -59,7 +59,8 @@ export default {
         }
     },
     props: {
-      page: String
+      page: String,
+      username: String
     }
 }
 </script>

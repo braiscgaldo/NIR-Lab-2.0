@@ -3,7 +3,7 @@
 <div>
 
   <b-navbar toggleable="lg" type="dark" variant="info" class="menu">
-    <b-navbar-brand href="/">NIR-LAB</b-navbar-brand>
+    <b-navbar-brand href="/data_treatment">NIR-LAB</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -12,12 +12,18 @@
         <router-link :to="{path:nav_item.router}" :style="{color:nav_item.color}">{{  nav_item.name  }}</router-link>
       </b-navbar-nav>
     </b-collapse>
+    <b-navbar-brand href="/" @click="logout">LOG OUT</b-navbar-brand>
+
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
   </b-navbar>
   <router-view/>
 </div>
 </template>
 
 <script>
+const axios = require('axios');
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 export default {
     data(){
         return {
@@ -71,8 +77,21 @@ export default {
         }
     },
     props: {
-      page: String,
-      name: String
+      page: String
+    },
+    methods: {
+      logout() {
+        var data = {
+          type: "Logout"
+        }
+        axios.delete('http://localhost:4000/', data).then(response => {
+          if (response.status == 200 && response.data['message'] != 'logged out'){
+            console.log('logged out');
+            // route to data treatment
+            this.$router.push({name: '',  query: { redirect: '/' } });
+          }
+        })
+      }
     }
 }
 </script>

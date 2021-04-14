@@ -34,8 +34,8 @@
       <fieldset>
         <legend>Login</legend>
         <div>
-          <label class="label" for="email">Email</label>
-          <input type="text" name="email" id="email" required v-model="email">
+          <label class="label" for="username">Username</label>
+          <input type="text" name="username" id="username" required v-model="username">
         </div>
         <div>
           <label class="label" for="password">Password</label>
@@ -47,9 +47,13 @@
         </div>
       </fieldset>
     </form>
-
-
     </div>
+
+    <VueModal v-model="showModalBadAccess" title="Error in login">
+      <p>
+        Your username or password is not correct.
+      </p>
+    </VueModal>
  
     <div>
       <Footer/>
@@ -60,22 +64,46 @@
 <script>
 import Menu from "../../common/header/public/menu.vue"
 import Footer from "../../common/footer/footer.vue";
+const axioslib = require('axios');
+const axios = axioslib.create({
+  headers: {
+    'Access-Control-Allow-Origin': '*'
+  }
+})
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+// dialogs
+import VueModal from '@kouts/vue-modal';
 
 export default {
   data: () => ({
-    email: "",
+    showModalBadAccess: false,
+    username: "",
     password: ""
   }),
   components: {
     Menu, 
-    Footer
+    Footer,
+    VueModal
   },
   methods: {
     login() {
-      console.log(this.email);
-      console.log(this.password);
-      // route to data treatment
-      this.$router.push({name: 'data_treatment',  query: { redirect: '/data_treatment' } });
+      var data = {
+        username: this.username,
+        password: this.password
+      }
+      
+      
+      axios.post('http://localhost:4000/login', data).then(response => {
+        if (response.status == 200 && response.data['message'] != 'login failed'){
+          console.log('logging ok ' + this.username);
+          this.$store.commit('auth_success', { token: response['data']['data']['token'], id: response['data']['data']['id']});
+          // route to data treatment
+          this.$router.push({name:'data_treatment', params: {username: this.username, token: response['data']['data']['token']}, query: {redirect: '/'+this.username} });
+        } else {
+          console.log('bad access');
+          this.showModalBadAccess = true;
+        }
+      })
     }
   }
 }

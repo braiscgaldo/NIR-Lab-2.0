@@ -4,14 +4,14 @@
       <Menu page='/create_account'/>
     </div>
     <div>
-      <form class="vue-form" @submit.prevent="login">
+      <form class="vue-form" @submit.prevent="create_account">
 
 
     <fieldset>
       <legend>Create your account!!</legend>
       <div>
-        <label class="label" for="email">Email</label>
-        <input type="text" name="email" id="email" required v-model="email">
+        <label class="label" for="username">Username</label>
+        <input type="text" name="username" id="password" required v-model="username">
       </div>
       <div>
         <label class="label" for="password">Password</label>
@@ -28,6 +28,10 @@
       <div>
         <label class="label" for="surname">Surname</label>
         <input type="text" name="surname" id="surname" required v-model="surname">
+      </div>
+      <div>
+        <label class="label" for="email">Email</label>
+        <input type="text" name="email" id="email" required v-model="email">
       </div>
       <p class="little">If you already have an account you can login <router-link to="/login">clicking here</router-link></p>
       <div>
@@ -48,9 +52,12 @@
 <script>
 import Menu from "../../common/header/public/menu.vue"
 import Footer from "../../common/footer/footer.vue";
+const axios = require('axios')
+
 
 export default {
   data: () => ({
+    username: "",
     password: "",
     repeated_password: "",
     name: "",
@@ -63,13 +70,19 @@ export default {
     Footer
   },
   methods: {
-    login() {
-      console.log(this.username);
-      console.log(this.password);
-      console.log(this.repeated_password);
-      console.log(this.name);
-      console.log(this.surname);
-      console.log(this.email);      
+    create_account() {
+      var data = {
+        type: "CreateUser",
+        username_auth: this.username,
+        password_auth: this.password,
+        name_auth: this.name,
+        surname_auth: this.surname,
+        email_auth: this.email
+      }
+      axios.put('http://localhost:4000/create_user', data).then(response => {
+        console.log('code: ' + response.status)
+      })
+      this.$router.push({name: 'data_treatment',  query: { redirect: '/data_treatment' } });
     }
   }
 }

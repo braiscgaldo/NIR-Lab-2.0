@@ -20,7 +20,8 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            component: Home
+            component: Home,
+            props: true
         },
         {
             path: '/login',
@@ -35,32 +36,38 @@ export default new Router({
         {
             path: '/gitgub', //name to wrap the value
             name: 'github',
-            component: GitHub
+            component: GitHub,
+            props: true
         },
         {
             path: '/mobile_app', //name to wrap the value
             name: 'mobile_app',
-            component: MobileApp
+            component: MobileApp,
+            props: true
         },
         {
             path: '/information', //name to wrap the value
             name: 'information',
-            component: Information
+            component: Information,
+            props: true
         },
         {
             path: '/contributers', //name to wrap the value
             name: 'contributers',
-            component: Contributers
+            component: Contributers,
+            props: true
         },
         {
             path: '/acknowledgements', //name to wrap the value
             name: 'acknowledgements',
-            component: Acknowledgements
+            component: Acknowledgements,
+            props: true
         },
         {
             path: '/data_treatment', //name to wrap the value
             name: 'data_treatment',
             component: DataTreatment,
+            props: true,
             meta: {
                 requiresAuth: true
             }
@@ -69,6 +76,7 @@ export default new Router({
             path: '/training', //name to wrap the value
             name: 'training',
             component: Training,
+            props: true,
             meta: {
                 requiresAuth: true
             }
@@ -77,6 +85,7 @@ export default new Router({
             path: '/logs', //name to wrap the value
             name: 'logs',
             component: Logs,
+            props: true,
             meta: {
                 requiresAuth: true
             }
@@ -85,6 +94,7 @@ export default new Router({
             path: '/edit_profile', //name to wrap the value
             name: 'edit_profile',
             component: EditProfile,
+            props: true,
             meta: {
                 requiresAuth: true
             }

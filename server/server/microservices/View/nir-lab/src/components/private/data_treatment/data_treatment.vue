@@ -1,7 +1,7 @@
 <template>
   <div class="data_treatment-page">
     <div>
-      <Menu page="/data_treatment" name="brais" />
+      <Menu page="/data_treatment"/>
     </div>
     <h1>Data Treatment</h1>
 
@@ -12,13 +12,14 @@
         <form class="vue-form gen_db_form" @submit.prevent="generateNewDB">
           <fieldset>
             <label>Generate a database!</label>
-            <input
-              type="text"
+            <v-combobox
+              class="combo_config"
+              required
               placeholder="Database name"
               name="database_to_generate_name"
-              id="database_to_generate_name"
-              required
-              v-model="database_to_generate_name"
+              id="database_selected"
+              :items="databases_names"
+              v-model="origin_database_selected"
             />
             <v-combobox
               class="combo_config"
@@ -36,6 +37,13 @@
           </fieldset>
         </form>
       </div>
+      <VueModal v-model="showModalGenerateDB" title="Generating Database!">
+        <p>
+          Generating new Database!!
+          <br><br>
+          It will be available when its process ends!!
+        </p>
+      </VueModal>
 
       <!-- Add / select a database -->
       <div id="select_db">
@@ -53,9 +61,10 @@
               v-model="database_selected"
               :items="databases_names"
               placeholder="Select a database"
+              @change="obtainCharacteristicsFromDB"
             >
             </v-combobox>
-            <div class="drop-zone">
+            <div class="drop-zone" ref='file' accept=".json" @drop.prevent='uploadDB' @dragover.prevent>
               <b-img
                 class="db_image"
                 :src="getImgDb()"
@@ -73,7 +82,7 @@
       <div id="palette">
         <form
           class="vue-form palette_form"
-          @submit.prevent="generateNewConfigFile"
+          @submit.prevent="generateConfigFile"
         >
           <fieldset>
             <input
@@ -91,6 +100,11 @@
             />
           </fieldset>
         </form>
+        <VueModal v-model="showModalGenerateConfigFile" title="Generating Configuration File">
+          <p>
+            The config file is generating....
+          </p>
+        </VueModal>
         <div class="border_rect">
           <div id="var_id">
             <draggable
@@ -241,6 +255,11 @@
           </div>
         </div>
       </div>
+      <VueModal v-model="showModalErrorConfigIntegrity" title="Error treating Input">
+        <p>
+          The configuration file does not pass integrity, it is bad composed.
+        </p>
+      </VueModal>
       <div id="inputs">
         <h3 id="operations_title">Operations</h3>
         <h3 id="var_title">Inputs</h3>
@@ -340,19 +359,35 @@
 import Menu from "../../common/header/private/menu.vue";
 import Footer from "../../common/footer/footer.vue";
 import draggable from "vuedraggable";
+const axioslib = require('axios');
+const axios = axioslib.create({
+  headers: {
+    'Access-Control-Allow-Origin': '*'
+  }
+});
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 // dialogs
 import VueModal from '@kouts/vue-modal';
 
 
 export default {
+  setToken(token) {
+    window.localStorage.setItem('jwt_token', token);
+  },
+  getToken() {
+    return window.localStorage.getItem('jwt_token');
+  },
   data: () => ({
     // for generating new db parting from files
-    database_to_generate_name: "",
+    origin_database_selected: "",
     configuration_file_selected: "",
-    configuration_files: ["config_file_1", "config_file_2", "config_file_3"],
+    configuration_files: [],
     // for delete // generate databases
     database_selected: "",
-    databases_names: ["HadaBeer", "Chocolate", "Tejidos"],
+    databases_names: [],
+    // files to upload
+    database_files: [],
+    database_data: '',
     // for generate config -- DESINGN PALETTE
     configuration_file_to_generate_name: "",
     showModalAddVar: false,
@@ -361,6 +396,9 @@ export default {
     showModalErrorDrag: false,
     showModalEditConstantVar1: false,
     showModalEditConstantVar2: false,
+    showModalGenerateDB: false,
+    showModalErrorConfigIntegrity: false,
+    showModalGenerateConfigFile: false,
     new_var: '',
     new_value: '',
     id_click: '',
@@ -486,6 +524,7 @@ export default {
     ],
     display: "Clone",
     dragging: true,
+    original_inputs: ["intensity", "absorbance", "reflectance"],
     configuration_file_var_id: [
       {
         name: "intensity",
@@ -516,7 +555,25 @@ export default {
     ],
     configuration_file_rows: 1
   }),
+  created() {
+    console.log('obtain files for user ' + this.$store['state']['user']);
+    this.obtainFiles();
+  },
   methods: {
+    // on create methods
+    obtainFiles() {
+      axios.get('http://localhost:4000/list_files', { params:{ username: this.$store['state']['user'] } }).then(response => {
+        if (response.status == 200 && response.data['message'] == 'files returned'){
+          this.databases_names = response.data['files']['databases'][1];
+          this.configuration_files = response.data['files']['databases_config'][1];
+          this.databases_names.forEach(function(part, index, db_names) { db_names[index] = db_names[index].slice(0,-5);});
+          this.configuration_files.forEach(function(part, index, db_names) { db_names[index] = db_names[index].slice(0,-5);});
+        } else {
+          console.log('bad return')
+        }
+      })
+    },
+    // Obtain images
     getImgDb() {
       return require("/src/assets/private/data_treatment/data_base.png");
     },
@@ -529,17 +586,33 @@ export default {
     getImgTrash() {
       return require("/src/assets/private/data_treatment/trash.png");
     },
+    // db treatment
     generateNewDB() {
-      // Call Facade
-      return null;
+      var data = {
+        type: 'DataTreatment',
+        configuration_name: '/home/' + this.$store['state']['user'] + '/databases_config/' + this.configuration_file_selected + '.json',
+        file_data_name: '/home/' + this.$store['state']['user'] + '/databases/' + this.origin_database_selected + '.json'
+      }
+      axios.post('http://localhost:4000/', data).then(response => {
+        if (response.status == 202){
+          console.log('executing background task');
+          this.showModalGenerateDB = true;
+        }
+      })
+      return data;
     },
     deleteDB() {
-      // Call Facade
-      return null;
+      axios.delete('http://localhost:4000/delete_file', { params:{ username: this.$store['state']['user'], path: 'databases/' + this.database_selected + '.json' } }).then(response => {
+        if (response.status == 200){
+          this.obtainFiles();
+          this.database_selected = '';
+        }
+      })
     },
     clickedOut(event){
       return event;
     },
+    // drag drop edits
     isConstant(name){
       return name.startsWith('const:');
     },
@@ -673,6 +746,120 @@ export default {
       var id = event.target.id.substring(event.target.id.lastIndexOf('$') + 1);
       var list = event.target.id.substring(0, event.target.id.indexOf('$'));
       (list == 'var_1') ? this.configuration_file_var_1.splice(id, 1, {name:'const:', id:id}) : this.configuration_file_var_2.splice(id, 1, {name:'const:', id:id})
+    },
+    getItemInput(name){
+      return { name: name, name_tb: name + '_tb', is_output: false}
+    },
+    obtainCharacteristicsFromDB(){
+      axios.get('http://localhost:4000/list_characteristics', { params:{ username: this.$store['state']['user'], filename: this.database_selected } }).then(response => {
+        if (response.status == 200){
+          this.original_inputs = response.data['characteristics']['chars'];
+          this.inputs = [];
+          for (var i = 0; i < response.data['characteristics']['chars'].length; i++){
+            this.inputs.push(this.getItemInput(response.data['characteristics']['chars'][i]));
+          }
+        } else {
+          console.log('bad return')
+        }
+      })
+    },
+    // Generate configuration JSON
+    generateConfigJSON(){
+      // Base dict
+      var configJSON = {
+        name: this.configuration_file_to_generate_name,
+        data_operations: {
+
+        },
+        output_chars: []
+      };
+      var var1, var2;
+      // Operations
+      for(var i = 0; i < this.configuration_file_var_id.length; i++){
+        (this.configuration_file_var_1[i].name.startsWith('const:')) ? var1 = this.configuration_file_var_1[i].name.substring(5) : var1 = this.configuration_file_var_1[i];
+        (this.configuration_file_var_2[i].name.startsWith('const:')) ? var2 = this.configuration_file_var_2[i].name.substring(5) : var2 = this.configuration_file_var_2[i];
+        configJSON['data_operations'][this.configuration_file_var_id[i].name] = [this.configuration_file_opper_apply[i].name, var1, var2];
+      }
+      // Outputs
+      for(i = 0; i < this.inputs.length; i++){
+        (this.inputs[i].is_output) ? configJSON['output_chars'].push(this.inputs[i].name) : null;
+      }
+
+      console.log(configJSON)
+
+      return configJSON
+    },
+    // Test integrity of JSON
+    testJSON(){
+      // testing length
+      if (this.configuration_file_var_id.length != this.configuration_file_opper_apply.length) return false;
+
+      // testing conf and existing vars
+      for (var i = 0; i < this.configuration_file_var_1.length; i++){
+        if (this.configuration_file_var_1[i].name == 'const:' || this.configuration_file_var_2[i].name == 'const:') return false;
+      }
+
+      // testing existing vars
+      var possibleInputs = this.original_inputs;
+      for (i = 0; i < this.configuration_file_var_1.length; i++){
+        if ((!possibleInputs.includes(this.configuration_file_var_1[i].name) && !this.configuration_file_var_1[i].name.startsWith('const:')) || (!possibleInputs.includes(this.configuration_file_var_2[i].name) && !this.configuration_file_var_2[i].name.startsWith('const:'))) return false;
+        if (!possibleInputs.includes(this.configuration_file_var_id[i].name)) possibleInputs.push(this.configuration_file_var_id[i].name);
+      }
+
+      console.log("passed integrity")
+
+      return true
+    },
+    // Generate configuration file
+    generateConfigFile(){
+      if (this.testJSON()){
+        var configData = JSON.stringify(this.generateConfigJSON());
+        var data = {
+          type: 'AddFile',
+          username: this.$store['state']['user'],
+          filedata: configData,
+          path: 'databases_config/' + this.configuration_file_to_generate_name + '.json' 
+        }
+        console.log(data);
+        
+        axios.put('http://localhost:4000/', data).then(response => {
+          if (response.status == 200){
+            console.log('uploaded data, updating view');
+            this.showModalGenerateConfigFile = true;
+            this.obtainFiles();
+          }
+        })
+        return;
+      }
+      this.showModalErrorConfigIntegrity = true;
+    },
+    // Upload DB file
+    uploadDB(e){
+      e.preventDefault();
+      this.$refs.file.file = e.dataTransfer.files[0];
+      this.database_files = e.dataTransfer.items;
+      if (!this.database_files || this.database_files.length > 1) return;
+
+      if (this.$refs.file.file.name.endsWith('.json')){
+        var reader = new FileReader();
+        reader.readAsText(this.database_files[0].getAsFile());
+        reader.onloadend = event => {
+          var data = {
+            type: 'AddFile',
+            username: this.$store['state']['user'],
+            filedata: event.target.result,
+            path: 'databases/' + this.$refs.file.file.name 
+          }
+          axios.put('http://localhost:4000/', data).then(response => {
+            if (response.status == 200){
+              console.log('uploaded data, updating view');
+              this.obtainFiles();
+            }
+          })
+        }
+        
+      }
+      
     }
   },
   components: {
@@ -681,6 +868,10 @@ export default {
     draggable,
     VueModal
   },
+  props: {
+    username: String,
+    token: String
+  }
 };
 </script>
 
