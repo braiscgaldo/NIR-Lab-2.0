@@ -3,6 +3,7 @@ import sys
 sys.path.append('../../')
 from src.scripts.database.ObtainedData import ObtainedData
 from src.scripts.train.DevelopModel import DevelopModel
+from src.scripts.predict.predict import Prediction
 
 from flask_restful import reqparse
 import threading
@@ -20,7 +21,7 @@ def parse_request():
 
 
 @app.route('/training', methods=['POST'])
-def treat_data():
+def train():
     args = parse_request()
 
     def train_back(**kwargs):
@@ -30,6 +31,19 @@ def treat_data():
         dm.run()
 
     thread = threading.Thread(target=train_back, kwargs=args)
+    thread.start()
+
+    return {"message": "Executing background task..."}, 202
+
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    args = parse_request()
+
+    def predict_back(**kwargs):
+        Prediction(data_file=kwargs['data_file'], model_name=kwargs['model_name']).predict()
+
+    thread = threading.Thread(target=predict_back, kwargs=args)
     thread.start()
 
     return {"message": "Executing background task..."}, 202

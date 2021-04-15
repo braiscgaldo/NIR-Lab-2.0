@@ -1,5 +1,5 @@
 <template>
-  <div class="editAcc-page">
+  <div v-if="this.$store['state']['user'] != ''" class="editAcc-page">
     <div>
       <Menu page='/edit_account' name="brais"/>
     </div>
@@ -17,8 +17,8 @@
         <input type="password" name="password" id="password" required v-model="password">
       </div>
       <div>
-        <label class="label" for="repeated_password">Repeat Password</label>
-        <input type="password" name="repeated_password" id="repeated_password" required v-model="repeated_password">
+        <label class="label" for="new_password">Repeat Password</label>
+        <input type="password" name="new_password" id="new_password" required v-model="new_password">
       </div>
       <div>
         <label class="label" for="name">Name</label>
@@ -31,6 +31,16 @@
       </div>
     </fieldset>
   </form>
+  <VueModal v-model="showModalUpdatedUser" title="User updated">
+    <p>
+      The user has been updated!!!!
+    </p>
+  </VueModal>
+  <VueModal v-model="showModalFailedUpdate" title="Error updating user">
+    <p>
+      Error updating user! Please, check your credentials!
+    </p>
+  </VueModal>
 
 
   </div>
@@ -44,28 +54,50 @@
 <script>
 import Menu from "../../common/header/private/menu.vue"
 import Footer from "../../common/footer/footer.vue";
+const axioslib = require('axios');
+const axios = axioslib.create({
+  headers: {
+    'Access-Control-Allow-Origin': '*'
+  }
+});
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+// dialogs
+import VueModal from '@kouts/vue-modal';
 
 export default {
   data: () => ({
     password: "",
-    repeated_password: "",
+    new_password: "",
     name: "",
     surname: "",
-    email: ""
+    email: "", 
+    showModalUpdatedUser: false,
+    showModalFailedUpdate: false
 
   }),
   components: {
     Menu, 
-    Footer
+    Footer,
+    VueModal
   },
   methods: {
     edit() {
-      console.log(this.username);
-      console.log(this.password);
-      console.log(this.repeated_password);
-      console.log(this.name);
-      console.log(this.surname);
-      console.log(this.email);      
+      var data = {
+        username_auth: this.$store['state']['user'],
+        password_auth: this.password,
+        name_auth: this.name,
+        surname_auth: this.surname,
+        email_auth: this.email,
+        new_password_auth: this.new_password
+      }  
+      axios.post('http://localhost:4000/edit_user', data).then(response => {
+        if (response.status == 200){
+          console.log('user updated');
+          this.showModalUpdatedUser = true;
+        }else{
+          this.showModalFailedUpdate = true;
+        }
+      })
     }
   }
 }

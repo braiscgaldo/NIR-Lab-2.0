@@ -1,7 +1,10 @@
 <template>
   <div class="front-page">
-    <div>
-      <Menu page='/mobile_app'/>
+    <div v-if="this.$store['state']['user'] == ''">
+      <MenuPub page='/mobile_app'/>
+    </div>
+    <div v-else>
+      <MenuPriv page='/mobile_app'/>
     </div>
     <h1>Mobile Application</h1>
 
@@ -63,7 +66,8 @@
 </template>
 
 <script>
-import Menu from "../../common/header/public/menu.vue"
+import MenuPub from "../../common/header/public/menu.vue"
+import MenuPriv from "../../common/header/private/menu.vue"
 import Footer from "../../common/footer/footer.vue";
 
 export default {
@@ -87,7 +91,8 @@ export default {
     }
   },
   components: {
-    Menu, 
+    MenuPub,
+    MenuPriv, 
     Footer
   }
 }

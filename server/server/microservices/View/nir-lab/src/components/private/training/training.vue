@@ -1,5 +1,5 @@
 <template>
-  <div class="training-page">
+  <div v-if="this.$store['state']['user'] != ''" class="training-page">
     <div>
       <Menu page="/training" username="brais" />
     </div>
@@ -325,13 +325,22 @@
           </div>
         </div>
         <VueModal v-model="showModalErrorConfigIntegrity" title="Error treating Inputs">
-        <p>
-          The configuration file does not pass integrity, it is bad composed. Please, fill all information!
-        </p>
-      </VueModal>
+          <p>
+            The configuration file does not pass integrity, it is bad composed. Please, fill all information!
+          </p>
+        </VueModal>
       </div>
     </div>
 
+    <div>
+      <Footer />
+    </div>
+  </div>
+  <div v-else>
+    <div>
+      <Menu page="/training"/>
+    </div>
+    <h1>BAD ACCESS 403</h1>
     <div>
       <Footer />
     </div>

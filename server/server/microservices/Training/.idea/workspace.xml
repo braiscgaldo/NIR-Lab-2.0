@@ -33,25 +33,35 @@
       <change beforePath="$PROJECT_DIR$/../../dockers/Facade/Facade.tar.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/Facade/Facade.tar.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../dockers/Training/Training.tar.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/Training/Training.tar.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../dockers/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataTreatment/src/scripts/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DataTreatment/src/scripts/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Facade/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Facade/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais/.Rhistory" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais/databases/HadaBeer.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais/databases/HadaBeer_config_hadamard_2.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais/databases_config/config_hadamard.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais/models/model_1.h5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais/models/model_1.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais/models/model_2.h5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais/models_config/model.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais/models_config/model_test.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais/models_config/undefined.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Facade/src/scripts/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Facade/src/scripts/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Facade/src/scripts/data_info/read_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Facade/src/scripts/data_info/read_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Facade/src/scripts/authentication/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Facade/src/scripts/authentication/auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/train/DevelopModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/train/DevelopModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/train/layers/DevelopLayers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/train/layers/DevelopLayers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../View/nir-lab/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../View/nir-lab/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scripts/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scripts/database/load/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/database/load/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/Home.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/common/header/private/menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/common/header/private/menu.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/common/header/public/menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/common/header/public/menu.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/private/data_treatment/data_treatment.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/private/data_treatment/data_treatment.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/private/edit_profile/edit_profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/private/edit_profile/edit_profile.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/private/logs/logs.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/private/logs/logs.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/private/training/training.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/private/training/training.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/public/acknowledgements/acknowledgements.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/public/acknowledgements/acknowledgements.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/public/contributers/contributers.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/public/contributers/contributers.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/public/create_account/create_account.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/public/create_account/create_account.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/public/login/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/public/login/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../View/nir-lab/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/vue.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/public/github/github.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/public/github/github.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/public/information/information.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/public/information/information.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/public/mobile_app/mobile_app.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/public/mobile_app/mobile_app.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,11 +215,12 @@
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
     <state x="418" y="215" width="1084" height="829" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.34.1920.1046@0.34.1920.1046" timestamp="1617098460283" />
-    <state x="743" y="447" width="424" height="490" key="FileChooserDialogImpl" timestamp="1618414406176">
-      <screen x="0" y="215" width="1920" height="865" />
+    <state x="2663" y="471" width="424" height="490" key="FileChooserDialogImpl" timestamp="1618504144830">
+      <screen x="1920" y="181" width="1920" height="1080" />
     </state>
     <state x="743" y="315" width="424" height="490" key="FileChooserDialogImpl/0.34.1920.1046@0.34.1920.1046" timestamp="1617530654072" />
     <state x="743" y="447" key="FileChooserDialogImpl/1920.181.1920.1080/0.215.1920.865@0.215.1920.865" timestamp="1618414406176" />
+    <state x="2663" y="471" width="424" height="490" key="FileChooserDialogImpl/1920.181.1920.1080/0.215.1920.865@1920.181.1920.1080" timestamp="1618504144830" />
     <state x="623" y="212" key="search.everywhere.popup" timestamp="1618383489276">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
@@ -222,11 +233,6 @@
           <url>file://$PROJECT_DIR$/src/scripts/train/DevelopModel.py</url>
           <line>118</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/scripts/train/DevelopModel.py</url>
-          <line>87</line>
-          <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/scripts/train/DevelopModel.py</url>

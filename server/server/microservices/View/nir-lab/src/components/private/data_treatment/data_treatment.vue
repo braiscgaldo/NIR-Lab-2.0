@@ -1,5 +1,5 @@
 <template>
-  <div class="data_treatment-page">
+  <div v-if="this.$store['state']['user'] != ''" class="data_treatment-page">
     <div>
       <Menu page="/data_treatment"/>
     </div>
@@ -349,6 +349,15 @@
       </div>
     </div>
 
+    <div>
+      <Footer />
+    </div>
+  </div>
+  <div v-else>
+    <div>
+      <Menu page="/data_treatment"/>
+    </div>
+    <h1>BAD ACCESS 403</h1>
     <div>
       <Footer />
     </div>

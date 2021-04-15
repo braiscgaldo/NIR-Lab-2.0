@@ -1,7 +1,10 @@
 <template>
   <div class="contributers-page">
-    <div>
-      <Menu page='/contributers'/>
+    <div v-if="this.$store['state']['user'] == ''">
+      <MenuPub page='/contributers'/>
+    </div>
+    <div v-else>
+      <MenuPriv page='/contributers'/>
     </div>
     <h1>Contributers</h1>
 
@@ -21,7 +24,7 @@
     </div>
     
     <div class='images_contrib_div'>
-      <b-img class="images_cont" :src="require('/src/assets/common/footer/rnasa_imedir.png')" :alt="RNASA-IMEDIR"/>
+      <b-img class="images_cont" :src="require('/src/assets/common/footer/rnasa_imedir.png')" alt="RNASA-IMEDIR"/>
     </div>
 
     <div>
@@ -31,7 +34,8 @@
 </template>
 
 <script>
-import Menu from "../../common/header/public/menu.vue"
+import MenuPub from "../../common/header/public/menu.vue";
+import MenuPriv from "../../common/header/private/menu.vue";
 import Footer from "../../common/footer/footer.vue";
 
 export default {
@@ -72,7 +76,8 @@ export default {
     }
   },
   components: {
-    Menu, 
+    MenuPub,
+    MenuPriv, 
     Footer
   }
 }

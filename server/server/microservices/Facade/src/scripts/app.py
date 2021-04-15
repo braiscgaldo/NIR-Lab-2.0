@@ -53,7 +53,7 @@ def login():
 # Delete a session
 def logout(data):
     logout_user()
-    return {'message': 'logged out'}
+    return {'message': 'logged out'}, 200
 
 
 @app.route('/create_user', methods=['PUT'])
@@ -75,7 +75,7 @@ def edit_user():
                       surname=data['surname_auth'], email=data['email_auth'], new_password=data['new_password_auth']):
         return {'message': 'User created', 'token': 'KJAHSDC432H4RHKFE98CASDIJC'}, 200
 
-    return {'message': 'Internal server error'}, 500
+    return {'message': 'Not updated'}, 403
 
 
 def drop_user(data):
@@ -175,6 +175,18 @@ def get_file_content():
 
     return {'message', 'Internal server error'}, 500
 
+
+def predict(data):
+    def predict_back(**kwargs):
+        print('prediction', kwargs)
+        requests.post('http://nirlab_training:5050/predict', json=kwargs)
+
+    thread = threading.Thread(target=predict_back, kwargs=data)
+    thread.start()
+
+    return {"message": "Executing background task..."}, 202
+
+
 # Only permitted when logged
 
 
@@ -186,7 +198,8 @@ operations = {
     'AddFile': add_file,
     'ListCharacteristics': list_characteristics,
     'DropUser': drop_user,
-    'InfoUser': info_user
+    'InfoUser': info_user,
+    'Predict': predict
 }
 
 

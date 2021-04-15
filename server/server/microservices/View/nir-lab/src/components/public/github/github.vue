@@ -1,7 +1,10 @@
 <template>
   <div class="github-page">
-    <div>
-      <Menu page='/github'/>
+    <div v-if="this.$store['state']['user'] == ''">
+      <MenuPub page='/github'/>
+    </div>
+    <div v-else>
+      <MenuPriv page='/github'/>
     </div>
     <h1>Github</h1>
 
@@ -28,7 +31,8 @@
 </template>
 
 <script>
-import Menu from "../../common/header/public/menu.vue"
+import MenuPub from "../../common/header/public/menu.vue"
+import MenuPriv from "../../common/header/private/menu.vue"
 import Footer from "../../common/footer/footer.vue";
 
 export default {
@@ -48,7 +52,8 @@ export default {
     }
   },
   components: {
-    Menu, 
+    MenuPub,
+    MenuPriv, 
     Footer
   }
 }

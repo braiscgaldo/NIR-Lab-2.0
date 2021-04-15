@@ -1,5 +1,5 @@
 <template>
-  <div class="logs-page">
+  <div v-if="this.$store['state']['user'] != ''" class="logs-page">
     <div>
       <Menu page="/logs" name="brais" />
     </div>
@@ -45,10 +45,19 @@
     </div>
 
     <label><h2>Results</h2></label>
-    <div id="upload_model" class="border_rect">
+    <div id="upload_model" class="border_rect"  ref='file' accept=".json" @drop.prevent='uploadData' @dragover.prevent>
       <b-img class="data_image" :src="getImgData()" alt="Model image"></b-img>
     </div>
 
+    <div>
+      <Footer />
+    </div>
+  </div>
+  <div v-else>
+    <div>
+      <Menu page="/data_treatment"/>
+    </div>
+    <h1>BAD ACCESS 403</h1>
     <div>
       <Footer />
     </div>
@@ -250,7 +259,45 @@ export default {
         }
         console.log(this.database_names)
       })
+    },
+    // Upload data for predictions
+    uploadData(e){
+      e.preventDefault();
+      this.$refs.file.file = e.dataTransfer.files[0];
+      this.database_files = e.dataTransfer.items;
+      if (!this.database_files || this.database_files.length > 1) return;
 
+      if (this.$refs.file.file.name.endsWith('.json')){
+        var reader = new FileReader();
+        reader.readAsText(this.database_files[0].getAsFile());
+        reader.onloadend = event => {
+          var data = {
+            type: 'AddFile',
+            username: this.$store['state']['user'],
+            filedata: event.target.result,
+            path: 'predict/' + this.$refs.file.file.name 
+          }
+          axios.put('http://localhost:4000/', data).then(response => {
+            if (response.status == 200){
+              console.log('uploaded data, updating view');
+              this.predict()
+            }
+          })
+        }
+      }
+    },
+    // predict
+    predict(){
+      var data = {
+        type: 'Predict',
+        data_file: '/home/' + this.$store['state']['user'] + '/predict/' + this.$refs.file.file.name,
+        model_name: '/home/' + this.$store['state']['user'] + '/models/' + 'model_1.h5'
+      };
+      axios.post('http://localhost:4000/', data).then(response => {
+        if (response.status == 202){
+           console.log('predicting results...') 
+        }
+      })
     }
   },
   mounted(){

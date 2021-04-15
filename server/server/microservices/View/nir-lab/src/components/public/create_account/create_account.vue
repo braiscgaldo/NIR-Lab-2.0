@@ -1,5 +1,5 @@
 <template>
-  <div class="createAcc-page">
+  <div v-if="this.$store['state']['user'] == ''" class="createAcc-page">
     <div>
       <Menu page='/create_account'/>
     </div>
@@ -47,10 +47,19 @@
       <Footer/>
     </div>
   </div>
+  <div v-else class="createAcc-page">
+    <div>
+      <Menu page="/create_account"/>
+    </div>
+    <h1>BAD ACCESS 403</h1>
+    <div>
+      <Footer />
+    </div>
+  </div>
 </template>
 
 <script>
-import Menu from "../../common/header/public/menu.vue"
+import Menu from "../../common/header/public/menu.vue";
 import Footer from "../../common/footer/footer.vue";
 const axios = require('axios')
 
@@ -82,7 +91,7 @@ export default {
       axios.put('http://localhost:4000/create_user', data).then(response => {
         console.log('code: ' + response.status)
       })
-      this.$router.push({name: 'data_treatment',  query: { redirect: '/data_treatment' } });
+      this.$router.push({name: '',  query: { redirect: '/login' } });
     }
   }
 }

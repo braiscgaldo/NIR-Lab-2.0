@@ -45,7 +45,7 @@ services:
             - /home/brais/NIR-Lab/server/server/dockers/home/:/home/
 
     training:
-        image: training:v3
+        image: training:v4
         container_name: nirlab_training
         networks:
             - nir_net

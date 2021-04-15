@@ -1,1 +1,1 @@
-from src.scripts.database.load.Information import Information
+from src.scripts.predict.predict import Prediction

@@ -23,6 +23,7 @@ class Auth:
             os.mkdir('/home/' + username + '/databases_config')
             os.mkdir('/home/' + username + '/models')
             os.mkdir('/home/' + username + '/models_config')
+            os.mkdir('/home/' + username + '/predict')
         except:
             print('error creating directories')
             return False

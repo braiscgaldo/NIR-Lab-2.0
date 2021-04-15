@@ -1,7 +1,10 @@
 <template>
   <div class="front-page">
-    <div>
-      <Menu page='/'/>
+    <div v-if="this.$store['state']['user'] == ''">
+      <MenuPub page='/'/>
+    </div>
+    <div v-else>
+      <MenuPriv page='/'/>
     </div>
     <h1>NIR LAB</h1>
     <p>
@@ -31,7 +34,8 @@
 </template>
 
 <script>
-import Menu from "./common/header/public/menu.vue"
+import MenuPub from "./common/header/public/menu.vue"
+import MenuPriv from "./common/header/private/menu.vue"
 import Footer from "./common/footer/footer.vue";
 
 export default {
@@ -66,13 +70,17 @@ export default {
         ],    
     }
   },
+  created(){
+    console.log(this.$store['state'])
+  },
   methods: {   
     getImgUrl(imgSrc) {
       return require('/src/assets/common/footer/' + imgSrc);
     }
   },
   components: {
-    Menu, 
+    MenuPub,
+    MenuPriv, 
     Footer
   }
 }

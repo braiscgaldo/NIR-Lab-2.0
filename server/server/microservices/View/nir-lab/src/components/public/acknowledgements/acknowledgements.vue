@@ -1,7 +1,10 @@
 <template>
   <div class="acknowledgements-page">
-    <div>
-      <Menu page='/acknowledgements'/>
+    <div v-if="this.$store['state']['user'] == ''">
+      <MenuPub page='/acknowledgements'/>
+    </div>
+    <div v-else>
+      <MenuPriv page='/acknowledgements'/>
     </div>
 
     <div class="border_rect">
@@ -41,7 +44,8 @@
 </template>
 
 <script>
-import Menu from "../../common/header/public/menu.vue"
+import MenuPub from "../../common/header/public/menu.vue"
+import MenuPriv from "../../common/header/private/menu.vue"
 import Footer from "../../common/footer/footer.vue";
 
 export default {
@@ -72,7 +76,8 @@ export default {
     }
   },
   components: {
-    Menu, 
+    MenuPub,
+    MenuPriv, 
     Footer
   }
 }

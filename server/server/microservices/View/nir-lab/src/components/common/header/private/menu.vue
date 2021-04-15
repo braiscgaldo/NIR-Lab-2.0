@@ -83,12 +83,14 @@ export default {
       logout() {
         var data = {
           type: "Logout"
-        }
+        };
+        this.$store.commit('logout', {});
+        console.log(this.$store)
         axios.delete('http://localhost:4000/', data).then(response => {
-          if (response.status == 200 && response.data['message'] != 'logged out'){
+          if (response.status == 200){
             console.log('logged out');
             // route to data treatment
-            this.$router.push({name: '',  query: { redirect: '/' } });
+            this.$router.push({name: '/',  query: { redirect: '/' } });
           }
         })
       }
