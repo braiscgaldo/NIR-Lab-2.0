@@ -20,6 +20,8 @@ RUN npm install vue-table-dynamic
 RUN npm install vee-validate
 RUN npm install -g @vue/compiler-sfc@^3.0.0-beta.14
 RUN npm install -g sass sass-loader
+RUN npm install --save vue-axios
+RUN npm install -g vuex-persistent-state
 RUN npm install 
 
 WORKDIR /app

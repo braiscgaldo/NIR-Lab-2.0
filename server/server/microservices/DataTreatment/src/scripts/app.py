@@ -35,8 +35,9 @@ def treat_data():
 
     thread = threading.Thread(target=treat_data_back, kwargs=args)
     thread.start()
+    thread.join()
 
-    return {"message": "Executing background task..."}, 202
+    return {"message": "Database generated"}, 200
 
 
 if __name__ == '__main__':

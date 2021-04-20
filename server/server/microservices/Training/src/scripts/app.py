@@ -8,6 +8,7 @@ from src.scripts.predict.predict import Prediction
 from flask_restful import reqparse
 import threading
 from flask import Flask, jsonify, request
+import numpy as np
 
 app = Flask(__name__)
 app.config['FLASK_ENV'] = 'development'
@@ -39,14 +40,9 @@ def train():
 @app.route('/predict', methods=['POST'])
 def predict():
     args = parse_request()
+    results = [np.argmax(sample) for sample in Prediction(data_file=args['data_file'], model_name=args['model_name']).predict()]
 
-    def predict_back(**kwargs):
-        Prediction(data_file=kwargs['data_file'], model_name=kwargs['model_name']).predict()
-
-    thread = threading.Thread(target=predict_back, kwargs=args)
-    thread.start()
-
-    return {"message": "Executing background task..."}, 202
+    return {"message": "Data predicted", "data": f'{results}'}, 200
 
 
 if __name__ == '__main__':

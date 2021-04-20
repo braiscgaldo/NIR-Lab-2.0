@@ -31,8 +31,6 @@ class Prediction:
         for element in self.data.keys():
             data.append(np.array([np.array(self.data[element][char]) for char in self.data.get(element).keys()]))
         self.data = np.array(data)
-        print(self.data)
-        print(self.data.shape)
 
     def _load_model(self):
         """

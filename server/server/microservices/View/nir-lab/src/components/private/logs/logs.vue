@@ -45,9 +45,33 @@
     </div>
 
     <label><h2>Results</h2></label>
-    <div id="upload_model" class="border_rect"  ref='file' accept=".json" @drop.prevent='uploadData' @dragover.prevent>
+    <div id="upload_model" class="border_rect"  ref='file' accept=".json" @drop.prevent='obtainDataDB' @dragover.prevent>
       <b-img class="data_image" :src="getImgData()" alt="Model image"></b-img>
     </div>
+
+    <VueModal v-model="showModalPredict" title="Select data treatment and model to predict!">
+      <v-combobox
+        class="dataTreatment"
+        required
+        name="data_treatment"
+        v-model="dataTreatment"
+        :items="dataTreatments"
+        placeholder="Select the data treatment"
+      />
+      <v-combobox
+        class="model_select"
+        required
+        name="model_select_to_predict"
+        v-model="model"
+        :items="modelNames"
+        placeholder="Select the data model to use"
+      />
+      <div>
+        <button class="add_input_dialog_button" @click="uploadData">Predict</button>
+      </div>
+    </VueModal>
+
+
 
     <div>
       <Footer />
@@ -73,46 +97,19 @@ const axios = axioslib.create({
     'Access-Control-Allow-Origin': '*'
   }
 });
+// dialogs
+import VueModal from '@kouts/vue-modal';
 
 export default {
   data: () => ({
-    databases : [
-    ],
+    dataTreatment: '',
+    dataTreatments: [],
+    model: '',
+    modelNames: [],
+    showModalPredict: false,
+    databases : [],
     database_selected: "",
-    models: [
-      {
-        name: "model_1",
-        download_link: "model1.h5",
-        problem: "HadaBeer",
-        target: "Graduation",
-        train_size: 54,
-        train_acc: "75%",
-        test_size: 13,
-        test_acc: 84,
-        selected: true
-      }, 
-      {
-        name: "model_2",
-        download_link: "model2.h5",
-        problem: "HadaBeer",
-        target: "Graduation",
-        train_size: 57,
-        train_acc: "75%",
-        test_size: 16,
-        test_acc: 88,
-        selected: true
-      }, 
-      {
-        name: "model_3",
-        download_link: "model3.h5",
-        problem: "HadaBeer",
-        target: "Graduation",
-        train_size: 54,
-        train_acc: "75%",
-        test_size: 13,
-        test_acc: 84,
-        selected: true
-      }],
+    models: [],
     results: [
       {
         sample: "1",
@@ -134,7 +131,6 @@ export default {
         header: 'row',
         border: true,
         stripe: true,
-        showCheck: true,
         sort: [0, 1, 2, 3, 4, 5, 6],
         columnWidth: [{column: 3, width: '13%'}, {column: 4, width: '13%'}, {column: 5, width: '13%'}, {column: 6, width: '13%'}]
       
@@ -142,16 +138,14 @@ export default {
     table_results: {
       data: [
         ['Sample', 'Prediction'],
-        ['1', '0'],
-        ['2', '1'],
-        ['3', '1'],
+        [1,0]
       ],
         header: 'row',
         border: true,
         stripe: true,
-        showCheck: true, 
         sort: [0, 1]
-    }    
+    },
+    predictData: {}    
   }),
   created() {
     this.obtainFiles();
@@ -175,7 +169,6 @@ export default {
         } else {
           console.log('File not exists')
         }
-        console.log(this.database_names)
       })
     },
     // Obtain files
@@ -183,16 +176,21 @@ export default {
       axios.get('http://localhost:4000/list_files', { params:{ username: this.$store['state']['user'] } }).then(response => {
         if (response.status == 200 && response.data['message'] == 'files returned'){
           var db = response.data['files']['databases'][1];
+          var configdb = response.data['files']['databases_config'][1];
           var mdls = response.data['files']['models'][1];
           this.databases = []; this.models = [];
           for (var i = 0; i < db.length; i++){
             this.databases.push({ name: db[i].slice(0, -5) });
           }
+          this.dataTreatments.push('no treatment')
+          for (i = 0; i < configdb.length; i++){
+            this.dataTreatments.push(configdb[i].slice(0, -5));
+          }
           for (i = 0; i < mdls.length; i++){
             var name = (mdls[i].length - mdls[i].indexOf('.') == 3) ? mdls[i].slice(0, mdls[i].indexOf('.')) : null;
             if (name != null){
               this.models.push({ name: name });
-              console.log(mdls[i].slice(0, mdls[i].indexOf('.')))
+              this.modelNames.push(name);
               this.obtainModelData(name);
             }
           }
@@ -260,9 +258,10 @@ export default {
         console.log(this.database_names)
       })
     },
-    // Upload data for predictions
-    uploadData(e){
+    // Obtain data from db
+    obtainDataDB(e){
       e.preventDefault();
+      this.showModalPredict = true;
       this.$refs.file.file = e.dataTransfer.files[0];
       this.database_files = e.dataTransfer.items;
       if (!this.database_files || this.database_files.length > 1) return;
@@ -271,33 +270,63 @@ export default {
         var reader = new FileReader();
         reader.readAsText(this.database_files[0].getAsFile());
         reader.onloadend = event => {
-          var data = {
+        this.predictData = {
             type: 'AddFile',
             username: this.$store['state']['user'],
             filedata: event.target.result,
             path: 'predict/' + this.$refs.file.file.name 
           }
-          axios.put('http://localhost:4000/', data).then(response => {
-            if (response.status == 200){
-              console.log('uploaded data, updating view');
-              this.predict()
-            }
-          })
         }
+      }
+    },
+    // Upload data for predictions
+    uploadData(){
+      axios.put('http://localhost:4000/', this.predictData).then(response => {
+        if (response.status == 200){
+          this.treatData()
+        }
+      })
+    },
+    // Apply data treatment
+    treatData(){
+      if (this.dataTreatment != 'no treatment'){
+        var data = {
+          type: 'DataTreatmentPrediction',
+          configuration_name: '/home/' + this.$store['state']['user'] + '/databases_config/' + this.dataTreatment + '.json',
+          file_data_name: '/home/' + this.$store['state']['user'] + '/predict/' + this.$refs.file.file.name 
+        }
+        axios.post('http://localhost:4000/', data).then(response => {
+          if (response.status == 200){
+            this.predict();
+          }
+        })
+        return data;
+      } else {
+        this.predict();
       }
     },
     // predict
     predict(){
+      var filename = null;
+      (this.dataTreatment == 'no treatment') ? filename = this.$refs.file.file.name : filename = this.$refs.file.file.name.slice(0, -5) + '_' + this.dataTreatment + '.json';
       var data = {
         type: 'Predict',
-        data_file: '/home/' + this.$store['state']['user'] + '/predict/' + this.$refs.file.file.name,
-        model_name: '/home/' + this.$store['state']['user'] + '/models/' + 'model_1.h5'
+        data_file: '/home/' + this.$store['state']['user'] + '/predict/' + filename,
+        model_name: '/home/' + this.$store['state']['user'] + '/models/' + this.model + '.h5'
       };
       axios.post('http://localhost:4000/', data).then(response => {
-        if (response.status == 202){
-           console.log('predicting results...') 
+        if (response.status == 200){
+           this.insertPredictionResults(JSON.parse(response.data.results));
+           this.showModalPredict = false;
         }
       })
+    },
+    insertPredictionResults(results){
+      this.table_results.data = [['Sample', 'Prediction']];
+      var res = JSON.parse(results.data);
+      for (var i = 0; i < res.length; i++){
+        this.table_results.data.push([i, res[i]]);
+      }
     }
   },
   mounted(){
@@ -306,6 +335,7 @@ export default {
   components: {
     Menu,
     Footer,
+    VueModal
   },
 };
 </script>

@@ -26,7 +26,6 @@ login_manager = LoginManager(app)
 
 # Parse petition
 def parse_request():
-    print(request.data)
     return request.get_json(force=True)
 
 
@@ -92,7 +91,6 @@ def info_user():
     data = parse_request()
     info = Auth.info_user(username=data['username_auth'], password=data['password_auth'])
     if info:
-        print(info)
         return info, 200
 
     return {'message': 'Internal server error'}, 500
@@ -164,7 +162,22 @@ def treat_data(data):
     thread = threading.Thread(target=treat_data_back, kwargs=data)
     thread.start()
 
-    return {"message": "Executing background task..."}, 202
+    return {"message": "Executing background task"}, 202
+
+
+def treat_data_prediction(data):
+    def treat_data_back(**kwargs):
+        requests.post('http://nirlab_data_treatment:5000/data_treatment', json=kwargs)
+
+    data['username_sql'] = 'brais'
+    data['password_sql_user'] = 'password1'
+    data['host_sql'] = 'nirlab_database'
+    data['database_name'] = 'nirlab'
+    thread = threading.Thread(target=treat_data_back, kwargs=data)
+    thread.start()
+    thread.join()
+
+    return {"message": "Data treated"}, 200
 
 
 @app.route('/download', methods=['GET'])
@@ -177,14 +190,8 @@ def get_file_content():
 
 
 def predict(data):
-    def predict_back(**kwargs):
-        print('prediction', kwargs)
-        requests.post('http://nirlab_training:5050/predict', json=kwargs)
-
-    thread = threading.Thread(target=predict_back, kwargs=data)
-    thread.start()
-
-    return {"message": "Executing background task..."}, 202
+    result = requests.post('http://nirlab_training:5050/predict', json=data).content
+    return {"message": "Predictions returned", "results": result.decode('utf-8')}, 200
 
 
 # Only permitted when logged
@@ -193,6 +200,7 @@ def predict(data):
 operations = {
     'Logout': logout,
     'DataTreatment': treat_data,
+    'DataTreatmentPrediction': treat_data_prediction,
     'Training': training,
     'ListFiles': list_files,
     'AddFile': add_file,
