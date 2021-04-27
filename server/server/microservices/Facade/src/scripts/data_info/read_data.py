@@ -93,7 +93,7 @@ class DataInfo:
         print('returning file', path)
         if not os.path.exists('/home/' + self.username + '/' + path):
             return 'File not exists', 'json'
-        if 'models/' in path:
+        if '/models/' in path:
             with open('/home/' + self.username + '/' + path, 'rb') as f:
                 return base64.b64encode(f.read()).decode('ascii'), path[path.rindex('.'):]
 

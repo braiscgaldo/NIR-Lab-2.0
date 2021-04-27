@@ -160,6 +160,7 @@ export default {
     // Obtain model data
     obtainModelData(modelName){
       axios.get('http://localhost:4000/download', { params:{ username: this.$store['state']['user'], path: 'models/'+modelName+'.json' } }).then(response => {
+        console.log(response)
         if (response.status == 200 && response.data['file_content'] != 'File not exists'){
           var data = JSON.parse(response.data['file_content']);
           console.log(data)

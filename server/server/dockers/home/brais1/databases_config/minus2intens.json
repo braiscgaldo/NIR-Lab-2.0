@@ -1,1 +1,1 @@
-{"name":"minus2intens","data_operations":{"intensity":["subtract","intensity",2]},"output_chars":[]}
+{"name":"minus2intens","data_operations":{"intensity":["subtract","intensity",2]},"output_chars":["intensity"]}
