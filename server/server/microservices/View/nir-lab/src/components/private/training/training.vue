@@ -39,6 +39,11 @@
         </fieldset>
       </form>
     </div>
+    <VueModal v-model="showModalTrain" title="Training model">
+      <p>
+        Training model!! It will be available in logs page after train ends.
+      </p>
+    </VueModal>
 
     <!-- Configuration parameters / Admin models -->
     <div id="config_admin">
@@ -429,6 +434,7 @@ export default {
     showModalErrorEditValue: false,
     showModalEditActivation: false,
     showModalErrorConfigIntegrity: false,
+    showModalTrain: false,
     new_value: '32',
     id_layer: '',
     new_activation: 'relu',
@@ -511,17 +517,12 @@ export default {
       this.configuration_file_layers_id.splice(this.del_layer_idx, 1);
     },
     matchLayer(layer){
-      switch (layer) {
-        case 'Dense':
-          return 0;
-        case 'Dropout':
-          return 1;
-        case 'Softmax':
-          return 2;
-        case 'MaxPool1D':
-          return 3;
-        case 'AveragePooling1D':
-          return 4;
+
+      console.log(this.layers)
+      for (var i = 0; i < this.layers.length; i++){
+        if (this.layers[i].name == layer) {
+          return i;
+        } 
       }
     },
     onDrop(event){
@@ -596,17 +597,17 @@ export default {
       var configJSON = {
         name: this.config_parameters.model_name,
         target: this.config_parameters.target_selected,
-        num_epochs: this.config_parameters.epochs,
+        num_epochs: Number(this.config_parameters.epochs),
         loss_function: this.config_parameters.loss_selected,
-        learning_rate: this.config_parameters.learning_rate,
-        epsilon: this.config_parameters.epsilon,
+        learning_rate: Number(this.config_parameters.learning_rate),
+        epsilon: Number(this.config_parameters.epsilon),
         optimizer: this.config_parameters.optimizer_selected.toLowerCase(),
         metrics: this.config_parameters.metrics,
-        batch_size: this.config_parameters.batch_size,
-        decay: this.config_parameters.decay,
-        train_size: this.config_parameters.train_size,
-        validation_size: this.config_parameters.validation_size,
-        test_size: 1-this.config_parameters.train_size,
+        batch_size: Number(this.config_parameters.batch_size),
+        decay: Number(this.config_parameters.decay),
+        train_size: Number(this.config_parameters.train_size),
+        validation_size: Number(this.config_parameters.validation_size),
+        test_size: 1-Number(this.config_parameters.train_size),
         layers: {}
       };
       for (var i = 0; i < this.configuration_file_layers_id.length; i++){
@@ -651,9 +652,10 @@ export default {
       var data = {
         type: 'Training',
         path_preprocessed_database: '/home/' + this.$store['state']['user'] + '/databases/' + this.database_selected + '.json',
-        path_configuration_model: '/home/' + this.$store['state']['user'] + '/models_config/' + this.origin_database_selected + '.json',
+        path_configuration_model: '/home/' + this.$store['state']['user'] + '/models_config/' + this.model_selected + '.json',
         target_label: this.target_selected
       }
+      this.showModalTrain = true;
       axios.post('http://localhost:4000/', data).then(response => {
         if (response.status == 202){
           console.log('executing background task');
@@ -826,8 +828,8 @@ label {
 .layer {
   padding: 5px;
   margin: 5px;
-  margin-left: 0%;
-  margin-right: 0%;
+  margin-left: 15px;
+  margin-right: 15px;
   background-color: #ee3744;
   border: solid 1px #ee3744;
   color: #deeaee;

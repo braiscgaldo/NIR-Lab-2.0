@@ -71,6 +71,12 @@
       </div>
     </VueModal>
 
+    <VueModal v-model="showModalErrorPrediction" title="Error predicting">
+      <p>
+        Error in prediction, please, check your configurations!
+      </p>
+    </VueModal>
+
 
 
     <div>
@@ -107,6 +113,7 @@ export default {
     model: '',
     modelNames: [],
     showModalPredict: false,
+    showModalErrorPrediction: false,
     databases : [],
     database_selected: "",
     models: [],
@@ -126,7 +133,7 @@ export default {
     ],
     table_model: {
       data: [
-        ['Model name', 'Problem', 'Target', 'Train size', 'Train acc', 'Test size', 'Test acc'],
+        ['Model name', 'Problem', 'Target', 'Train loss', 'Train acc', 'Test loss', 'Test acc'],
       ],
         header: 'row',
         border: true,
@@ -137,8 +144,7 @@ export default {
     },
     table_results: {
       data: [
-        ['Sample', 'Prediction'],
-        [1,0]
+        ['Sample', 'Prediction']
       ],
         header: 'row',
         border: true,
@@ -227,7 +233,7 @@ export default {
           break;
         }
       }
-      var data = [model.name, model.problem, model.target, model.train_size, model.train_acc, model.test_size, model.test_acc];
+      var data = [model.name, model.problem, model.target, model.training_loss, model.training_accuracy, model.test_loss, model.test_accuracy];
       this.table_model.data.push(data)
       
     },
@@ -237,9 +243,6 @@ export default {
       var targetId = target.id;
       var targetClass = target.className;
       var targetPath = (targetClass == 'database') ? 'databases/'+targetId+'.json' : 'models/'+targetId+'.h5';
-      console.log(target)
-      console.log(targetId, targetClass);
-      console.log(targetPath)
       axios.get('http://localhost:4000/download', { params:{ username: this.$store['state']['user'], path: targetPath } }).then(response => {
         if (response.status == 200){
           var data = response.data['file_content'];
@@ -255,7 +258,6 @@ export default {
         } else {
           console.log('bad return')
         }
-        console.log(this.database_names)
       })
     },
     // Obtain data from db
@@ -298,6 +300,8 @@ export default {
         axios.post('http://localhost:4000/', data).then(response => {
           if (response.status == 200){
             this.predict();
+          }else{
+            this.showModalErrorPrediction = true;
           }
         })
         return data;
@@ -315,9 +319,13 @@ export default {
         model_name: '/home/' + this.$store['state']['user'] + '/models/' + this.model + '.h5'
       };
       axios.post('http://localhost:4000/', data).then(response => {
-        if (response.status == 200){
+        if (response.data.results.includes("Internal Server Error")){
+          this.showModalErrorPrediction = true;
+        }else if (response.status == 200){
            this.insertPredictionResults(JSON.parse(response.data.results));
            this.showModalPredict = false;
+        }else{
+          this.showModalErrorPrediction = true;
         }
       })
     },

@@ -92,7 +92,6 @@ export default {
         password: this.password
       }
       
-      
       axios.post('http://localhost:4000/login', data).then(response => {
         if (response.status == 200 && response.data['message'] != 'login failed'){
           console.log('logging ok ' + this.username);

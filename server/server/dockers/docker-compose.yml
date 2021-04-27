@@ -2,7 +2,7 @@ version: "3"
 
 services:
     view:
-        image: view:v1
+        image: view:v3
         container_name: nirlab_view 
         hostname: nir_lab
         domainname: nir_lab.com
@@ -10,11 +10,9 @@ services:
             - nir_net
         tty: true
         ports:
-            - "8081:8080"
+            - "8080:8080"
         links:
-            - data_treatment
-            - training
-            - database
+            - facade
 
     facade:
         image: facade:v4

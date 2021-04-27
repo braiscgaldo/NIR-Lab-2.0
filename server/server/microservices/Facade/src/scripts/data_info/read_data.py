@@ -1,6 +1,7 @@
 from os import listdir, remove
 import os
 import json
+import base64
 
 
 class DataInfo:
@@ -89,8 +90,13 @@ class DataInfo:
         :params: path: path of the file to obtain
         :return: file_contents: content of the file
         """
+        print('returning file', path)
         if not os.path.exists('/home/' + self.username + '/' + path):
             return 'File not exists', 'json'
+        if 'models/' in path:
+            with open('/home/' + self.username + '/' + path, 'rb') as f:
+                return base64.b64encode(f.read()).decode('ascii'), path[path.rindex('.'):]
+
         with open('/home/' + self.username + '/' + path, 'r') as f:
             return ''.join(f.readlines()), path[path.rindex('.'):]
 

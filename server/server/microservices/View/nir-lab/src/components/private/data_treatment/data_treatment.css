@@ -143,17 +143,20 @@ max-width: fit-content;
 padding: 0%;
 position: relative;
 height: auto;
-display: block;
+display: contents;
 width: 100% !important;
 }
 
 /*********************** inputs **********************************/
 
 .container_var {
-align-items: baseline;
-display: inline-flex;
-float: right;
-margin-left: 50%;
+display: flex;
+min-width: -webkit-fill-available;
+}
+
+.container_op {
+    display: block;
+    min-width: -webkit-fill-available;
 }
 
 

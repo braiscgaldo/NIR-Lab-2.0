@@ -269,7 +269,7 @@
           <draggable
               style="content-visibility: auto;"
               :list="inputs"
-              ghost-class="ghost"
+              v-bind="{ghostClass: 'ghost'}"
               :group="{ name: 'inputs', pull: 'clone', put: false }"
             >
             <div
@@ -330,13 +330,13 @@
 
         <div class="border_rect" id="operation_names">
           <draggable
+            style="content-visibility: auto;"
             :list="operations"
-            class="list-group"
-            ghost-class="ghost"
+            v-bind="{ghostClass: 'ghost'}"
             :group="{ name: 'operations', pull: 'clone', put: false }"
           >
             <div
-              class="container"
+              class="container container_op"
               v-for="(operation, idx) in operations"
               :key="idx"
             >
@@ -762,10 +762,11 @@ export default {
     obtainCharacteristicsFromDB(){
       axios.get('http://localhost:4000/list_characteristics', { params:{ username: this.$store['state']['user'], filename: this.database_selected } }).then(response => {
         if (response.status == 200){
-          this.original_inputs = response.data['characteristics']['chars'];
+          this.original_inputs = [];
           this.inputs = [];
           for (var i = 0; i < response.data['characteristics']['chars'].length; i++){
-            this.inputs.push(this.getItemInput(response.data['characteristics']['chars'][i]));
+            this.inputs.push(this.getItemInput(response.data['characteristics']['chars'][i].toLowerCase()));
+            this.original_inputs.push(response.data['characteristics']['chars'][i].toLowerCase())
           }
         } else {
           console.log('bad return')
@@ -785,8 +786,8 @@ export default {
       var var1, var2;
       // Operations
       for(var i = 0; i < this.configuration_file_var_id.length; i++){
-        (this.configuration_file_var_1[i].name.startsWith('const:')) ? var1 = this.configuration_file_var_1[i].name.substring(5) : var1 = this.configuration_file_var_1[i];
-        (this.configuration_file_var_2[i].name.startsWith('const:')) ? var2 = this.configuration_file_var_2[i].name.substring(5) : var2 = this.configuration_file_var_2[i];
+        (this.configuration_file_var_1[i].name.startsWith('const:')) ? var1 = Number(this.configuration_file_var_1[i].name.substring(6)) : var1 = this.configuration_file_var_1[i].name;
+        (this.configuration_file_var_2[i].name.startsWith('const:')) ? var2 = Number(this.configuration_file_var_2[i].name.substring(6)) : var2 = this.configuration_file_var_2[i].name;
         configJSON['data_operations'][this.configuration_file_var_id[i].name] = [this.configuration_file_opper_apply[i].name, var1, var2];
       }
       // Outputs
@@ -810,6 +811,7 @@ export default {
 
       // testing existing vars
       var possibleInputs = this.original_inputs;
+      console.log(possibleInputs)
       for (i = 0; i < this.configuration_file_var_1.length; i++){
         if ((!possibleInputs.includes(this.configuration_file_var_1[i].name) && !this.configuration_file_var_1[i].name.startsWith('const:')) || (!possibleInputs.includes(this.configuration_file_var_2[i].name) && !this.configuration_file_var_2[i].name.startsWith('const:'))) return false;
         if (!possibleInputs.includes(this.configuration_file_var_id[i].name)) possibleInputs.push(this.configuration_file_var_id[i].name);

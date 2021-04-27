@@ -1,11 +1,1 @@
-{
-    "name": "model_1",
-    "download_link": "model1.h5",
-    "problem": "HadaBeer",
-    "target": "Graduation",
-    "train_size": 54,
-    "train_acc": "75%",
-    "test_size": 13,
-    "test_acc": 84,
-    "selected": true
-}
+{"name": "model_1", "problem": "HadaBeer_minus2intens.", "target": "Graduacion", "training_loss": 9.202127456665039, "training_accuracy": 0.3965517282485962, "test_loss": 9.202127456665039, "test_accuracy": 0.6363636255264282}
