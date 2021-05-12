@@ -1,1 +1,1 @@
-{"name": "model_test_2", "problem": "HadaBeer_minus2intens.", "target": "Graduacion", "training_loss": 8.849150657653809, "training_accuracy": 0.45098039507865906, "test_loss": 8.849150657653809, "test_accuracy": 0.3888888955116272}
+{"name": "model_test_2", "problem": "HadaBeer_minus2intens.", "target": "Graduacion", "training_loss": 0.6931471824645996, "training_accuracy": 0.6274510025978088, "test_loss": 0.6931471824645996, "test_accuracy": 0.3888888955116272}

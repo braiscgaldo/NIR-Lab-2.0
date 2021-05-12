@@ -8,15 +8,17 @@ RUN apt upgrade -y
 RUN apt install python3 -y
 RUN apt install python3-pip -y
 
+# install requirements
+COPY requirements.txt /opt
+
+# installing python dependencies
+RUN cd /opt/ && pip3 install -r requirements.txt
 
 # copy files
 COPY Training.tar.gz /opt
 
 # extracting files and removing files
 RUN cd /opt && tar -xf Training.tar.gz && rm Training.tar.gz
-
-# installing python dependencies
-RUN cd /opt/ && pip3 install -r requirements.txt
 
 # expose ports
 EXPOSE 5050
