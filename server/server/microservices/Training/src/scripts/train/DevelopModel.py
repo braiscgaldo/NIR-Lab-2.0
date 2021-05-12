@@ -5,6 +5,18 @@ import numpy as np
 import tensorflow.keras as keras
 
 
+optimizers = {
+    'adam': keras.optimizers.Adam,
+    'sgd': keras.optimizers.SGD,
+    'adadelta': keras.optimizers.Adadelta,
+    'rmsprop': keras.optimizers.RMSprop,
+    'adagrad': keras.optimizers.Adagrad,
+    'adamax': keras.optimizers.Adamax,
+    'ftrl': keras.optimizers.Ftrl,
+    'nadam': keras.optimizers.Nadam
+}
+
+
 class DevelopModel:
     """
     Class for develop a model parting from the information obtained in config files and database files.
@@ -24,11 +36,17 @@ class DevelopModel:
         :return: developed model
         """
         model = Model()
-        self.__information.model_parameters['layers']['1']['input_shape'] = self.__get_input_shape(self.__data_test)
+        input_s = self.__get_input_shape(self.__data_test)
+        if len(input_s) > 1:
+            model.add_layer({'name': 'Flatten', 'input_shape': input_s})
+        else:
+            self.__information.model_parameters['layers']['0']['input_shape'] = input_s
         for layer_idx in self.__information.model_parameters['layers'].keys():
             layer = self.__information.model_parameters['layers'][layer_idx]
             print('adding layer:', layer)
             model.add_layer(layer)
+
+        model.add_layer({'name': 'Dense', 'activation': 'softmax', 'units': max(self.__labels_train)+1})  # one unit for each label
 
         self.__model = model
 
@@ -43,23 +61,7 @@ class DevelopModel:
         epsilon = self.__information.model_parameters['epsilon']
         metrics = self.__information.model_parameters['metrics']
 
-        if optimizer == 'adam':
-            opt = keras.optimizers.Adam(learning_rate=learning_rate, epsilon=epsilon)
-        elif optimizer == 'sgd':
-            opt = keras.optimizers.SGD(learning_rate=learning_rate, epsilon=epsilon)
-        elif optimizer == 'adadelta':
-            opt = keras.optimizers.Adadelta(learning_rate=learning_rate, epsilon=epsilon)
-        elif optimizer == 'rmsprop':
-            opt = keras.optimizers.RMSprop(learning_rate=learning_rate, epsilon=epsilon)
-        elif optimizer == 'adagrad':
-            opt = keras.optimizers.Adagrad(learning_rate=learning_rate, epsilon=epsilon)
-        elif optimizer == 'adamax':
-            opt = keras.optimizers.Adamax(learning_rate=learning_rate, epsilon=epsilon)
-        elif optimizer == 'ftrl':
-            opt = keras.optimizers.Ftrl(learning_rate=learning_rate, epsilon=epsilon)
-        elif optimizer == 'nadam':
-            opt = keras.optimizers.Nadam(learning_rate=learning_rate, epsilon=epsilon)
-        self.__model.get_model().compile(optimizer=opt, loss=loss, metrics=metrics)
+        self.__model.get_model().compile(optimizer=optimizers[optimizer](learning_rate=learning_rate, epsilon=epsilon), loss=loss, metrics=metrics)
 
     def __divide_data(self):
         """
@@ -70,9 +72,9 @@ class DevelopModel:
         train_test_split([(k, v) for k, v in self.__information.preprocessed_db.items()],
                          self.__information.labels_db,
                          test_size=self.__information.model_parameters['test_size'])
-        aux_dict = {self.__data_train[i][0] : self.__data_train[i][1] for i, _ in enumerate(self.__data_train)}
+        aux_dict = {self.__data_train[i][0]: self.__data_train[i][1] for i, _ in enumerate(self.__data_train)}
         self.__data_train = aux_dict
-        aux_dict = {self.__data_test[i][0] : self.__data_test[i][1] for i, _ in enumerate(self.__data_test)}
+        aux_dict = {self.__data_test[i][0]: self.__data_test[i][1] for i, _ in enumerate(self.__data_test)}
         self.__data_test = aux_dict
 
     @staticmethod
@@ -84,7 +86,7 @@ class DevelopModel:
         """
         data = []
         for sample in data_dict.keys():
-            data.append([np.array(data_dict[sample][char]) for char in data_dict[sample]])
+            data.append(np.array([np.array(data_dict[sample][char]) for char in data_dict[sample]]))
         return np.array(data)
 
     @staticmethod
@@ -105,10 +107,7 @@ class DevelopModel:
         :param data: labels list
         :return: labels list in numeric value
         """
-        labels = []
-        for label in data:
-            labels.append(1) if float(label) > 5 else labels.append(0)
-        return np.array(labels)
+        return np.array(data)
 
     def __train_model(self):
         """

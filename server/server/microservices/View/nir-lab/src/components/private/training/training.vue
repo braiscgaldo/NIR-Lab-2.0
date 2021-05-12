@@ -192,6 +192,11 @@
             </div>
           </fieldset>
         </form>
+        <VueModal v-model="showModalUploadModel" title="Uploading Model...">
+          <p>
+            Uploading model......
+          </p>
+        </VueModal>
 
         <div id="layers">
           <label><h3>Layers</h3></label>
@@ -435,6 +440,7 @@ export default {
     showModalEditActivation: false,
     showModalErrorConfigIntegrity: false,
     showModalTrain: false,
+    showModalUploadModel: false,
     new_value: '32',
     id_layer: '',
     new_activation: 'relu',
@@ -568,6 +574,7 @@ export default {
       if (!this.database_files || this.database_files.length > 1) return;
 
       if (this.$refs.file.file.name.endsWith('.h5')){
+        this.showModalUploadModel = true;
         var reader = new FileReader();
         reader.readAsText(this.database_files[0].getAsFile());
         reader.onloadend = event => {
@@ -580,6 +587,7 @@ export default {
           axios.put('http://localhost:4000/', data).then(response => {
             if (response.status == 200){
               console.log('uploaded data, updating view');
+              this.showModalUploadModel = false;
               this.obtainFiles();
             }
           })

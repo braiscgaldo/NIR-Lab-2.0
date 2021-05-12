@@ -149,7 +149,9 @@ export default {
         header: 'row',
         border: true,
         stripe: true,
-        sort: [0, 1]
+        sort: [0, 1],
+        pagination: true,
+        pageSize: 10
     },
     predictData: {}    
   }),

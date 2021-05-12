@@ -97,6 +97,19 @@ class AveragePooling1DLayer(metaclass=Layer):
         return layers.AveragePooling1D(pool_size=params['pool_size'])
 
 
+class FlattenLayer(metaclass=Layer):
+    """
+    Layer of type Dense to add to the model. The params received by the function are:
+        * pool_size
+    """
+
+    @staticmethod
+    def generate_layer(params):
+        if 'input_shape' in params.keys():
+            return layers.Flatten(input_shape=params['input_shape'])
+        return layers.Flatten()
+
+
 class AddLayers:
     """
     Class representing the interface for add several layers to the model.
@@ -116,6 +129,7 @@ class AddLayers:
         self._layers['Softmax'] = SoftmaxLayer()
         self._layers['MaxPool1D'] = MaxPool1DLayer()
         self._layers['AveragePooling1D'] = AveragePooling1DLayer()
+        self._layers['Flatten'] = FlattenLayer()
 
     def generate_layer(self, params):
         """

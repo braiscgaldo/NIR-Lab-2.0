@@ -27,16 +27,20 @@
       <change beforePath="$PROJECT_DIR$/../../dockers/DataBase_data/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/DataBase_data/ib_buffer_pool" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../dockers/DataBase_data/ib_logfile0" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/DataBase_data/ib_logfile0" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../dockers/DataBase_data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/DataBase_data/ibdata1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../dockers/DataTreatment/DataTreatment.tar.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/DataTreatment/DataTreatment.tar.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../dockers/Facade/Facade.tar.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/Facade/Facade.tar.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/DataBase_data/ibtmp1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/DataBase_data/nirlab/USERS.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/DataBase_data/nirlab/USERS.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/Training/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/Training/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../dockers/Training/Training.tar.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/Training/Training.tar.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais1/predict/HadaBeer_config_hadamard_2.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataTreatment/src/scripts/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DataTreatment/src/scripts/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Facade/src/scripts/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Facade/src/scripts/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/View/View.tar.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/View/View.tar.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais1/databases/HadaBeer_config_hadamard.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais1/models/model_test_2.h5" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/home/brais1/models/model_test_2.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dockers/home/brais1/models/model_test_2.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../dockers/home/brais1/models/model_test_2.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/predict/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/predict/predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scripts/train/DevelopModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/train/DevelopModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scripts/train/layers/DevelopLayers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/train/layers/DevelopLayers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/private/data_treatment/data_treatment.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/private/data_treatment/data_treatment.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/private/logs/logs.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/private/logs/logs.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View/nir-lab/src/components/private/training/training.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../View/nir-lab/src/components/private/training/training.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +65,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../problem" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -190,12 +194,12 @@
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
     <state x="418" y="215" width="1084" height="829" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.34.1920.1046@0.34.1920.1046" timestamp="1617098460283" />
-    <state x="743" y="315" width="424" height="490" key="FileChooserDialogImpl" timestamp="1618918343568">
-      <screen x="0" y="34" width="1920" height="1046" />
+    <state x="2663" y="471" width="424" height="490" key="FileChooserDialogImpl" timestamp="1620754986089">
+      <screen x="1920" y="181" width="1920" height="1080" />
     </state>
     <state x="743" y="315" width="424" height="490" key="FileChooserDialogImpl/0.34.1920.1046@0.34.1920.1046" timestamp="1618918343568" />
     <state x="743" y="447" key="FileChooserDialogImpl/1920.181.1920.1080/0.215.1920.865@0.215.1920.865" timestamp="1618414406176" />
-    <state x="2663" y="471" width="424" height="490" key="FileChooserDialogImpl/1920.181.1920.1080/0.215.1920.865@1920.181.1920.1080" timestamp="1618504144830" />
+    <state x="2663" y="471" width="424" height="490" key="FileChooserDialogImpl/1920.181.1920.1080/0.215.1920.865@1920.181.1920.1080" timestamp="1620754986089" />
     <state x="623" y="212" key="search.everywhere.popup" timestamp="1618383489276">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
@@ -206,12 +210,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/scripts/train/DevelopModel.py</url>
-          <line>118</line>
+          <line>117</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/scripts/train/DevelopModel.py</url>
-          <line>68</line>
+          <line>70</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

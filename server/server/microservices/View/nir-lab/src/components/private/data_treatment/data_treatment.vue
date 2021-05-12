@@ -74,6 +74,11 @@
           </fieldset>
         </form>
       </div>
+      <VueModal v-model="showModalUploadDataBase" title="Uploading Database...">
+        <p>
+          Uploading database......
+        </p>
+      </VueModal>
     </div>
 
     <h2>Design Palette</h2>
@@ -408,6 +413,7 @@ export default {
     showModalGenerateDB: false,
     showModalErrorConfigIntegrity: false,
     showModalGenerateConfigFile: false,
+    showModalUploadDataBase: false,
     new_var: '',
     new_value: '',
     id_click: '',
@@ -852,6 +858,7 @@ export default {
       if (!this.database_files || this.database_files.length > 1) return;
 
       if (this.$refs.file.file.name.endsWith('.json')){
+        this.showModalUploadDataBase = true;
         var reader = new FileReader();
         reader.readAsText(this.database_files[0].getAsFile());
         reader.onloadend = event => {
@@ -864,6 +871,8 @@ export default {
           axios.put('http://localhost:4000/', data).then(response => {
             if (response.status == 200){
               console.log('uploaded data, updating view');
+
+              this.showModalUploadDataBase = false;
               this.obtainFiles();
             }
           })
