@@ -2,7 +2,7 @@ version: "3"
 
 services:
     view:
-        image: view:v3
+        image: view:v2
         container_name: nirlab_view 
         hostname: nir_lab
         domainname: nir_lab.com
